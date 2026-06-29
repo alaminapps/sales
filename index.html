@@ -225,12 +225,12 @@
             <input type="number" step="any" id="productSellPrice" placeholder="বিক্রি দাম (একক)">
             <input type="number" id="productAlertLimit" placeholder="অ্যালার্ট লিমিট (যেমন: 5)" title="স্টক এই সংখ্যার নিচে আসলে অ্যালার্ট দিবে">
             <button id="addBtn" class="btn-add-new"><i class="fa-solid fa-plus"></i> যুক্ত করুন</button>
-            <button id="resetBtn" class="btn-reset" onclick="document.querySelectorAll('.form-group input').forEach(el => el.value = '');"><i class="fa-solid fa-rotate-left"></i> ক্লিয়ার</button>
+            <button id="resetBtn" class="btn-reset" onclick="document.querySelectorAll('.form-group input').forEach(el => el.value = '');"><i class="fa-solid fa-rotate-left"></i> ক্লিয়ার</button>
         </div>
 
         <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
             <!-- Reset Filter Button -->
-            <button id="resetFilterBtn" class="btn-show-all hidden"><i class="fa-solid fa-arrows-rotate"></i> সবগুলো মাল দেখুন (ফিল্টার ক্লিয়ার)</button>
+            <button id="resetFilterBtn" class="btn-show-all hidden"><i class="fa-solid fa-arrows-rotate"></i> সবগুলো মাল দেখুন (ফিল্টার ক্লিয়ার)</button>
             
             <div style="overflow-x: auto;">
                 <table id="invDataTable" class="display" style="width:100%">
@@ -242,7 +242,6 @@
                             <th class="text-right" style="color:#e67e22;">মোট খরচ (Invest)</th>
                             <th class="text-right">বিক্রি দাম</th>
                             <th class="text-center">অ্যাকশন</th>
-                            <!-- Hidden column for dynamic alert logic -->
                             <th style="display:none;">AlertLimit</th>
                         </tr>
                     </thead>
@@ -367,6 +366,17 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
 
+    // SECURITY: Sanitize User Inputs (XSS Protection)
+    const sanitizeHTML = (str) => {
+        if (!str) return '';
+        return String(str).replace(/[&<>'"]/g, 
+            tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+        );
+    };
+
+    // UTILITY: Floating Point Math Fix
+    const roundNum = (num) => Math.round((parseFloat(num) || 0) * 100) / 100;
+
     let allProducts = []; 
     let cart = []; 
     let allSalesLogs = [];
@@ -416,9 +426,8 @@
     });
     document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
 
-    // KEYBOARD SHORTCUTS (BEST OF THE BEST #5)
+    // KEYBOARD SHORTCUTS
     document.addEventListener('keydown', (e) => {
-        // Only active if user is logged in and POS view is open
         if(document.getElementById('dashboard-section').classList.contains('hidden') || document.getElementById('pos-view').classList.contains('hidden')) return;
         
         if(e.key === 'F2') {
@@ -439,12 +448,14 @@
         if ($.fn.DataTable.isDataTable('#invDataTable')) { $('#invDataTable').DataTable().clear().destroy(); }
 
         const tableBody = document.getElementById('inventoryTable'); 
-        let tableHtml = '';
+        let tableHtml = ''; // BEST PRACTICE: DOM Batching
 
         querySnapshot.forEach((docSnap) => {
             const p = { id: docSnap.id, ...docSnap.data() };
-            p.buyPrice = parseFloat(p.buyPrice) || 0; p.sellPrice = parseFloat(p.sellPrice) || 0; p.quantity = parseFloat(p.quantity) || 0;
-            p.alertLimit = parseFloat(p.alertLimit) || 5; // DYNAMIC ALERT LIMIT (BEST OF THE BEST #4)
+            p.buyPrice = roundNum(p.buyPrice); 
+            p.sellPrice = roundNum(p.sellPrice); 
+            p.quantity = roundNum(p.quantity);
+            p.alertLimit = parseFloat(p.alertLimit) || 5; 
             
             allProducts.push(p); 
             
@@ -454,22 +465,22 @@
 
             tableHtml += `
                 <tr>
-                    <td><strong>${p.name}</strong></td>
+                    <td><strong>${sanitizeHTML(p.name)}</strong></td>
                     <td style="color: ${p.quantity > 0 ? 'green' : 'red'}; font-weight:bold;">${p.quantity.toFixed(2)} ${p.unit}</td>
                     <td class="text-right">৳ ${p.buyPrice.toFixed(2)}</td>
                     <td class="text-right" style="color: #e67e22; font-weight:bold;">৳ ${currentInvestment.toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
                     <td class="text-right" style="color: purple; font-weight:bold;">৳ ${p.sellPrice.toFixed(2)}</td>
                     <td class="action-btns text-center">
-                        <button class="btn-add-stock" title="স্টক যোগ করুন" onclick="addStock('${p.id}')"><i class="fa-solid fa-plus"></i></button>
-                        <button class="btn-edit" title="এডিট করুন" onclick="editProduct('${p.id}')"><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn-delete" title="ডিলিট করুন" onclick="deleteProduct('${p.id}')"><i class="fa-solid fa-trash"></i></button>
+                        <button class="btn-add-stock" title="স্টক যোগ করুন" data-id="${p.id}"><i class="fa-solid fa-plus"></i></button>
+                        <button class="btn-edit" title="এডিট করুন" data-id="${p.id}"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn-delete" title="ডিলিট করুন" data-id="${p.id}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                     <td style="display:none;">${p.alertLimit}</td>
                 </tr>
             `;
         });
         
-        tableBody.innerHTML = tableHtml;
+        tableBody.innerHTML = tableHtml; // One time DOM Update
 
         $('#invDataTable').DataTable({
             "pageLength": 10, "order": [],
@@ -483,22 +494,36 @@
 
     // POS LOGIC
     function renderPOSGrid(products) {
-        const grid = document.getElementById('productGrid'); grid.innerHTML = '';
+        let gridHtml = ''; // DOM batching
         products.forEach(p => {
             const isOut = p.quantity <= 0;
-            const div = document.createElement('div');
-            div.className = `product-card ${isOut ? 'out-of-stock' : ''}`;
-            div.innerHTML = `<h4>${p.name}</h4><p>স্টক: ${p.quantity.toFixed(2)} ${p.unit}</p><div class="price">৳ ${p.sellPrice}</div>`;
-            if(!isOut) div.onclick = () => addToCart(p);
-            grid.appendChild(div);
+            const safeName = sanitizeHTML(p.name);
+            gridHtml += `
+                <div class="product-card ${isOut ? 'out-of-stock' : ''}" data-id="${p.id}">
+                    <h4>${safeName}</h4>
+                    <p>স্টক: ${p.quantity.toFixed(2)} ${p.unit}</p>
+                    <div class="price">৳ ${p.sellPrice}</div>
+                </div>
+            `;
         });
+        document.getElementById('productGrid').innerHTML = gridHtml;
     }
+
+    // POS Event Delegation (Remove window.addToCart)
+    document.getElementById('productGrid').addEventListener('click', (e) => {
+        const card = e.target.closest('.product-card:not(.out-of-stock)');
+        if (card) {
+            const id = card.dataset.id;
+            const product = allProducts.find(p => p.id === id);
+            if (product) addToCart(product);
+        }
+    });
 
     document.getElementById('posSearch').addEventListener('input', (e) => {
         renderPOSGrid(allProducts.filter(p => p.name.toLowerCase().includes(e.target.value.toLowerCase())));
     });
 
-    window.addToCart = (p) => {
+    function addToCart(p) {
         const existing = cart.find(i => i.id === p.id);
         if (existing) {
             if (existing.cartQty + 1 > p.quantity) return Swal.fire('সতর্কতা', 'স্টকে পর্যাপ্ত মাল নেই!', 'warning');
@@ -507,35 +532,54 @@
         renderCart();
     }
 
-    window.updateCartItem = (id, field, val) => {
+    function updateCartItem(id, field, val) {
         const item = cart.find(i => i.id === id); if(!item) return;
         val = parseFloat(val) || 0;
         if (field === 'qty') item.cartQty = val > item.quantity ? item.quantity : (val <= 0 ? 0.01 : val);
-        else if (field === 'price') item.customSellPrice = val;
+        else if (field === 'price') item.customSellPrice = roundNum(val);
         renderCart();
     }
     
-    window.removeFromCart = (id) => { cart = cart.filter(i => i.id !== id); renderCart(); }
+    function removeFromCart(id) { 
+        cart = cart.filter(i => i.id !== id); 
+        renderCart(); 
+    }
+
+    // Cart Event Delegation
+    document.getElementById('cartBody').addEventListener('input', (e) => {
+        if (e.target.classList.contains('cart-qty-input')) updateCartItem(e.target.dataset.id, 'qty', e.target.value);
+        if (e.target.classList.contains('cart-price-input')) updateCartItem(e.target.dataset.id, 'price', e.target.value);
+    });
+
+    document.getElementById('cartBody').addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-remove');
+        if (btn) removeFromCart(btn.dataset.id);
+    });
 
     function renderCart() {
-        const tbody = document.getElementById('cartBody'); tbody.innerHTML = ''; let total = 0;
+        const tbody = document.getElementById('cartBody'); 
+        let html = ''; let total = 0; // PERFORMANCE FIX: DOM Batching
+        
         cart.forEach(item => {
-            total += item.cartQty * item.customSellPrice;
-            tbody.innerHTML += `
+            total += roundNum(item.cartQty * item.customSellPrice);
+            const safeName = sanitizeHTML(item.name);
+            html += `
                 <tr>
-                    <td><strong>${item.name}</strong><br><small>${item.unit}</small></td>
-                    <td class="text-center"><input type="number" step="any" min="0.01" value="${item.cartQty}" onchange="updateCartItem('${item.id}', 'qty', this.value)"></td>
-                    <td class="text-right"><input type="number" step="any" min="0" value="${item.customSellPrice}" onchange="updateCartItem('${item.id}', 'price', this.value)"></td>
-                    <td class="text-center"><button class="btn-remove" onclick="removeFromCart('${item.id}')"><i class="fa-solid fa-xmark"></i></button></td>
+                    <td><strong>${safeName}</strong><br><small>${item.unit}</small></td>
+                    <td class="text-center"><input type="number" step="any" min="0.01" value="${item.cartQty}" class="cart-qty-input" data-id="${item.id}"></td>
+                    <td class="text-right"><input type="number" step="any" min="0" value="${item.customSellPrice}" class="cart-price-input" data-id="${item.id}"></td>
+                    <td class="text-center"><button class="btn-remove" data-id="${item.id}"><i class="fa-solid fa-xmark"></i></button></td>
                 </tr>
             `;
         });
+        
+        tbody.innerHTML = html;
         document.getElementById('cartTotalVal').innerText = total.toLocaleString('en-IN', {minimumFractionDigits: 2});
     }
 
     document.getElementById('checkoutBtn').addEventListener('click', async () => {
         if(cart.length === 0) return Swal.fire('কার্ট খালি', 'আগে কার্টে মাল যুক্ত করুন', 'warning');
-        const totalToPay = cart.reduce((sum, item) => sum + (item.cartQty * item.customSellPrice), 0);
+        const totalToPay = cart.reduce((sum, item) => sum + roundNum(item.cartQty * item.customSellPrice), 0);
         
         const confirmResult = await Swal.fire({
             title: 'বিল কনফার্ম করবেন?', text: `মোট বিল: ৳ ${totalToPay.toLocaleString('en-IN', {minimumFractionDigits:2})}`, 
@@ -547,22 +591,26 @@
             try {
                 const batch = writeBatch(db); const now = new Date(); const nowStr = now.toLocaleString('en-GB'); const timestamp = now.getTime();
                 document.getElementById('printDate').innerText = nowStr;
-                const printBody = document.getElementById('printCartBody'); printBody.innerHTML = '';
+                let printHtml = ''; 
                 
                 let shareMessage = `*আমার মুদি দোকান*\nতারিখ: ${nowStr}\n\n*মালের বিবরণ:*\n`;
 
                 cart.forEach(item => {
-                    const cartQty = parseFloat(item.cartQty) || 0;
+                    const cartQty = roundNum(item.cartQty);
                     batch.update(doc(db, "products", item.id), { quantity: increment(-cartQty) });
                     
-                    const tSales = cartQty * (parseFloat(item.customSellPrice) || 0);
+                    const tSales = roundNum(cartQty * item.customSellPrice);
+                    const profit = roundNum(tSales - (cartQty * item.buyPrice));
+                    
                     batch.set(doc(collection(db, "sales_logs")), {
-                        date: nowStr, productName: item.name, sellQty: cartQty, unit: item.unit, actualSellRate: item.customSellPrice, totalPrice: tSales, profit: tSales - (cartQty * item.buyPrice), timestamp: timestamp
+                        date: nowStr, productName: sanitizeHTML(item.name), sellQty: cartQty, unit: item.unit, actualSellRate: item.customSellPrice, totalPrice: tSales, profit: profit, timestamp: timestamp
                     });
                     
-                    printBody.innerHTML += `<tr><td>${item.name}</td><td style="text-align: center;">${cartQty}</td><td style="text-align: right;">${tSales.toFixed(2)}</td></tr>`;
-                    shareMessage += `- ${item.name}: ${cartQty} ${item.unit} = ৳ ${tSales.toFixed(2)}\n`;
+                    printHtml += `<tr><td>${sanitizeHTML(item.name)}</td><td style="text-align: center;">${cartQty}</td><td style="text-align: right;">${tSales.toFixed(2)}</td></tr>`;
+                    shareMessage += `- ${sanitizeHTML(item.name)}: ${cartQty} ${item.unit} = ৳ ${tSales.toFixed(2)}\n`;
                 });
+                
+                document.getElementById('printCartBody').innerHTML = printHtml;
                 shareMessage += `\n*সর্বমোট বিল: ৳ ${totalToPay.toFixed(2)}*\n\nধন্যবাদ! আবার আসবেন।`;
                 document.getElementById('printTotal').innerText = totalToPay.toFixed(2);
                 await batch.commit(); Swal.close();
@@ -572,7 +620,14 @@
                     confirmButtonText: '<i class="fa-solid fa-print"></i> প্রিন্ট মেমো', denyButtonText: '<i class="fa-solid fa-share-nodes"></i> শেয়ার / SMS', cancelButtonText: 'নতুন বিল', confirmButtonColor: '#2b2d42', denyButtonColor: '#27ae60'
                 });
 
-                if (actionResult.isConfirmed) { document.body.classList.add('print-receipt'); window.print(); document.body.classList.remove('print-receipt'); } 
+                if (actionResult.isConfirmed) { 
+                    // MOBILE PRINT FIX
+                    document.body.classList.add('print-receipt'); 
+                    setTimeout(() => window.print(), 500);
+                    window.addEventListener('afterprint', () => {
+                        document.body.classList.remove('print-receipt');
+                    }, { once: true });
+                } 
                 else if (actionResult.isDenied) {
                     if (navigator.share) navigator.share({ title: 'ক্যাশ মেমো', text: shareMessage }).catch(e => console.log(e));
                     else window.open(`https://wa.me/?text=${encodeURIComponent(shareMessage)}`, '_blank');
@@ -583,17 +638,20 @@
         }
     });
 
-    // INVENTORY OPERATIONS & DYNAMIC ALERT LIMIT
+    // INVENTORY OPERATIONS (Removed global window hacks, using Event Delegation)
     document.getElementById('addBtn').addEventListener('click', async () => {
-        const n = document.getElementById('productName').value, q = parseFloat(document.getElementById('productQty').value), u = document.getElementById('productUnit').value;
-        const b = parseFloat(document.getElementById('productBuyPrice').value), s = parseFloat(document.getElementById('productSellPrice').value);
-        const limit = parseFloat(document.getElementById('productAlertLimit').value) || 5; // Default 5 if empty
+        const n = document.getElementById('productName').value;
+        const q = parseFloat(document.getElementById('productQty').value);
+        const u = document.getElementById('productUnit').value;
+        const b = roundNum(document.getElementById('productBuyPrice').value);
+        const s = roundNum(document.getElementById('productSellPrice').value);
+        const limit = parseFloat(document.getElementById('productAlertLimit').value) || 5; 
         
         if(n && !isNaN(q) && !isNaN(b) && !isNaN(s) && q > 0) {
             Swal.fire({ title: 'সেভ হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
             await addDoc(collection(db, "products"), { name: n, quantity: q, unit: u, buyPrice: b, sellPrice: s, alertLimit: limit });
             await addDoc(collection(db, "purchase_logs"), {
-                date: new Date().toLocaleString('en-GB'), productName: n, addedQty: q, unit: u, buyPrice: b, totalCost: q * b, timestamp: Date.now()
+                date: new Date().toLocaleString('en-GB'), productName: n, addedQty: q, unit: u, buyPrice: b, totalCost: roundNum(q * b), timestamp: Date.now()
             });
             document.querySelectorAll('.form-group input').forEach(el => el.value = '');
             Swal.fire({toast:true, position:'top-end', icon:'success', title:'যুক্ত হয়েছে', showConfirmButton:false, timer:1500});
@@ -601,7 +659,18 @@
         } else Swal.fire('সতর্কতা', 'সবগুলো তথ্য সঠিকভাবে পূরণ করুন।', 'warning');
     });
 
-    window.addStock = async (id) => {
+    // Event Delegation for Datatables Action Buttons
+    document.getElementById('inventory-view').addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn || !btn.dataset.id) return;
+        
+        const id = btn.dataset.id;
+        if (btn.classList.contains('btn-add-stock')) addStock(id);
+        else if (btn.classList.contains('btn-edit')) editProduct(id);
+        else if (btn.classList.contains('btn-delete')) deleteProduct(id);
+    });
+
+    async function addStock(id) {
         const p = allProducts.find(i => i.id === id);
         const htmlContent = `
             <div class="swal-stock-info"><p><strong>বর্তমান স্টক:</strong> ${p.quantity} ${p.unit}</p><p><strong>বর্তমান কেনা দাম:</strong> ৳ ${p.buyPrice}</p></div>
@@ -614,23 +683,30 @@
         });
 
         if(v && v[0]) {
-            const addedQty = parseFloat(v[0]); const newBuyPrice = parseFloat(v[1]) || p.buyPrice; const newSellPrice = parseFloat(v[2]) || p.sellPrice;
+            const addedQty = parseFloat(v[0]); 
+            const newBuyPrice = roundNum(v[1]) || p.buyPrice; 
+            const newSellPrice = roundNum(v[2]) || p.sellPrice;
+            
             if(addedQty > 0) {
                 Swal.fire({ title: 'আপডেট হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-                const finalQty = p.quantity + addedQty; let avgBuyPrice = 0;
-                if(finalQty > 0) { if (p.quantity < 0) avgBuyPrice = newBuyPrice; else avgBuyPrice = ((p.quantity * p.buyPrice) + (addedQty * newBuyPrice)) / finalQty; }
+                const finalQty = roundNum(p.quantity + addedQty); let avgBuyPrice = 0;
+                
+                if(finalQty > 0) { 
+                    if (p.quantity < 0) avgBuyPrice = newBuyPrice; 
+                    else avgBuyPrice = roundNum(((p.quantity * p.buyPrice) + (addedQty * newBuyPrice)) / finalQty); 
+                }
                 
                 await updateDoc(doc(db, "products", id), { quantity: finalQty, buyPrice: avgBuyPrice, sellPrice: newSellPrice });
-                await addDoc(collection(db, "purchase_logs"), { date: new Date().toLocaleString('en-GB'), productName: p.name, addedQty: addedQty, unit: p.unit, buyPrice: newBuyPrice, totalCost: addedQty * newBuyPrice, timestamp: Date.now() });
+                await addDoc(collection(db, "purchase_logs"), { date: new Date().toLocaleString('en-GB'), productName: p.name, addedQty: addedQty, unit: p.unit, buyPrice: newBuyPrice, totalCost: roundNum(addedQty * newBuyPrice), timestamp: Date.now() });
                 Swal.fire({toast:true, position:'top-end', icon:'success', title:'স্টক আপডেট হয়েছে', showConfirmButton:false, timer:1500}); loadDataAndInit();
             }
         }
     }
 
-    window.editProduct = async (id) => {
+    async function editProduct(id) {
         const p = allProducts.find(i => i.id === id);
         const htmlContent = `
-            <input id="en" class="swal2-input" placeholder="মালের নাম" value="${p.name}">
+            <input id="en" class="swal2-input" placeholder="মালের নাম" value="${sanitizeHTML(p.name)}">
             <select id="eu" class="swal2-input"><option value="কেজি" ${p.unit==='কেজি'?'selected':''}>কেজি</option><option value="পিস" ${p.unit==='পিস'?'selected':''}>পিস</option><option value="প্যাকেট" ${p.unit==='প্যাকেট'?'selected':''}>প্যাকেট</option><option value="লিটার" ${p.unit==='লিটার'?'selected':''}>লিটার</option><option value="বস্তা" ${p.unit==='বস্তা'?'selected':''}>বস্তা</option></select>
             <input id="eb" type="number" step="any" min="0" class="swal2-input" placeholder="কেনা দাম" value="${p.buyPrice}">
             <input id="es" type="number" step="any" min="0" class="swal2-input" placeholder="বিক্রি দাম" value="${p.sellPrice}">
@@ -642,12 +718,16 @@
 
         if (v) {
             Swal.fire({ title: 'আপডেট হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-            await updateDoc(doc(db, "products", id), { name: v[0], unit: v[1], buyPrice: parseFloat(v[2])||0, sellPrice: parseFloat(v[3])||0, alertLimit: parseFloat(v[4])||5 });
+            await updateDoc(doc(db, "products", id), { name: v[0], unit: v[1], buyPrice: roundNum(v[2]), sellPrice: roundNum(v[3]), alertLimit: parseFloat(v[4])||5 });
             Swal.fire({toast:true, position:'top-end', icon:'success', title:'এডিট সম্পন্ন', showConfirmButton:false, timer:1500}); loadDataAndInit();
         }
     }
     
-    window.deleteProduct = async (id) => { if((await Swal.fire({title:'ডিলিট করবেন?', icon:'warning', showCancelButton:true, confirmButtonColor:'#d33'})).isConfirmed) { await deleteDoc(doc(db, "products", id)); loadDataAndInit(); } }
+    async function deleteProduct(id) { 
+        if((await Swal.fire({title:'ডিলিট করবেন?', icon:'warning', showCancelButton:true, confirmButtonColor:'#d33'})).isConfirmed) { 
+            await deleteDoc(doc(db, "products", id)); loadDataAndInit(); 
+        } 
+    }
 
     async function loadOverallStats() {
         const querySnapshot = await getDocs(collection(db, "sales_logs")); let totalSales = 0; let totalProfit = 0;
@@ -655,7 +735,7 @@
         document.getElementById('statSales').innerText = totalSales.toLocaleString('en-IN', { minimumFractionDigits: 2 }); document.getElementById('statProfit').innerText = totalProfit.toLocaleString('en-IN', { minimumFractionDigits: 2 });
     }
 
-    // EXCEL EXPORT & REPORTS (BEST OF THE BEST #3)
+    // EXCEL EXPORT & REPORTS
     async function loadAllLogsForReports() {
         const sSnap = await getDocs(collection(db, "sales_logs")); allSalesLogs = []; sSnap.forEach(d => allSalesLogs.push(d.data())); allSalesLogs.sort((a, b) => b.timestamp - a.timestamp);
         const pSnap = await getDocs(collection(db, "purchase_logs")); allPurchaseLogs = []; pSnap.forEach(d => allPurchaseLogs.push(d.data())); allPurchaseLogs.sort((a, b) => b.timestamp - a.timestamp);
@@ -680,23 +760,23 @@
         if ($.fn.DataTable.isDataTable('#salesDataTable')) $('#salesDataTable').DataTable().clear().destroy();
         if ($.fn.DataTable.isDataTable('#purchaseDataTable')) $('#purchaseDataTable').DataTable().clear().destroy();
         
-        const sBody = document.getElementById('repSalesTable'); const dSalesBody = document.getElementById('docSalesBody');
         let sHtml = ''; let dSalesHtml = '';
         salesLogs.forEach(l => {
             tSales += (parseFloat(l.totalPrice) || 0); tProfit += (parseFloat(l.profit) || 0);
-            let rowHtml = `<tr><td>${l.date}</td><td>${l.productName}</td><td>${l.sellQty} ${l.unit}</td><td class="text-right">${parseFloat(l.actualSellRate).toFixed(2)}</td><td class="text-right">${(l.totalPrice || 0).toFixed(2)}</td><td class="text-right">${(l.profit||0).toFixed(2)}</td></tr>`;
+            let rowHtml = `<tr><td>${l.date}</td><td>${sanitizeHTML(l.productName)}</td><td>${l.sellQty} ${l.unit}</td><td class="text-right">${parseFloat(l.actualSellRate).toFixed(2)}</td><td class="text-right">${(l.totalPrice || 0).toFixed(2)}</td><td class="text-right">${(l.profit||0).toFixed(2)}</td></tr>`;
             sHtml += rowHtml; dSalesHtml += rowHtml; 
         });
-        sBody.innerHTML = sHtml; dSalesBody.innerHTML = dSalesHtml;
+        document.getElementById('repSalesTable').innerHTML = sHtml; 
+        document.getElementById('docSalesBody').innerHTML = dSalesHtml;
 
-        const pBody = document.getElementById('repPurchaseTable'); const dPurchaseBody = document.getElementById('docPurchaseBody');
         let pHtml = ''; let dPurchaseHtml = '';
         purchaseLogs.forEach(l => {
             tPurchase += (parseFloat(l.totalCost) || 0);
-            let rowHtml = `<tr><td>${l.date}</td><td>${l.productName}</td><td>${l.addedQty} ${l.unit}</td><td class="text-right">${parseFloat(l.buyPrice).toFixed(2)}</td><td class="text-right">${(l.totalCost || 0).toFixed(2)}</td></tr>`;
+            let rowHtml = `<tr><td>${l.date}</td><td>${sanitizeHTML(l.productName)}</td><td>${l.addedQty} ${l.unit}</td><td class="text-right">${parseFloat(l.buyPrice).toFixed(2)}</td><td class="text-right">${(l.totalCost || 0).toFixed(2)}</td></tr>`;
             pHtml += rowHtml; dPurchaseHtml += rowHtml; 
         });
-        pBody.innerHTML = pHtml; dPurchaseBody.innerHTML = dPurchaseHtml;
+        document.getElementById('repPurchaseTable').innerHTML = pHtml; 
+        document.getElementById('docPurchaseBody').innerHTML = dPurchaseHtml;
 
         // Init DataTables with Excel export buttons
         $('#salesDataTable').DataTable({
@@ -711,40 +791,42 @@
         document.getElementById('repTotalSales').innerText = tSales.toLocaleString('en-IN', { minimumFractionDigits: 2 }); document.getElementById('repTotalProfit').innerText = tProfit.toLocaleString('en-IN', { minimumFractionDigits: 2 }); document.getElementById('repTotalPurchase').innerText = tPurchase.toLocaleString('en-IN', { minimumFractionDigits: 2 });
     }
 
-    // PRINT REPORTS
+    // PRINT REPORTS (MOBILE FIX ADDED)
     document.getElementById('printReportBtn').addEventListener('click', () => {
         if (document.getElementById('showSalesBtn').classList.contains('active')) {
             document.getElementById('docSalesSection').classList.remove('hidden-print'); document.getElementById('docPurchaseSection').classList.add('hidden-print'); document.getElementById('printReportTitle').innerText = "বিক্রির রিপোর্ট";
         } else {
             document.getElementById('docSalesSection').classList.add('hidden-print'); document.getElementById('docPurchaseSection').classList.remove('hidden-print'); document.getElementById('printReportTitle').innerText = "স্টক কেনার রিপোর্ট";
         }
-        document.body.classList.add('print-report'); window.print(); document.body.classList.remove('print-report');
+        
+        document.body.classList.add('print-report'); 
+        setTimeout(() => window.print(), 500);
+        window.addEventListener('afterprint', () => {
+            document.body.classList.remove('print-report');
+        }, { once: true });
     });
 
     // ALERT CARD FILTER & RESET FIX
     document.getElementById('alertCardBtn').addEventListener('click', () => {
-        // Clear old filter
         $.fn.dataTable.ext.search = [];
-        
-        // Add custom filter using Dynamic Alert Limit (Column Index 6)
         $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
             const stockStr = parseFloat(data[1].split(' ')[0]);
-            const limit = parseFloat(data[6]); // Hidden column for limit
+            const limit = parseFloat(data[6]); 
             return stockStr <= limit;
         });
         
         $('#invDataTable').DataTable().draw();
         
         document.getElementById('resetFilterBtn').classList.remove('hidden');
-        Swal.fire({toast:true, position:'top-end', icon:'info', title:'স্টক শেষের দিকের মাল ফিল্টার করা হয়েছে', showConfirmButton:false, timer:2000});
+        Swal.fire({toast:true, position:'top-end', icon:'info', title:'স্টক শেষের দিকের মাল ফিল্টার করা হয়েছে', showConfirmButton:false, timer:2000});
         document.getElementById('invDataTable').scrollIntoView({behavior: 'smooth'});
     });
 
     // RESET FILTER BUTTON LOGIC
     document.getElementById('resetFilterBtn').addEventListener('click', () => {
-        $.fn.dataTable.ext.search = []; // Remove custom filters
-        $('#invDataTable').DataTable().draw(); // Redraw table with all data
-        document.getElementById('resetFilterBtn').classList.add('hidden'); // Hide the reset button
+        $.fn.dataTable.ext.search = []; 
+        $('#invDataTable').DataTable().draw(); 
+        document.getElementById('resetFilterBtn').classList.add('hidden'); 
     });
 
 </script>
