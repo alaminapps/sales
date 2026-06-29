@@ -36,9 +36,9 @@
         .btn-login { width: 100%; padding: 12px; background: var(--primary); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 18px; font-weight: 600; }
 
         /* Header & Tabs */
-        .header-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
-        .tabs { display: flex; gap: 10px; }
-        .tab-btn { padding: 10px 20px; font-size: 16px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; background: #e0e0e0; color: #555; transition: 0.3s; font-family: inherit;}
+        .header-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap:10px;}
+        .tabs { display: flex; gap: 10px; flex-wrap: wrap;}
+        .tab-btn { padding: 10px 20px; font-size: 15px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; background: #e0e0e0; color: #555; transition: 0.3s; font-family: inherit;}
         .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3); }
         .btn-logout { background: var(--danger); color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
@@ -71,7 +71,6 @@
         .pos-grid { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
         .pos-left { flex: 1.2; min-width: 300px; background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; }
         
-        /* PREMIUM CART UI DESIGN */
         .pos-right { flex: 0.8; min-width: 300px; background: #fff; padding: 25px; border-radius: 12px; position: sticky; top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #eee; }
         
         .search-box { width: 100%; padding: 15px; font-size: 18px; border: 2px solid var(--primary); border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; transition: 0.3s;}
@@ -88,7 +87,6 @@
         .product-card .price { font-weight: bold; color: var(--success); font-size: 15px; margin-top: 5px; }
         .out-of-stock { opacity: 0.5; pointer-events: none; background: #ffeaa7; }
 
-        /* Cart Table Premium Styling */
         .cart-table th { background: var(--dark); color: white; padding: 12px 10px; font-weight: 500; border:none;}
         .cart-table td { vertical-align: middle; padding: 12px 5px; border-bottom: 1px solid #f1f2f6;}
         
@@ -109,22 +107,20 @@
         .btn-remove:hover { background: var(--danger); color: white; }
         
         .btn-clear-cart { background: #f8f9fa; color: var(--danger); border: 1px solid #fad390; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; transition: 0.2s;}
-        .btn-clear-cart:hover { background: var(--danger); color: white; border-color: var(--danger);}
 
         .hidden { display: none !important; }
         .action-btns button { padding: 6px 10px; border-radius: 4px; color: white; border: none; cursor: pointer; margin-right: 5px; font-size: 13px;}
         .btn-add-stock { background: #00cec9; color: var(--dark) !important; font-weight: bold;}
         .btn-edit { background: #f39c12; }
         .btn-delete { background: var(--danger); }
+        .btn-pay-due { background: var(--success); color: white; font-weight: bold; padding: 8px 15px !important;}
 
-        /* Custom Checkout Modal Styles */
         .pay-method-group { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
         .pay-method-label { flex: 1; min-width: 80px; padding: 10px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-weight: bold; text-align: center; font-size: 14px; transition: 0.2s; background: #fff;}
         .pay-method-label input { display: none; }
         .pay-method-label:hover { border-color: var(--primary); }
         .pay-method-label:has(input:checked) { border-color: var(--primary); background: #eef2f5; color: var(--primary); box-shadow: 0 4px 10px rgba(67, 97, 238, 0.15); }
 
-        /* Report Section Specific */
         .report-filter { display: flex; gap: 15px; align-items: center; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 20px; flex-wrap: wrap;}
         .report-filter input, .report-filter select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit;}
         .report-filter button { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;}
@@ -132,10 +128,9 @@
         
         .report-summary-box { display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;}
         .report-box { flex: 1; min-width: 200px; padding: 20px; background: var(--light); border-radius: 8px; text-align: center; border: 1px solid #ddd; }
-        .report-box h3 { margin: 0; color: #555; font-size: 16px; }
-        .report-box p { margin: 10px 0 0 0; font-size: 24px; font-weight: bold; color: var(--primary); }
+        .report-box h3 { margin: 0; color: #555; font-size: 15px; }
+        .report-box p { margin: 10px 0 0 0; font-size: 22px; font-weight: bold; color: var(--primary); }
 
-        /* Salesman Tracker */
         .salesman-tracker-box { margin-bottom: 20px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
         .salesman-grid { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 10px; }
         .salesman-card { padding: 10px 20px; background: #eef2f5; border-radius: 6px; font-weight: bold; border-left: 4px solid var(--primary); }
@@ -143,18 +138,15 @@
         .report-tabs { display: flex; gap: 10px; flex-wrap: wrap;}
         .report-tabs .tab-btn { padding: 8px 15px; font-size: 15px; }
 
-        /* DataTables Custom Design Fix */
         .dataTables_wrapper .dt-buttons { float: left; margin-bottom: 15px; }
         .dataTables_wrapper .dataTables_filter { float: right; margin-bottom: 15px; }
         .dataTables_wrapper .dataTables_filter input { margin-left: 8px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; outline: none; font-family: inherit; }
         .dataTables_wrapper::after { content: ""; display: table; clear: both; }
 
-        /* Modal Styles */
         .swal-stock-info { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: left; border: 1px solid #ddd; font-size: 15px; }
         .swal-stock-info p { margin: 5px 0; color: #333;}
         .swal-stock-info strong { color: var(--primary); }
 
-        /* ================= FIXED PRINT STYLES ================= */
         #print-section, #print-report-section { display: none; }
         
         @media print {
@@ -204,10 +196,14 @@
 </div>
 
 <div id="dashboard-section" class="container hidden">
+    <!-- NEW TABS ADDED HERE -->
     <div class="header-top">
         <div class="tabs">
             <button id="tab-pos-btn" class="tab-btn active"><i class="fa-solid fa-calculator"></i> POS</button>
-            <button id="tab-inventory-btn" class="tab-btn"><i class="fa-solid fa-boxes-stacked"></i> স্টক ম্যানেজমেন্ট</button>
+            <button id="tab-inventory-btn" class="tab-btn"><i class="fa-solid fa-boxes-stacked"></i> স্টক</button>
+            <button id="tab-expense-btn" class="tab-btn"><i class="fa-solid fa-money-bill-wave"></i> খরচ</button>
+            <button id="tab-due-btn" class="tab-btn"><i class="fa-solid fa-book"></i> বাকি</button>
+            <button id="tab-partner-btn" class="tab-btn"><i class="fa-solid fa-handshake"></i> পার্টনার</button>
             <button id="tab-reports-btn" class="tab-btn"><i class="fa-solid fa-chart-pie"></i> রিপোর্ট</button>
         </div>
         <div>
@@ -216,6 +212,7 @@
         </div>
     </div>
 
+    <!-- POS View -->
     <div id="pos-view">
         <div class="pos-grid">
             <div class="pos-left">
@@ -247,6 +244,7 @@
         </div>
     </div>
 
+    <!-- Inventory View -->
     <div id="inventory-view" class="hidden">
         <div class="dashboard-stats">
             <div class="stat-card bg-blue">
@@ -256,10 +254,10 @@
                 <i class="fa-solid fa-cart-shopping"></i><h4>সর্বমোট বিক্রি</h4><p>৳ <span id="statSales">0.00</span></p>
             </div>
             <div class="stat-card bg-purple">
-                <i class="fa-solid fa-hand-holding-dollar"></i><h4>সর্বমোট লাভ</h4><p>৳ <span id="statProfit">0.00</span></p>
+                <i class="fa-solid fa-hand-holding-dollar"></i><h4>গ্রস লাভ</h4><p>৳ <span id="statProfit">0.00</span></p>
             </div>
             <div class="stat-card bg-red" id="alertCardBtn" title="ক্লিক করে শর্ট লিস্ট দেখুন">
-                <i class="fa-solid fa-triangle-exclamation"></i><h4>স্টক অ্যালার্ট (শেষের দিকে)</h4><p><span id="statLowStock">0</span> টি মাল</p>
+                <i class="fa-solid fa-triangle-exclamation"></i><h4>স্টক অ্যালার্ট</h4><p><span id="statLowStock">0</span> টি মাল</p>
             </div>
         </div>
         
@@ -272,13 +270,13 @@
             </select>
             <input type="number" step="any" id="productBuyPrice" placeholder="কেনা দাম (একক)">
             <input type="number" step="any" id="productSellPrice" placeholder="বিক্রি দাম (একক)">
-            <input type="number" id="productAlertLimit" placeholder="অ্যালার্ট লিমিট (যেমন: 5)" title="স্টক এই সংখ্যার নিচে আসলে অ্যালার্ট দিবে">
+            <input type="number" id="productAlertLimit" placeholder="অ্যালার্ট লিমিট (যেমন: 5)">
             <button id="addBtn" class="btn-add-new"><i class="fa-solid fa-plus"></i> যুক্ত করুন</button>
             <button id="resetBtn" class="btn-reset" onclick="document.querySelectorAll('.form-group input').forEach(el => el.value = '');"><i class="fa-solid fa-rotate-left"></i> ক্লিয়ার</button>
         </div>
 
         <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-            <button id="resetFilterBtn" class="btn-show-all hidden"><i class="fa-solid fa-arrows-rotate"></i> সবগুলো মাল দেখুন (ফিল্টার ক্লিয়ার)</button>
+            <button id="resetFilterBtn" class="btn-show-all hidden"><i class="fa-solid fa-arrows-rotate"></i> সবগুলো মাল দেখুন</button>
             
             <div style="overflow-x: auto;">
                 <table id="invDataTable" class="display" style="width:100%">
@@ -300,6 +298,56 @@
         </div>
     </div>
 
+    <!-- NEW: Expense View -->
+    <div id="expense-view" class="hidden">
+        <h2 style="color: var(--danger);"><i class="fa-solid fa-money-bill-wave"></i> দোকানের খরচ</h2>
+        <div class="form-group">
+            <input type="text" id="expReason" placeholder="খরচের বিবরণ (যেমন: কারেন্ট বিল, চা-নাস্তা)">
+            <input type="number" step="any" id="expAmount" placeholder="টাকার পরিমাণ (৳)">
+            <button id="addExpBtn" class="btn-add-new"><i class="fa-solid fa-plus"></i> খরচ যুক্ত করুন</button>
+        </div>
+        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
+            <table id="expDataTable" class="display" style="width:100%">
+                <thead><tr><th>তারিখ</th><th>বিবরণ</th><th class="text-right">পরিমাণ (৳)</th><th>এন্ট্রি করেছেন</th></tr></thead>
+                <tbody id="expenseTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- NEW: Due View -->
+    <div id="due-view" class="hidden">
+        <h2 style="color: #e67e22;"><i class="fa-solid fa-book"></i> বাকির খাতা</h2>
+        <div class="form-group">
+            <input type="text" id="dueCusName" placeholder="কাস্টমারের নাম">
+            <input type="text" id="dueCusPhone" placeholder="মোবাইল নাম্বার">
+            <input type="number" step="any" id="dueAmount" placeholder="বাকির পরিমাণ (৳)">
+            <button id="addDueBtn" class="btn-add-new"><i class="fa-solid fa-plus"></i> নতুন বাকি এন্ট্রি</button>
+        </div>
+        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
+            <table id="dueDataTable" class="display" style="width:100%">
+                <thead><tr><th>কাস্টমার</th><th>মোবাইল</th><th class="text-right">মোট বাকি (৳)</th><th class="text-center">অ্যাকশন</th></tr></thead>
+                <tbody id="dueTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- NEW: Partner View -->
+    <div id="partner-view" class="hidden">
+        <h2 style="color: var(--secondary);"><i class="fa-solid fa-handshake"></i> পার্টনার ইনভেস্টমেন্ট</h2>
+        <div class="form-group">
+            <input type="text" id="partnerName" placeholder="পার্টনারের নাম">
+            <input type="number" step="any" id="partnerInvestAmount" placeholder="ইনভেস্টের পরিমাণ (৳)">
+            <button id="addInvestBtn" class="btn-add-new"><i class="fa-solid fa-plus"></i> ইনভেস্টমেন্ট যুক্ত করুন</button>
+        </div>
+        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
+            <table id="investDataTable" class="display" style="width:100%">
+                <thead><tr><th>তারিখ</th><th>পার্টনারের নাম</th><th class="text-right">ইনভেস্ট (৳)</th></tr></thead>
+                <tbody id="investTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Reports View (UPDATED FOR NET PROFIT) -->
     <div id="reports-view" class="hidden">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <h2 style="color: var(--primary); margin: 0;"><i class="fa-solid fa-chart-line"></i> ব্যবসার রিপোর্ট</h2>
@@ -326,20 +374,22 @@
 
         <div class="report-summary-box">
             <div class="report-box">
-                <h3>মোট কেনা (Purchase)</h3><p style="color: #e67e22;">৳ <span id="repTotalPurchase">0.00</span></p>
-            </div>
-            <div class="report-box">
                 <h3>মোট বিক্রি (Sales)</h3><p style="color: #27ae60;">৳ <span id="repTotalSales">0.00</span></p>
             </div>
             <div class="report-box">
-                <h3>নিট লাভ (Profit)</h3><p style="color: #8e44ad;">৳ <span id="repTotalProfit">0.00</span></p>
+                <h3>গ্রস লাভ (বিক্রি থেকে)</h3><p style="color: #8e44ad;">৳ <span id="repGrossProfit">0.00</span></p>
+            </div>
+            <div class="report-box">
+                <h3>মোট খরচ (Expenses)</h3><p style="color: #e74c3c;">৳ <span id="repTotalExpense">0.00</span></p>
+            </div>
+            <div class="report-box" style="background: #d4edda; border-color: #c3e6cb;">
+                <h3 style="color: #155724;">নিট লাভ (Net Profit)</h3><p style="color: #155724;">৳ <span id="repNetProfit">0.00</span></p>
             </div>
         </div>
 
         <div class="salesman-tracker-box">
             <h3 style="margin-top:0; color:var(--dark);"><i class="fa-solid fa-users"></i> সেলসম্যানদের পারফরম্যান্স</h3>
-            <div id="salesmanGrid" class="salesman-grid">
-                </div>
+            <div id="salesmanGrid" class="salesman-grid"></div>
         </div>
 
         <div id="sales-table-container">
@@ -364,6 +414,7 @@
     </div>
 </div>
 
+<!-- Print Section Update to Show Due Details -->
 <div id="print-section">
     <div class="receipt-header">
         <h2>আমার মুদি দোকান</h2>
@@ -375,6 +426,7 @@
         <p>মেমো নং: <span id="printInvoiceId"></span></p>
         <p>তারিখ: <span id="printDate"></span></p>
         <p>বিক্রেতা: <span id="printSeller"></span></p>
+        <p id="printCusInfo" style="display:none; font-weight:bold;">কাস্টমার: <span id="printCusName"></span> (<span id="printCusPhone"></span>)</p>
     </div>
     <div class="dashed-line"></div>
     
@@ -430,7 +482,6 @@
 </div>
 
 <script type="module">
-    /* Firebase Imports */
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, writeBatch, increment, enableIndexedDbPersistence, query, where, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
@@ -449,36 +500,20 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
     
-    // OFFLINE PERSISTENCE
-    enableIndexedDbPersistence(db).catch((err) => {
-        console.log("Offline support error: ", err.message);
-    });
+    enableIndexedDbPersistence(db).catch((err) => console.log("Offline support error: ", err.message));
 
-    // SECURITY: Sanitize User Inputs
-    const sanitizeHTML = (str) => {
-        if (!str) return '';
-        return String(str).replace(/[&<>'"]/g, 
-            tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-        );
-    };
-
-    // UTILITY: Floating Point Math Fix (Better Precision)
+    const sanitizeHTML = (str) => !str ? '' : String(str).replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
     const roundNum = (num) => Math.round((parseFloat(num) || 0) * 100) / 100;
     const toPaisa = (num) => Math.round((parseFloat(num) || 0) * 100);
     const toTaka = (paisa) => (paisa / 100);
-    
-    // NEW UTILITY: Capitalize First Letter
-    const capitalize = (str) => {
-        if (!str) return '';
-        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    };
+    const capitalize = (str) => !str ? '' : str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
     let allProducts = []; 
     let cart = []; 
     let currentSeller = "অ্যাডমিন";
     
-    // TAB LOGIC
-    const tabs = ['pos', 'inventory', 'reports'];
+    // TAB LOGIC (Updated for 6 tabs)
+    const tabs = ['pos', 'inventory', 'expense', 'due', 'partner', 'reports'];
     tabs.forEach(tab => {
         document.getElementById(`tab-${tab}-btn`).addEventListener('click', function() {
             tabs.forEach(t => {
@@ -493,7 +528,6 @@
         });
     });
 
-    // FIXED: DataTables Columns Adjust on Tab Switch to prevent layout shift
     document.getElementById('showSalesBtn').addEventListener('click', function() {
         this.classList.add('active'); document.getElementById('showPurchaseBtn').classList.remove('active');
         document.getElementById('sales-table-container').classList.remove('hidden'); document.getElementById('purchase-table-container').classList.add('hidden');
@@ -506,13 +540,12 @@
         if ($.fn.DataTable.isDataTable('#purchaseDataTable')) { $('#purchaseDataTable').DataTable().columns.adjust(); }
     });
 
-    // AUTH & SELLER TRACKING
     onAuthStateChanged(auth, (user) => {
         if (user) {
             document.getElementById('login-section').classList.add('hidden');
             document.getElementById('dashboard-section').classList.remove('hidden');
             currentSeller = user.displayName || user.email.split('@')[0];
-            document.getElementById('displaySellerName').innerText = capitalize(currentSeller); // Applied capitalization here too
+            document.getElementById('displaySellerName').innerText = capitalize(currentSeller); 
             loadDataAndInit();
         } else {
             document.getElementById('dashboard-section').classList.add('hidden');
@@ -526,22 +559,21 @@
     });
     document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
 
-    // KEYBOARD SHORTCUTS
     document.addEventListener('keydown', (e) => {
         if(document.getElementById('dashboard-section').classList.contains('hidden') || document.getElementById('pos-view').classList.contains('hidden')) return;
-        
-        if(e.key === 'F2') {
-            e.preventDefault();
-            document.getElementById('posSearch').focus();
-        }
-        if(e.key === 'Enter' && e.ctrlKey) {
-            e.preventDefault();
-            document.getElementById('checkoutBtn').click();
-        }
+        if(e.key === 'F2') { e.preventDefault(); document.getElementById('posSearch').focus(); }
+        if(e.key === 'Enter' && e.ctrlKey) { e.preventDefault(); document.getElementById('checkoutBtn').click(); }
     });
 
-    // INIT DATA
     async function loadDataAndInit() {
+        await loadProducts();
+        await loadExpenses();
+        await loadDues();
+        await loadPartners();
+    }
+
+    // ================= 1. INVENTORY & POS =================
+    async function loadProducts() {
         const querySnapshot = await getDocs(collection(db, "products"));
         allProducts = []; let totalStockValuePaisa = 0; let lowStockCount = 0;
         
@@ -552,13 +584,10 @@
 
         querySnapshot.forEach((docSnap) => {
             const p = { id: docSnap.id, ...docSnap.data() };
-            p.buyPrice = roundNum(p.buyPrice); 
-            p.sellPrice = roundNum(p.sellPrice); 
-            p.quantity = roundNum(p.quantity);
-            p.alertLimit = parseFloat(p.alertLimit) || 5; 
+            p.buyPrice = roundNum(p.buyPrice); p.sellPrice = roundNum(p.sellPrice); 
+            p.quantity = roundNum(p.quantity); p.alertLimit = parseFloat(p.alertLimit) || 5; 
             
             allProducts.push(p); 
-            
             const currentInvestmentPaisa = p.quantity > 0 ? toPaisa(p.quantity * p.buyPrice) : 0;
             totalStockValuePaisa += currentInvestmentPaisa;
             if(p.quantity <= p.alertLimit) lowStockCount++;
@@ -571,37 +600,30 @@
                     <td class="text-right" style="color: #e67e22; font-weight:bold;">৳ ${toTaka(currentInvestmentPaisa).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
                     <td class="text-right" style="color: purple; font-weight:bold;">৳ ${p.sellPrice.toFixed(2)}</td>
                     <td class="action-btns text-center">
-                        <button class="btn-add-stock" title="স্টক যোগ করুন" data-id="${p.id}"><i class="fa-solid fa-plus"></i></button>
-                        <button class="btn-edit" title="এডিট করুন" data-id="${p.id}"><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn-delete" title="ডিলিট করুন" data-id="${p.id}"><i class="fa-solid fa-trash"></i></button>
+                        <button class="btn-add-stock" title="স্টক যোগ করুন" onclick="addStock('${p.id}')"><i class="fa-solid fa-plus"></i></button>
+                        <button class="btn-edit" title="এডিট করুন" onclick="editProduct('${p.id}')"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn-delete" title="ডিলিট করুন" onclick="deleteProduct('${p.id}')"><i class="fa-solid fa-trash"></i></button>
                     </td>
-                    <td style="display:none;">${p.alertLimit}</td>
-                    <td style="display:none;">${p.quantity}</td>
+                    <td style="display:none;">${p.alertLimit}</td><td style="display:none;">${p.quantity}</td>
                 </tr>
             `;
         });
         
         tableBody.innerHTML = tableHtml;
-
-        $('#invDataTable').DataTable({
-            "pageLength": 10, "order": [],
-            "language": { "search": "খুঁজুন:", "lengthMenu": " _MENU_ রেকর্ড/পেজ", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } }
-        });
+        $('#invDataTable').DataTable({ "pageLength": 10, "order": [], "language": { "search": "খুঁজুন:", "lengthMenu": " _MENU_ রেকর্ড/পেজ", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
         
         document.getElementById('statInvestment').innerText = toTaka(totalStockValuePaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 });
         document.getElementById('statLowStock').innerText = lowStockCount;
         renderPOSGrid(allProducts); loadOverallStats();
     }
 
-    // POS LOGIC
     function renderPOSGrid(products) {
         let gridHtml = ''; 
         products.forEach(p => {
             const isOut = p.quantity <= 0;
-            const safeName = sanitizeHTML(p.name);
             gridHtml += `
-                <div class="product-card ${isOut ? 'out-of-stock' : ''}" data-id="${p.id}">
-                    <h4>${safeName}</h4>
+                <div class="product-card ${isOut ? 'out-of-stock' : ''}" onclick="addToCart('${p.id}')">
+                    <h4>${sanitizeHTML(p.name)}</h4>
                     <p>স্টক: ${p.quantity.toFixed(2)} ${p.unit}</p>
                     <div class="price">৳ ${p.sellPrice}</div>
                 </div>
@@ -610,33 +632,24 @@
         document.getElementById('productGrid').innerHTML = gridHtml;
     }
 
-    document.getElementById('productGrid').addEventListener('click', (e) => {
-        const card = e.target.closest('.product-card:not(.out-of-stock)');
-        if (card) {
-            const id = card.dataset.id;
-            const product = allProducts.find(p => p.id === id);
-            if (product) addToCart(product);
-        }
-    });
-
     let searchTimeout;
     document.getElementById('posSearch').addEventListener('input', (e) => {
         clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            renderPOSGrid(allProducts.filter(p => p.name.toLowerCase().includes(e.target.value.toLowerCase())));
-        }, 300);
+        searchTimeout = setTimeout(() => { renderPOSGrid(allProducts.filter(p => p.name.toLowerCase().includes(e.target.value.toLowerCase()))); }, 300);
     });
 
-    function addToCart(p) {
+    window.addToCart = (id) => {
+        const p = allProducts.find(i => i.id === id);
+        if(!p) return;
         const existing = cart.find(i => i.id === p.id);
         if (existing) {
             if (existing.cartQty + 1 > p.quantity) return Swal.fire('সতর্কতা', 'স্টকে পর্যাপ্ত মাল নেই!', 'warning').then(() => document.getElementById('posSearch').focus());
             existing.cartQty += 1;
         } else cart.push({ ...p, cartQty: 1, customSellPrice: p.sellPrice });
         renderCart();
-    }
+    };
 
-    function updateCartItem(id, field, val) {
+    window.updateCartItem = (id, field, val) => {
         const item = cart.find(i => i.id === id); if(!item) return;
         let parsedVal = parseFloat(val);
         if (isNaN(parsedVal)) parsedVal = (field === 'qty') ? 1 : item.sellPrice; 
@@ -644,47 +657,14 @@
         if (field === 'qty') item.cartQty = parsedVal > item.quantity ? item.quantity : (parsedVal <= 0 ? 0.01 : parsedVal);
         else if (field === 'price') item.customSellPrice = roundNum(parsedVal);
         renderCart();
-    }
+    };
     
-    function removeFromCart(id) { 
-        cart = cart.filter(i => i.id !== id); 
-        renderCart(); 
-        document.getElementById('posSearch').focus();
-    }
-
-    document.getElementById('cartBody').addEventListener('change', (e) => {
-        if (e.target.classList.contains('cart-qty-input')) updateCartItem(e.target.dataset.id, 'qty', e.target.value);
-        if (e.target.classList.contains('cart-price-input')) updateCartItem(e.target.dataset.id, 'price', e.target.value);
-    });
-
-    document.getElementById('cartBody').addEventListener('click', (e) => {
-        const btnRemove = e.target.closest('.btn-remove');
-        const btnPlus = e.target.closest('.plus-btn');
-        const btnMinus = e.target.closest('.minus-btn');
-
-        if (btnRemove) removeFromCart(btnRemove.dataset.id);
-        if (btnPlus) {
-            const id = btnPlus.dataset.id;
-            const item = cart.find(i => i.id === id);
-            if(item) updateCartItem(id, 'qty', item.cartQty + 1);
-        }
-        if (btnMinus) {
-            const id = btnMinus.dataset.id;
-            const item = cart.find(i => i.id === id);
-            if(item) updateCartItem(id, 'qty', item.cartQty - 1);
-        }
-    });
+    window.removeFromCart = (id) => { cart = cart.filter(i => i.id !== id); renderCart(); document.getElementById('posSearch').focus(); };
 
     document.getElementById('clearCartBtn').addEventListener('click', () => {
         if(cart.length === 0) return;
-        Swal.fire({
-            title: 'কার্ট ক্লিয়ার করবেন?', text: "কার্টের সব মাল মুছে যাবে!", icon: 'warning',
-            showCancelButton: true, confirmButtonColor: '#e74c3c', cancelButtonColor: '#95a5a6', confirmButtonText: 'হ্যাঁ, ক্লিয়ার করুন', cancelButtonText: 'বাতিল'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                cart = []; renderCart(); document.getElementById('posSearch').focus();
-            }
-        });
+        Swal.fire({ title: 'কার্ট ক্লিয়ার করবেন?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#e74c3c', cancelButtonColor: '#95a5a6', confirmButtonText: 'হ্যাঁ' })
+        .then((result) => { if (result.isConfirmed) { cart = []; renderCart(); document.getElementById('posSearch').focus(); } });
     });
 
     function renderCart() {
@@ -692,33 +672,27 @@
         let html = ''; let totalPaisa = 0; 
         
         cart.forEach(item => {
-            const itemTotalPaisa = toPaisa(item.cartQty * item.customSellPrice);
-            totalPaisa += itemTotalPaisa;
-            const safeName = sanitizeHTML(item.name);
+            const itemTotalPaisa = toPaisa(item.cartQty * item.customSellPrice); totalPaisa += itemTotalPaisa;
             html += `
                 <tr>
-                    <td><strong>${safeName}</strong><br><small style="color:#7f8fa6; font-weight:500;">${item.unit}</small></td>
-                    <td class="text-center">
-                        <input type="number" step="any" min="0" value="${item.customSellPrice}" class="cart-price-input" data-id="${item.id}">
-                    </td>
+                    <td><strong>${sanitizeHTML(item.name)}</strong><br><small style="color:#7f8fa6; font-weight:500;">${item.unit}</small></td>
+                    <td class="text-center"><input type="number" step="any" min="0" value="${item.customSellPrice}" class="cart-price-input" onchange="updateCartItem('${item.id}', 'price', this.value)"></td>
                     <td class="text-center">
                         <div class="qty-wrapper">
-                            <button class="qty-btn minus-btn" data-id="${item.id}"><i class="fa-solid fa-minus" style="font-size:10px;"></i></button>
-                            <input type="number" step="any" min="0.01" value="${item.cartQty}" class="cart-qty-input" data-id="${item.id}">
-                            <button class="qty-btn plus-btn" data-id="${item.id}"><i class="fa-solid fa-plus" style="font-size:10px;"></i></button>
+                            <button class="qty-btn" onclick="updateCartItem('${item.id}', 'qty', ${item.cartQty - 1})"><i class="fa-solid fa-minus" style="font-size:10px;"></i></button>
+                            <input type="number" step="any" min="0.01" value="${item.cartQty}" onchange="updateCartItem('${item.id}', 'qty', this.value)">
+                            <button class="qty-btn" onclick="updateCartItem('${item.id}', 'qty', ${item.cartQty + 1})"><i class="fa-solid fa-plus" style="font-size:10px;"></i></button>
                         </div>
                     </td>
                     <td class="text-right" style="color:var(--primary); font-weight:bold; font-size:16px;">${toTaka(itemTotalPaisa).toFixed(2)}</td>
-                    <td class="text-center"><button class="btn-remove" data-id="${item.id}" title="মুছে ফেলুন"><i class="fa-solid fa-trash"></i></button></td>
+                    <td class="text-center"><button class="btn-remove" onclick="removeFromCart('${item.id}')" title="মুছে ফেলুন"><i class="fa-solid fa-trash"></i></button></td>
                 </tr>
             `;
         });
-        
-        tbody.innerHTML = html;
-        document.getElementById('cartTotalVal').innerText = toTaka(totalPaisa).toLocaleString('en-IN', {minimumFractionDigits: 2});
+        tbody.innerHTML = html; document.getElementById('cartTotalVal').innerText = toTaka(totalPaisa).toLocaleString('en-IN', {minimumFractionDigits: 2});
     }
 
-    // ================= SECURE CHECKOUT WITH TRANSACTION =================
+    // CHECKOUT LOGIC WITH DUE HANDLING
     document.getElementById('checkoutBtn').addEventListener('click', async () => {
         if(cart.length === 0) return Swal.fire('কার্ট খালি', 'আগে কার্টে মাল যুক্ত করুন', 'warning').then(()=> document.getElementById('posSearch').focus());
         const totalToPayPaisa = cart.reduce((sum, item) => sum + toPaisa(item.cartQty * item.customSellPrice), 0);
@@ -731,10 +705,7 @@
                 <div style="background:#f8f9fa; padding:15px; border-radius:8px; border:1px solid #ddd; margin-top:15px;">
                     <label style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px;">ছাড় (Discount) ৳:</label>
                     <input type="number" id="swalDiscount" class="swal2-input" placeholder="0" min="0" style="margin:0; width:100%; box-sizing:border-box;">
-                    
-                    <h3 style="color:var(--success); text-align:center; border-top:2px dashed #ccc; padding-top:15px; margin-top:15px; font-size:22px;">
-                        চুড়ান্ত বিল: ৳ <span id="swalGrandTotal">${totalToPay.toFixed(2)}</span>
-                    </h3>
+                    <h3 style="color:var(--success); text-align:center; border-top:2px dashed #ccc; padding-top:15px; margin-top:15px; font-size:22px;">চুড়ান্ত বিল: ৳ <span id="swalGrandTotal">${totalToPay.toFixed(2)}</span></h3>
                 </div>
 
                 <label style="font-weight:bold; font-size:14px; display:block; margin-top:15px;">পেমেন্ট মেথড:</label>
@@ -743,39 +714,57 @@
                     <label class="pay-method-label"><input type="radio" name="payMethod" value="bKash"> 🦅 বিকাশ</label>
                     <label class="pay-method-label"><input type="radio" name="payMethod" value="Nagad"> 🟠 নগদ</label>
                     <label class="pay-method-label"><input type="radio" name="payMethod" value="Rocket"> 🚀 রকেট</label>
+                    <label class="pay-method-label"><input type="radio" name="payMethod" value="Due"> 📓 বাকি</label>
                 </div>
 
-                <div style="margin-top:15px; background:#eef2f5; padding:15px; border-radius:8px; border:1px solid #c8d6e5;">
+                <div id="dueFields" style="display:none; margin-top:15px; background:#fbeeb8; padding:15px; border-radius:8px; border:1px solid #f1c40f;">
+                    <label style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px; color:#d35400;">কাস্টমারের তথ্য (বাকি খাতার জন্য):</label>
+                    <input type="text" id="swalCusName" class="swal2-input" placeholder="কাস্টমারের নাম (আবশ্যক)" style="margin:0 0 10px 0; width:100%; box-sizing:border-box;">
+                    <input type="text" id="swalCusPhone" class="swal2-input" placeholder="মোবাইল নাম্বার (আবশ্যক)" style="margin:0; width:100%; box-sizing:border-box;">
+                </div>
+
+                <div id="cashFields" style="margin-top:15px; background:#eef2f5; padding:15px; border-radius:8px; border:1px solid #c8d6e5;">
                     <label style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px;">কাস্টমার দিয়েছে (৳):</label>
                     <input type="number" id="swalGiven" class="swal2-input" placeholder="কাস্টমার কত টাকা দিয়েছে?" min="0" style="margin:0; width:100%; box-sizing:border-box;">
-                    <p style="margin:10px 0 0 0; font-weight:bold; font-size:18px; color:var(--danger); text-align:center;">
-                        ফেরত (Change): ৳ <span id="swalChange">0.00</span>
-                    </p>
+                    <p style="margin:10px 0 0 0; font-weight:bold; font-size:18px; color:var(--danger); text-align:center;">ফেরত (Change): ৳ <span id="swalChange">0.00</span></p>
                 </div>
             </div>
         `;
 
         const confirmResult = await Swal.fire({
-            title: 'বিল পেমেন্ট কনফার্মেশন', html: swalHtml, showCancelButton: true, confirmButtonColor: '#27ae60',
-            confirmButtonText: '<i class="fa-solid fa-check-circle"></i> বিল সেভ করুন', cancelButtonText: 'বাতিল', width: '450px',
+            title: 'বিল পেমেন্ট কনফার্মেশন', html: swalHtml, showCancelButton: true, confirmButtonColor: '#27ae60', confirmButtonText: '<i class="fa-solid fa-check-circle"></i> বিল সেভ করুন', cancelButtonText: 'বাতিল', width: '450px',
             didOpen: () => {
                 const discountInput = document.getElementById('swalDiscount'); const givenInput = document.getElementById('swalGiven');
                 const grandTotalEl = document.getElementById('swalGrandTotal'); const changeEl = document.getElementById('swalChange');
 
                 const updateCalc = () => {
-                    const discount = parseFloat(discountInput.value) || 0;
-                    const grandTotal = totalToPay - discount;
+                    const discount = parseFloat(discountInput.value) || 0; const grandTotal = totalToPay - discount;
                     grandTotalEl.innerText = grandTotal > 0 ? grandTotal.toFixed(2) : "0.00";
                     const given = parseFloat(givenInput.value) || 0; const change = given - grandTotal;
                     changeEl.innerText = change > 0 ? change.toFixed(2) : "0.00";
                 };
                 discountInput.addEventListener('input', updateCalc); givenInput.addEventListener('input', updateCalc);
+
+                document.querySelectorAll('input[name="payMethod"]').forEach(r => r.addEventListener('change', e => {
+                    if (e.target.value === 'Due') {
+                        document.getElementById('dueFields').style.display = 'block';
+                        document.getElementById('cashFields').style.display = 'none';
+                    } else {
+                        document.getElementById('dueFields').style.display = 'none';
+                        document.getElementById('cashFields').style.display = 'block';
+                    }
+                }));
             },
             preConfirm: () => {
                 const discount = parseFloat(document.getElementById('swalDiscount').value) || 0;
                 const method = document.querySelector('input[name="payMethod"]:checked').value;
-                if(discount > totalToPay) { Swal.showValidationMessage('ছাড়ের পরিমাণ মোট বিলের চেয়ে বেশি হতে পারবে মোহনা!'); return false; }
-                return { discount, method, grandTotal: totalToPay - discount };
+                const cusName = document.getElementById('swalCusName').value;
+                const cusPhone = document.getElementById('swalCusPhone').value;
+
+                if(discount > totalToPay) { Swal.showValidationMessage('ছাড়ের পরিমাণ মোট বিলের চেয়ে বেশি হতে পারবে না!'); return false; }
+                if(method === 'Due' && (!cusName || !cusPhone)) { Swal.showValidationMessage('বাকি লেখার জন্য কাস্টমারের নাম ও নাম্বার অবশ্যই দিতে হবে!'); return false; }
+                
+                return { discount, method, grandTotal: totalToPay - discount, cusName, cusPhone };
             }
         });
 
@@ -786,25 +775,18 @@
             try {
                 const now = new Date(); const nowStr = now.toLocaleString('en-GB'); const timestamp = now.getTime();
                 const invoiceId = 'INV-' + timestamp.toString().slice(-6);
-                
-                let printHtml = ''; 
-                let shareMessage = `*আমার মুদি দোকান*\nমেমো নং: ${invoiceId}\nতারিখ: ${nowStr}\nবিক্রেতা: ${capitalize(currentSeller)}\n\n*মালের বিবরণ:*\n`;
+                let printHtml = ''; let shareMessage = `*আমার মুদি দোকান*\nমেমো নং: ${invoiceId}\nতারিখ: ${nowStr}\nবিক্রেতা: ${capitalize(currentSeller)}\n\n*মালের বিবরণ:*\n`;
 
                 await runTransaction(db, async (transaction) => {
                     const productRefs = cart.map(item => doc(db, "products", item.id));
                     const productDocs = await Promise.all(productRefs.map(ref => transaction.get(ref)));
                     
                     let outOfStockErrors = [];
-                    productDocs.forEach((pDoc, index) => {
-                        if (pDoc.data().quantity < cart[index].cartQty) outOfStockErrors.push(cart[index].name);
-                    });
-
+                    productDocs.forEach((pDoc, index) => { if (pDoc.data().quantity < cart[index].cartQty) outOfStockErrors.push(cart[index].name); });
                     if (outOfStockErrors.length > 0) throw new Error(`দুঃখিত, স্টকে মাল নেই: ${outOfStockErrors.join(', ')}`);
 
                     productDocs.forEach((pDoc, index) => {
-                        const item = cart[index];
-                        const cartQty = roundNum(item.cartQty);
-                        
+                        const item = cart[index]; const cartQty = roundNum(item.cartQty);
                         transaction.update(pDoc.ref, { quantity: increment(-cartQty) });
                         
                         const tSalesPaisa = toPaisa(cartQty * item.customSellPrice);
@@ -820,26 +802,36 @@
                             profit: toTaka(profitPaisa), timestamp: timestamp, sellerName: currentSeller, paymentMethod: checkoutData.method
                         });
                         
-                        printHtml += `<tr>
-                            <td>${sanitizeHTML(item.name)}</td><td style="text-align: center;">${item.customSellPrice}</td>
-                            <td style="text-align: center;">${cartQty} ${item.unit}</td><td style="text-align: right;">${toTaka(tSalesPaisa).toFixed(2)}</td>
-                        </tr>`;
+                        printHtml += `<tr><td>${sanitizeHTML(item.name)}</td><td style="text-align: center;">${item.customSellPrice}</td><td style="text-align: center;">${cartQty} ${item.unit}</td><td style="text-align: right;">${toTaka(tSalesPaisa).toFixed(2)}</td></tr>`;
                         shareMessage += `- ${sanitizeHTML(item.name)}: ${cartQty} ${item.unit} = ৳ ${toTaka(tSalesPaisa).toFixed(2)}\n`;
                     });
+
+                    // Add to Due ledger if Due is selected
+                    if(checkoutData.method === 'Due') {
+                        const dueRef = doc(collection(db, "customer_dues"));
+                        transaction.set(dueRef, { customerName: checkoutData.cusName, customerPhone: checkoutData.cusPhone, totalDue: checkoutData.grandTotal, date: nowStr, timestamp: timestamp });
+                    }
                 });
 
                 document.getElementById('printDate').innerText = nowStr;
                 document.getElementById('printInvoiceId').innerText = invoiceId;
                 document.getElementById('printSeller').innerText = capitalize(currentSeller);
                 document.getElementById('printCartBody').innerHTML = printHtml;
-                
                 document.getElementById('printSubTotal').innerText = totalToPay.toFixed(2);
                 document.getElementById('printDiscount').innerText = checkoutData.discount.toFixed(2);
                 document.getElementById('printDiscountRow').style.display = checkoutData.discount > 0 ? 'block' : 'none';
                 document.getElementById('printTotal').innerText = checkoutData.grandTotal.toFixed(2);
                 
-                const methodNames = { 'Cash': 'ক্যাশ', 'bKash': 'বিকাশ', 'Nagad': 'নগদ', 'Rocket': 'রকেট' };
+                const methodNames = { 'Cash': 'ক্যাশ', 'bKash': 'বিকাশ', 'Nagad': 'নগদ', 'Rocket': 'রকেট', 'Due': 'বাকি' };
                 document.getElementById('printPayMethod').innerText = methodNames[checkoutData.method];
+
+                if(checkoutData.method === 'Due') {
+                    document.getElementById('printCusInfo').style.display = 'block';
+                    document.getElementById('printCusName').innerText = checkoutData.cusName;
+                    document.getElementById('printCusPhone').innerText = checkoutData.cusPhone;
+                } else {
+                    document.getElementById('printCusInfo').style.display = 'none';
+                }
 
                 shareMessage += `\nউপ-মোট: ৳ ${totalToPay.toFixed(2)}`;
                 if(checkoutData.discount > 0) shareMessage += `\nছাড়: ৳ ${checkoutData.discount.toFixed(2)}`;
@@ -847,72 +839,44 @@
                 
                 Swal.close();
                 
-                const actionResult = await Swal.fire({
-                    title: 'বিল সম্পন্ন!', icon: 'success', showDenyButton: true, showCancelButton: true,
-                    confirmButtonText: '<i class="fa-solid fa-print"></i> প্রিন্ট মেমো', denyButtonText: '<i class="fa-solid fa-share-nodes"></i> শেয়ার / SMS', cancelButtonText: 'নতুন বিল', confirmButtonColor: '#2b2d42', denyButtonColor: '#27ae60'
-                });
+                const actionResult = await Swal.fire({ title: 'বিল সম্পন্ন!', icon: 'success', showDenyButton: true, showCancelButton: true, confirmButtonText: '<i class="fa-solid fa-print"></i> প্রিন্ট মেমো', denyButtonText: '<i class="fa-solid fa-share-nodes"></i> শেয়ার / SMS', cancelButtonText: 'নতুন বিল', confirmButtonColor: '#2b2d42', denyButtonColor: '#27ae60' });
 
                 if (actionResult.isConfirmed) { 
                     document.body.classList.add('print-receipt'); 
                     setTimeout(() => {
                         window.print();
                         const cleanPrint = () => {
-                            document.body.classList.remove('print-receipt');
-                            document.getElementById('posSearch').focus();
-                            window.removeEventListener('focus', cleanPrint);
-                            window.removeEventListener('afterprint', cleanPrint);
+                            document.body.classList.remove('print-receipt'); document.getElementById('posSearch').focus();
+                            window.removeEventListener('focus', cleanPrint); window.removeEventListener('afterprint', cleanPrint);
                         };
-                        window.addEventListener('afterprint', cleanPrint);
-                        setTimeout(() => window.addEventListener('focus', cleanPrint), 2000);
+                        window.addEventListener('afterprint', cleanPrint); setTimeout(() => window.addEventListener('focus', cleanPrint), 2000);
                     }, 800);
-                } 
-                else if (actionResult.isDenied) {
+                } else if (actionResult.isDenied) {
                     if (navigator.share) navigator.share({ title: 'ক্যাশ মেমো', text: shareMessage }).catch(e => console.log(e));
                     else window.open(`https://wa.me/?text=${encodeURIComponent(shareMessage)}`, '_blank');
                     document.getElementById('posSearch').focus();
                 } else { document.getElementById('posSearch').focus(); }
                 
                 cart = []; renderCart(); document.getElementById('posSearch').value = ''; loadDataAndInit();
-            } catch (error) { 
-                Swal.fire('ত্রুটি!', error.message || 'বিল করতে সমস্যা হয়েছে।', 'error'); 
-            }
+            } catch (error) { Swal.fire('ত্রুটি!', error.message || 'বিল করতে সমস্যা হয়েছে।', 'error'); }
         } else { document.getElementById('posSearch').focus(); }
     });
 
-    // INVENTORY OPERATIONS
     document.getElementById('addBtn').addEventListener('click', async () => {
-        const n = document.getElementById('productName').value;
-        const q = parseFloat(document.getElementById('productQty').value);
-        const u = document.getElementById('productUnit').value;
-        const b = roundNum(document.getElementById('productBuyPrice').value);
-        const s = roundNum(document.getElementById('productSellPrice').value);
-        const limit = parseFloat(document.getElementById('productAlertLimit').value) || 5; 
+        const n = document.getElementById('productName').value; const q = parseFloat(document.getElementById('productQty').value);
+        const u = document.getElementById('productUnit').value; const b = roundNum(document.getElementById('productBuyPrice').value);
+        const s = roundNum(document.getElementById('productSellPrice').value); const limit = parseFloat(document.getElementById('productAlertLimit').value) || 5; 
         
         if(n && !isNaN(q) && !isNaN(b) && !isNaN(s) && q > 0) {
             Swal.fire({ title: 'সেভ হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
             await addDoc(collection(db, "products"), { name: n, quantity: q, unit: u, buyPrice: b, sellPrice: s, alertLimit: limit });
-            
-            // NEW: Added addedBy Field
-            await addDoc(collection(db, "purchase_logs"), {
-                date: new Date().toLocaleString('en-GB'), productName: n, addedQty: q, unit: u, buyPrice: b, totalCost: roundNum(q * b), timestamp: Date.now(),
-                addedBy: currentSeller 
-            });
+            await addDoc(collection(db, "purchase_logs"), { date: new Date().toLocaleString('en-GB'), productName: n, addedQty: q, unit: u, buyPrice: b, totalCost: roundNum(q * b), timestamp: Date.now(), addedBy: currentSeller });
             document.querySelectorAll('.form-group input').forEach(el => el.value = '');
-            Swal.fire({toast:true, position:'top-end', icon:'success', title:'যুক্ত হয়েছে', showConfirmButton:false, timer:1500});
-            loadDataAndInit(); 
+            Swal.fire({toast:true, position:'top-end', icon:'success', title:'যুক্ত হয়েছে', showConfirmButton:false, timer:1500}); loadDataAndInit(); 
         } else Swal.fire('সতর্কতা', 'সবগুলো তথ্য সঠিকভাবে পূরণ করুন।', 'warning');
     });
 
-    document.getElementById('inventory-view').addEventListener('click', (e) => {
-        const btn = e.target.closest('button');
-        if (!btn || !btn.dataset.id) return;
-        const id = btn.dataset.id;
-        if (btn.classList.contains('btn-add-stock')) addStock(id);
-        else if (btn.classList.contains('btn-edit')) editProduct(id);
-        else if (btn.classList.contains('btn-delete')) deleteProduct(id);
-    });
-
-    async function addStock(id) {
+    window.addStock = async (id) => {
         const p = allProducts.find(i => i.id === id);
         const htmlContent = `
             <div class="swal-stock-info"><p><strong>বর্তমান স্টক:</strong> ${p.quantity} ${p.unit}</p><p><strong>বর্তমান কেনা দাম:</strong> ৳ ${p.buyPrice}</p></div>
@@ -920,37 +884,22 @@
             <input id="sb" type="number" step="any" min="0" class="swal2-input" placeholder="নতুন কেনা দাম" value="${p.buyPrice}">
             <input id="ss" type="number" step="any" min="0" class="swal2-input" placeholder="নতুন বিক্রি দাম" value="${p.sellPrice}">
         `;
-        const { value: v } = await Swal.fire({ title: 'স্টক আপডেট', html: htmlContent, showCancelButton: true, confirmButtonText: 'সেভ করুন',
-            preConfirm: () => { const qty = document.getElementById('sq').value; if(!qty || qty<=0) { Swal.showValidationMessage('সঠিক পরিমাণ দিন'); return false; } return [qty, document.getElementById('sb').value, document.getElementById('ss').value]; }
-        });
+        const { value: v } = await Swal.fire({ title: 'স্টক আপডেট', html: htmlContent, showCancelButton: true, confirmButtonText: 'সেভ করুন', preConfirm: () => { const qty = document.getElementById('sq').value; if(!qty || qty<=0) { Swal.showValidationMessage('সঠিক পরিমাণ দিন'); return false; } return [qty, document.getElementById('sb').value, document.getElementById('ss').value]; } });
 
         if(v && v[0]) {
-            const addedQty = parseFloat(v[0]); 
-            const newBuyPrice = roundNum(v[1]) || p.buyPrice; 
-            const newSellPrice = roundNum(v[2]) || p.sellPrice;
-            
+            const addedQty = parseFloat(v[0]); const newBuyPrice = roundNum(v[1]) || p.buyPrice; const newSellPrice = roundNum(v[2]) || p.sellPrice;
             if(addedQty > 0) {
                 Swal.fire({ title: 'আপডেট হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
                 const finalQty = roundNum(p.quantity + addedQty); let avgBuyPrice = 0;
-                
-                if(finalQty > 0) { 
-                    if (p.quantity < 0) avgBuyPrice = newBuyPrice; 
-                    else avgBuyPrice = roundNum(((p.quantity * p.buyPrice) + (addedQty * newBuyPrice)) / finalQty); 
-                }
-                
+                if(finalQty > 0) { if (p.quantity < 0) avgBuyPrice = newBuyPrice; else avgBuyPrice = roundNum(((p.quantity * p.buyPrice) + (addedQty * newBuyPrice)) / finalQty); }
                 await updateDoc(doc(db, "products", id), { quantity: finalQty, buyPrice: avgBuyPrice, sellPrice: newSellPrice });
-                
-                // NEW: Added addedBy Field
-                await addDoc(collection(db, "purchase_logs"), { 
-                    date: new Date().toLocaleString('en-GB'), productName: p.name, addedQty: addedQty, unit: p.unit, buyPrice: newBuyPrice, totalCost: roundNum(addedQty * newBuyPrice), timestamp: Date.now(),
-                    addedBy: currentSeller
-                });
+                await addDoc(collection(db, "purchase_logs"), { date: new Date().toLocaleString('en-GB'), productName: p.name, addedQty: addedQty, unit: p.unit, buyPrice: newBuyPrice, totalCost: roundNum(addedQty * newBuyPrice), timestamp: Date.now(), addedBy: currentSeller });
                 Swal.fire({toast:true, position:'top-end', icon:'success', title:'স্টক আপডেট হয়েছে', showConfirmButton:false, timer:1500}); loadDataAndInit();
             }
         }
-    }
+    };
 
-    async function editProduct(id) {
+    window.editProduct = async (id) => {
         const p = allProducts.find(i => i.id === id);
         const htmlContent = `
             <input id="en" class="swal2-input" placeholder="মালের নাম" value="${sanitizeHTML(p.name)}">
@@ -959,22 +908,16 @@
             <input id="es" type="number" step="any" min="0" class="swal2-input" placeholder="বিক্রি দাম" value="${p.sellPrice}">
             <input id="elimit" type="number" step="any" min="0" class="swal2-input" placeholder="অ্যালার্ট লিমিট" value="${p.alertLimit}">
         `;
-        const { value: v } = await Swal.fire({ title: 'এডিট করুন', html: htmlContent, showCancelButton: true, confirmButtonText: 'আপডেট',
-            preConfirm: () => { const name = document.getElementById('en').value; if(!name) { Swal.showValidationMessage('নাম খালি রাখা যাবে না'); return false; } return [name, document.getElementById('eu').value, document.getElementById('eb').value, document.getElementById('es').value, document.getElementById('elimit').value]; }
-        });
+        const { value: v } = await Swal.fire({ title: 'এডিট করুন', html: htmlContent, showCancelButton: true, confirmButtonText: 'আপডেট', preConfirm: () => { const name = document.getElementById('en').value; if(!name) { Swal.showValidationMessage('নাম খালি রাখা যাবে না'); return false; } return [name, document.getElementById('eu').value, document.getElementById('eb').value, document.getElementById('es').value, document.getElementById('elimit').value]; } });
 
         if (v) {
             Swal.fire({ title: 'আপডেট হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
             await updateDoc(doc(db, "products", id), { name: v[0], unit: v[1], buyPrice: roundNum(v[2]), sellPrice: roundNum(v[3]), alertLimit: parseFloat(v[4])||5 });
             Swal.fire({toast:true, position:'top-end', icon:'success', title:'এডিট সম্পন্ন', showConfirmButton:false, timer:1500}); loadDataAndInit();
         }
-    }
+    };
     
-    async function deleteProduct(id) { 
-        if((await Swal.fire({title:'ডিলিট করবেন?', icon:'warning', showCancelButton:true, confirmButtonColor:'#d33'})).isConfirmed) { 
-            await deleteDoc(doc(db, "products", id)); loadDataAndInit(); 
-        } 
-    }
+    window.deleteProduct = async (id) => { if((await Swal.fire({title:'ডিলিট করবেন?', icon:'warning', showCancelButton:true, confirmButtonColor:'#d33'})).isConfirmed) { await deleteDoc(doc(db, "products", id)); loadDataAndInit(); } };
 
     async function loadOverallStats() {
         const querySnapshot = await getDocs(collection(db, "sales_logs")); let totalSalesPaisa = 0; let totalProfitPaisa = 0;
@@ -983,120 +926,154 @@
         document.getElementById('statProfit').innerText = toTaka(totalProfitPaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 });
     }
 
-    // EXCEL EXPORT & DATE RANGE REPORTS WITH FILTER
-    document.getElementById('generateReportBtn').addEventListener('click', async () => {
-        const start = document.getElementById('reportStartDate').value; 
-        const end = document.getElementById('reportEndDate').value;
-        const selectedSalesman = document.getElementById('salesmanFilter').value; // Get filtered salesman
+    // ================= 2. EXPENSE LOGIC =================
+    async function loadExpenses() {
+        const snap = await getDocs(collection(db, "expenses"));
+        if ($.fn.DataTable.isDataTable('#expDataTable')) $('#expDataTable').DataTable().clear().destroy();
+        let html = '';
+        snap.forEach(d => { const e = d.data(); html += `<tr><td>${e.date}</td><td>${sanitizeHTML(e.reason)}</td><td class="text-right">${e.amount.toFixed(2)}</td><td>${e.enteredBy}</td></tr>`; });
+        document.getElementById('expenseTable').innerHTML = html; $('#expDataTable').DataTable({"order": [[0, "desc"]]});
+    }
 
-        let sLogs = []; let pLogs = [];
+    document.getElementById('addExpBtn').addEventListener('click', async () => {
+        const reason = document.getElementById('expReason').value; const amt = parseFloat(document.getElementById('expAmount').value);
+        if(reason && amt > 0) {
+            await addDoc(collection(db, "expenses"), { reason, amount: amt, date: new Date().toLocaleString('en-GB'), timestamp: Date.now(), enteredBy: currentSeller });
+            document.getElementById('expReason').value = ''; document.getElementById('expAmount').value = '';
+            loadExpenses(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'খরচ যুক্ত হয়েছে', showConfirmButton:false, timer:1500});
+        }
+    });
+
+    // ================= 3. DUE LOGIC =================
+    async function loadDues() {
+        const snap = await getDocs(collection(db, "customer_dues"));
+        if ($.fn.DataTable.isDataTable('#dueDataTable')) $('#dueDataTable').DataTable().clear().destroy();
+        let html = '';
+        snap.forEach(d => {
+            const e = {id: d.id, ...d.data()};
+            html += `<tr><td><strong>${sanitizeHTML(e.customerName)}</strong></td><td>${sanitizeHTML(e.customerPhone)}</td><td class="text-right" style="color:var(--danger); font-weight:bold;">${e.totalDue.toFixed(2)}</td>
+            <td class="text-center"><button class="btn-pay-due action-btns" onclick="payDue('${e.id}', ${e.totalDue})"><i class="fa-solid fa-hand-holding-dollar"></i> টাকা জমা নিন</button></td></tr>`;
+        });
+        document.getElementById('dueTable').innerHTML = html; $('#dueDataTable').DataTable();
+    }
+
+    window.payDue = async (id, currentDue) => {
+        const { value: amount } = await Swal.fire({ title: 'জমা পরিমাণ', input: 'number', inputAttributes: { min: 1, step: 'any' }, showCancelButton: true });
+        if (amount && amount > 0) {
+            const newDue = currentDue - parseFloat(amount);
+            if(newDue <= 0) await deleteDoc(doc(db, "customer_dues", id));
+            else await updateDoc(doc(db, "customer_dues", id), { totalDue: newDue });
+            Swal.fire({toast:true, position:'top-end', icon:'success', title:'বাকি আপডেট হয়েছে', showConfirmButton:false, timer:1500}); loadDues();
+        }
+    };
+
+    document.getElementById('addDueBtn').addEventListener('click', async () => {
+        const n = document.getElementById('dueCusName').value; const p = document.getElementById('dueCusPhone').value; const a = parseFloat(document.getElementById('dueAmount').value);
+        if(n && a > 0) {
+            await addDoc(collection(db, "customer_dues"), { customerName: n, customerPhone: p, totalDue: a, date: new Date().toLocaleString('en-GB'), timestamp: Date.now() });
+            loadDues(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'বাকি এন্ট্রি সম্পন্ন', showConfirmButton:false, timer:1500});
+        }
+    });
+
+    // ================= 4. PARTNER INVESTMENT =================
+    async function loadPartners() {
+        const snap = await getDocs(collection(db, "partner_investments"));
+        if ($.fn.DataTable.isDataTable('#investDataTable')) $('#investDataTable').DataTable().clear().destroy();
+        let html = '';
+        snap.forEach(d => {
+            const e = d.data();
+            html += `<tr><td>${e.date}</td><td><strong>${sanitizeHTML(e.partnerName)}</strong></td><td class="text-right" style="color:var(--primary); font-weight:bold;">${e.amount.toFixed(2)}</td></tr>`;
+        });
+        document.getElementById('investTable').innerHTML = html; $('#investDataTable').DataTable();
+    }
+
+    document.getElementById('addInvestBtn').addEventListener('click', async () => {
+        const n = document.getElementById('partnerName').value; const a = parseFloat(document.getElementById('partnerInvestAmount').value);
+        if(n && a > 0) {
+            await addDoc(collection(db, "partner_investments"), { partnerName: n, amount: a, date: new Date().toLocaleString('en-GB'), timestamp: Date.now() });
+            loadPartners(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'ইনভেস্টমেন্ট যুক্ত হয়েছে', showConfirmButton:false, timer:1500});
+        }
+    });
+
+    // ================= 5. REPORTS & EXPORT =================
+    document.getElementById('generateReportBtn').addEventListener('click', async () => {
+        const start = document.getElementById('reportStartDate').value; const end = document.getElementById('reportEndDate').value;
+        const selectedSalesman = document.getElementById('salesmanFilter').value;
+        let sLogs = []; let pLogs = []; let eLogs = [];
         
         Swal.fire({ title: 'ডেটা লোড হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
 
         try {
-            let salesQuery = collection(db, "sales_logs");
-            let purchaseQuery = collection(db, "purchase_logs");
+            let salesQuery = collection(db, "sales_logs"); let purchaseQuery = collection(db, "purchase_logs"); let expenseQuery = collection(db, "expenses");
 
             if (start && end) {
-                const startTimestamp = new Date(start + "T00:00:00").getTime(); 
-                const endTimestamp = new Date(end + "T23:59:59").getTime();
+                const startTimestamp = new Date(start + "T00:00:00").getTime(); const endTimestamp = new Date(end + "T23:59:59").getTime();
                 salesQuery = query(salesQuery, where("timestamp", ">=", startTimestamp), where("timestamp", "<=", endTimestamp));
                 purchaseQuery = query(purchaseQuery, where("timestamp", ">=", startTimestamp), where("timestamp", "<=", endTimestamp));
+                expenseQuery = query(expenseQuery, where("timestamp", ">=", startTimestamp), where("timestamp", "<=", endTimestamp));
                 document.getElementById('docDateRange').innerText = `${start} থেকে ${end}`;
-            } else {
-                document.getElementById('docDateRange').innerText = "সম্পূর্ণ সময়কাল";
-            }
+            } else { document.getElementById('docDateRange').innerText = "সম্পূর্ণ সময়কাল"; }
 
-            const sSnap = await getDocs(salesQuery);
-            sSnap.forEach(d => sLogs.push(d.data())); 
-            sLogs.sort((a, b) => b.timestamp - a.timestamp);
-            
-            const pSnap = await getDocs(purchaseQuery);
-            pSnap.forEach(d => pLogs.push(d.data())); 
-            pLogs.sort((a, b) => b.timestamp - a.timestamp);
+            const sSnap = await getDocs(salesQuery); sSnap.forEach(d => sLogs.push(d.data())); sLogs.sort((a, b) => b.timestamp - a.timestamp);
+            const pSnap = await getDocs(purchaseQuery); pSnap.forEach(d => pLogs.push(d.data())); pLogs.sort((a, b) => b.timestamp - a.timestamp);
+            const eSnap = await getDocs(expenseQuery); eSnap.forEach(d => eLogs.push(d.data()));
 
-            // Populate the Dropdown with unique salesman names (Runs smoothly on all datasets)
             const uniqueSalesmen = [...new Set(sLogs.map(l => capitalize(l.sellerName || 'অ্যাডমিন')))];
             const selectEl = document.getElementById('salesmanFilter');
-            if (selectEl.options.length === 1) { // Only 'All' exists right now
-                uniqueSalesmen.forEach(name => {
-                    let opt = document.createElement('option');
-                    opt.value = name; opt.innerText = name;
-                    selectEl.appendChild(opt);
-                });
+            if (selectEl.options.length === 1) {
+                uniqueSalesmen.forEach(name => { let opt = document.createElement('option'); opt.value = name; opt.innerText = name; selectEl.appendChild(opt); });
             }
 
-            // Apply Salesman Filter (This isolates the data before rendering & exporting!)
-            if (selectedSalesman !== 'All') {
-                sLogs = sLogs.filter(l => capitalize(l.sellerName || 'অ্যাডমিন') === selectedSalesman);
-                // By business logic, usually we only filter the Sales table for salesman performance.
-            }
+            if (selectedSalesman !== 'All') { sLogs = sLogs.filter(l => capitalize(l.sellerName || 'অ্যাডমিন') === selectedSalesman); }
             
-            renderReports(sLogs, pLogs);
-            Swal.close();
-        } catch(e) {
-            Swal.fire('ত্রুটি!', 'রিপোর্ট জেনারেট করতে সমস্যা হয়েছে।', 'error');
-        }
+            renderReports(sLogs, pLogs, eLogs); Swal.close();
+        } catch(e) { Swal.fire('ত্রুটি!', 'রিপোর্ট জেনারেট করতে সমস্যা হয়েছে।', 'error'); }
     });
 
-    function renderReports(salesLogs, purchaseLogs) {
-        let tSalesPaisa = 0; let tProfitPaisa = 0; let tPurchasePaisa = 0;
-        let salesmanData = {};
-        const methodNames = { 'Cash': 'ক্যাশ', 'bKash': 'বিকাশ', 'Nagad': 'নগদ', 'Rocket': 'রকেট' };
+    function renderReports(salesLogs, purchaseLogs, expenseLogs) {
+        let tSalesPaisa = 0; let tProfitPaisa = 0; let tPurchasePaisa = 0; let tExpensePaisa = 0;
+        let salesmanData = {}; const methodNames = { 'Cash': 'ক্যাশ', 'bKash': 'বিকাশ', 'Nagad': 'নগদ', 'Rocket': 'রকেট', 'Due': 'বাকি' };
 
         if ($.fn.DataTable.isDataTable('#salesDataTable')) $('#salesDataTable').DataTable().clear().destroy();
         if ($.fn.DataTable.isDataTable('#purchaseDataTable')) $('#purchaseDataTable').DataTable().clear().destroy();
         
         let sHtml = ''; let dSalesHtml = '';
         salesLogs.forEach(l => {
-            const pricePaisa = toPaisa(l.totalPrice);
-            tSalesPaisa += pricePaisa; 
-            tProfitPaisa += toPaisa(l.profit);
+            const pricePaisa = toPaisa(l.totalPrice); tSalesPaisa += pricePaisa; tProfitPaisa += toPaisa(l.profit);
+            const seller = capitalize(l.sellerName || 'অ্যাডমিন'); const method = methodNames[l.paymentMethod] || 'ক্যাশ';
             
-            const seller = capitalize(l.sellerName || 'অ্যাডমিন');
-            const method = methodNames[l.paymentMethod] || 'ক্যাশ';
-            
-            // Populate salesman summary
-            if(!salesmanData[seller]) salesmanData[seller] = 0;
-            salesmanData[seller] += pricePaisa;
+            if(!salesmanData[seller]) salesmanData[seller] = 0; salesmanData[seller] += pricePaisa;
             
             let rowHtml = `<tr><td>${l.date}</td><td>${sanitizeHTML(l.productName)}</td><td>${l.sellQty} ${l.unit}</td><td class="text-right">${parseFloat(l.actualSellRate).toFixed(2)}</td><td class="text-right">${(l.totalPrice || 0).toFixed(2)}</td><td class="text-right">${(l.profit||0).toFixed(2)}</td><td>${method}</td><td>${seller}</td></tr>`;
             sHtml += rowHtml; dSalesHtml += rowHtml; 
         });
-        document.getElementById('repSalesTable').innerHTML = sHtml; 
-        document.getElementById('docSalesBody').innerHTML = dSalesHtml;
+        document.getElementById('repSalesTable').innerHTML = sHtml; document.getElementById('docSalesBody').innerHTML = dSalesHtml;
 
-        // Render Salesman Stats UI
         let salesmanHtml = '';
-        for(let s in salesmanData) {
-            salesmanHtml += `<div class="salesman-card">${s}: <span style="color:var(--success);">৳ ${toTaka(salesmanData[s]).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></div>`;
-        }
+        for(let s in salesmanData) { salesmanHtml += `<div class="salesman-card">${s}: <span style="color:var(--success);">৳ ${toTaka(salesmanData[s]).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></div>`; }
         if(Object.keys(salesmanData).length === 0) salesmanHtml = '<p style="color:#888;">কোনো সেলস ডেটা নেই</p>';
         document.getElementById('salesmanGrid').innerHTML = salesmanHtml;
 
         let pHtml = ''; let dPurchaseHtml = '';
         purchaseLogs.forEach(l => {
-            tPurchasePaisa += toPaisa(l.totalCost);
-            const addedBy = capitalize(l.addedBy || 'অ্যাডমিন'); // NEW: Stock Entered By
-
+            tPurchasePaisa += toPaisa(l.totalCost); const addedBy = capitalize(l.addedBy || 'অ্যাডমিন');
             let rowHtml = `<tr><td>${l.date}</td><td>${sanitizeHTML(l.productName)}</td><td>${l.addedQty} ${l.unit}</td><td class="text-right">${parseFloat(l.buyPrice).toFixed(2)}</td><td class="text-right">${(l.totalCost || 0).toFixed(2)}</td><td>${addedBy}</td></tr>`;
             pHtml += rowHtml; dPurchaseHtml += rowHtml; 
         });
-        document.getElementById('repPurchaseTable').innerHTML = pHtml; 
-        document.getElementById('docPurchaseBody').innerHTML = dPurchaseHtml;
+        
+        expenseLogs.forEach(l => { tExpensePaisa += toPaisa(l.amount); });
 
-        $('#salesDataTable').DataTable({
-            "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'],
-            "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } }
-        });
-        $('#purchaseDataTable').DataTable({
-            "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'],
-            "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } }
-        });
+        document.getElementById('repPurchaseTable').innerHTML = pHtml; document.getElementById('docPurchaseBody').innerHTML = dPurchaseHtml;
+
+        $('#salesDataTable').DataTable({ "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'], "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
+        $('#purchaseDataTable').DataTable({ "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'], "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
+
+        const netProfitPaisa = tProfitPaisa - tExpensePaisa;
 
         document.getElementById('repTotalSales').innerText = toTaka(tSalesPaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 }); 
-        document.getElementById('repTotalProfit').innerText = toTaka(tProfitPaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 }); 
-        document.getElementById('repTotalPurchase').innerText = toTaka(tPurchasePaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        document.getElementById('repGrossProfit').innerText = toTaka(tProfitPaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 }); 
+        document.getElementById('repTotalExpense').innerText = toTaka(tExpensePaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        document.getElementById('repNetProfit').innerText = toTaka(netProfitPaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 });
     }
 
     document.getElementById('printReportBtn').addEventListener('click', () => {
@@ -1109,38 +1086,20 @@
         document.body.classList.add('print-report'); 
         setTimeout(() => {
             window.print();
-            const cleanPrint = () => {
-                document.body.classList.remove('print-report');
-                window.removeEventListener('focus', cleanPrint);
-                window.removeEventListener('afterprint', cleanPrint);
-            };
-            window.addEventListener('afterprint', cleanPrint);
-            setTimeout(() => {
-                window.addEventListener('focus', cleanPrint);
-            }, 2000);
+            const cleanPrint = () => { document.body.classList.remove('print-report'); window.removeEventListener('focus', cleanPrint); window.removeEventListener('afterprint', cleanPrint); };
+            window.addEventListener('afterprint', cleanPrint); setTimeout(() => { window.addEventListener('focus', cleanPrint); }, 2000);
         }, 800);
     });
 
     document.getElementById('alertCardBtn').addEventListener('click', () => {
         $.fn.dataTable.ext.search = [];
-        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-            const limit = parseFloat(data[6]); 
-            const rawStock = parseFloat(data[7]); 
-            return rawStock <= limit;
-        });
-        
-        $('#invDataTable').DataTable().draw();
-        
-        document.getElementById('resetFilterBtn').classList.remove('hidden');
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) { const limit = parseFloat(data[6]); const rawStock = parseFloat(data[7]); return rawStock <= limit; });
+        $('#invDataTable').DataTable().draw(); document.getElementById('resetFilterBtn').classList.remove('hidden');
         Swal.fire({toast:true, position:'top-end', icon:'info', title:'স্টক শেষের দিকের মাল ফিল্টার করা হয়েছে', showConfirmButton:false, timer:2000});
         document.getElementById('invDataTable').scrollIntoView({behavior: 'smooth'});
     });
 
-    document.getElementById('resetFilterBtn').addEventListener('click', () => {
-        $.fn.dataTable.ext.search = []; 
-        $('#invDataTable').DataTable().draw(); 
-        document.getElementById('resetFilterBtn').classList.add('hidden'); 
-    });
+    document.getElementById('resetFilterBtn').addEventListener('click', () => { $.fn.dataTable.ext.search = []; $('#invDataTable').DataTable().draw(); document.getElementById('resetFilterBtn').classList.add('hidden'); });
 
 </script>
 </body>
