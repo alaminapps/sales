@@ -70,12 +70,17 @@
         /* POS Specific Design */
         .pos-grid { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
         .pos-left { flex: 1.2; min-width: 300px; background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; }
-        .pos-right { flex: 0.8; min-width: 300px; background: #f8faff; border: 2px solid var(--primary); padding: 20px; border-radius: 10px; position: sticky; top: 20px;}
         
-        .search-box { width: 100%; padding: 15px; font-size: 18px; border: 2px solid var(--primary); border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; }
+        /* PREMIUM CART UI DESIGN */
+        .pos-right { flex: 0.8; min-width: 300px; background: #fff; padding: 25px; border-radius: 12px; position: sticky; top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #eee; }
+        
+        .search-box { width: 100%; padding: 15px; font-size: 18px; border: 2px solid var(--primary); border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; transition: 0.3s;}
+        .search-box:focus { box-shadow: 0 0 15px rgba(67, 97, 238, 0.2); outline: none;}
         .shortcut-hint { font-size: 12px; color: #7f8fa6; text-align: right; margin-top: -10px; margin-bottom: 15px; display: block;}
         
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; max-height: 500px; overflow-y: auto; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; max-height: 500px; overflow-y: auto; padding-right: 5px;}
+        .product-grid::-webkit-scrollbar { width: 6px; }
+        .product-grid::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
         .product-card { background: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; }
         .product-card:hover { border-color: var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.1); transform: translateY(-2px); }
         .product-card h4 { margin: 0 0 5px 0; color: var(--dark); font-size: 15px; }
@@ -83,12 +88,28 @@
         .product-card .price { font-weight: bold; color: var(--success); font-size: 15px; margin-top: 5px; }
         .out-of-stock { opacity: 0.5; pointer-events: none; background: #ffeaa7; }
 
-        .cart-table th { background: var(--dark); }
-        .cart-table input { width: 70px; padding: 5px; border: 1px solid #ccc; border-radius: 4px; text-align: center; font-family: inherit;}
+        /* Cart Table Premium Styling */
+        .cart-table th { background: var(--dark); color: white; padding: 12px 10px; font-weight: 500; border:none;}
+        .cart-table td { vertical-align: middle; padding: 12px 5px; border-bottom: 1px solid #f1f2f6;}
+        
+        .qty-wrapper { display: inline-flex; align-items: center; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; background: #fff; }
+        .qty-wrapper input { border: none; border-radius: 0; width: 45px; background: transparent; padding: 6px 0; text-align: center; font-weight: 600; font-family: inherit;}
+        .qty-wrapper input:focus { outline: none; background: #f8f9fa;}
+        .qty-btn { background: #f1f2f6; border: none; padding: 6px 12px; cursor: pointer; color: var(--dark); font-weight: bold; transition: 0.2s;}
+        .qty-btn:hover { background: #dfe4ea; }
+        
+        .cart-price-input { width: 65px; padding: 6px; border: 1px solid #ddd; border-radius: 4px; text-align: center; font-family: inherit; font-weight: 600; background: #f8f9fa; transition: 0.3s;}
+        .cart-price-input:focus { border-color: var(--primary); background: #fff; outline: none; box-shadow: 0 0 5px rgba(67, 97, 238, 0.2);}
+
         .cart-total { font-size: 24px; font-weight: bold; text-align: right; margin: 20px 0; color: var(--primary); }
-        .btn-checkout { width: 100%; padding: 15px; background: var(--success); color: white; font-size: 18px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4); }
-        .btn-checkout:hover { background: #27ae60; }
-        .btn-remove { background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .btn-checkout { width: 100%; padding: 15px; background: var(--success); color: white; font-size: 18px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4); transition: 0.3s;}
+        .btn-checkout:hover { background: #27ae60; transform: translateY(-2px);}
+        
+        .btn-remove { background: #ffeaa7; color: var(--danger); border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .btn-remove:hover { background: var(--danger); color: white; }
+        
+        .btn-clear-cart { background: #f8f9fa; color: var(--danger); border: 1px solid #fad390; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; transition: 0.2s;}
+        .btn-clear-cart:hover { background: var(--danger); color: white; border-color: var(--danger);}
 
         .hidden { display: none !important; }
         .action-btns button { padding: 6px 10px; border-radius: 4px; color: white; border: none; cursor: pointer; margin-right: 5px; font-size: 13px;}
@@ -96,9 +117,16 @@
         .btn-edit { background: #f39c12; }
         .btn-delete { background: var(--danger); }
 
+        /* Custom Checkout Modal Styles */
+        .pay-method-group { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+        .pay-method-label { flex: 1; min-width: 80px; padding: 10px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-weight: bold; text-align: center; font-size: 14px; transition: 0.2s; background: #fff;}
+        .pay-method-label input { display: none; }
+        .pay-method-label:hover { border-color: var(--primary); }
+        .pay-method-label:has(input:checked) { border-color: var(--primary); background: #eef2f5; color: var(--primary); box-shadow: 0 4px 10px rgba(67, 97, 238, 0.15); }
+
         /* Report Section Specific */
         .report-filter { display: flex; gap: 15px; align-items: center; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 20px; flex-wrap: wrap;}
-        .report-filter input { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit;}
+        .report-filter input, .report-filter select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit;}
         .report-filter button { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;}
         .btn-print-report { background: var(--dark) !important; }
         
@@ -106,6 +134,11 @@
         .report-box { flex: 1; min-width: 200px; padding: 20px; background: var(--light); border-radius: 8px; text-align: center; border: 1px solid #ddd; }
         .report-box h3 { margin: 0; color: #555; font-size: 16px; }
         .report-box p { margin: 10px 0 0 0; font-size: 24px; font-weight: bold; color: var(--primary); }
+
+        /* Salesman Tracker */
+        .salesman-tracker-box { margin-bottom: 20px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
+        .salesman-grid { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 10px; }
+        .salesman-card { padding: 10px 20px; background: #eef2f5; border-radius: 6px; font-weight: bold; border-left: 4px solid var(--primary); }
 
         .report-tabs { display: flex; gap: 10px; flex-wrap: wrap;}
         .report-tabs .tab-btn { padding: 8px 15px; font-size: 15px; }
@@ -121,7 +154,7 @@
         .swal-stock-info p { margin: 5px 0; color: #333;}
         .swal-stock-info strong { color: var(--primary); }
 
-        /* ================= FIXED PRINT STYLES (MOBILE FRIENDLY) ================= */
+        /* ================= FIXED PRINT STYLES ================= */
         #print-section, #print-report-section { display: none; }
         
         @media print {
@@ -133,14 +166,22 @@
                 display: block !important; width: 58mm; margin: 0 auto; padding: 5mm 0; font-family: 'Hind Siliguri', sans-serif; color: #000; font-size: 12px;
             }
             .receipt-header { text-align: center; margin-bottom: 10px; }
-            .receipt-header h2 { margin: 0; font-size: 18px; color: #000; }
+            .receipt-header h2 { margin: 0; font-size: 18px; color: #000; font-weight: bold; }
             .receipt-header p { margin: 2px 0; font-size: 11px; color: #000; }
+            .receipt-details { margin-top: 8px; text-align: left; font-size: 11px; }
+            .receipt-details p { margin: 1px 0; }
             .dashed-line { border-top: 1px dashed #000; margin: 5px 0; width: 100%; }
+            
             .print-table { width: 100%; font-size: 11px; text-align: left; border-collapse: collapse; margin-bottom: 5px;}
-            .print-table th { background: transparent; color: #000; padding: 2px 0; border-bottom: 1px dashed #000; font-weight: bold;}
-            .print-table td { padding: 3px 0; color: #000; border: none; }
-            .print-total-section { text-align: right; font-size: 14px; font-weight: bold; margin-top: 5px; }
-            .print-footer { text-align: center; font-size: 11px; margin-top: 15px; }
+            .print-table th { background: transparent; color: #000; padding: 3px 0; border-bottom: 1px dashed #000; font-weight: bold;}
+            .print-table td { padding: 3px 0; color: #000; border: none; vertical-align: top; }
+            
+            .print-total-section { text-align: right; font-size: 11px; margin-top: 5px; }
+            .print-total-section p { margin: 2px 0; }
+            .print-grand-total { font-size: 14px; font-weight: bold; border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 4px 0; margin-top: 4px;}
+            
+            .print-footer { text-align: center; font-size: 11px; margin-top: 10px; }
+            .print-footer p { margin: 2px 0; }
 
             body.print-report #print-report-section { display: block !important; width: 100%; padding: 0; margin: 0; font-family: 'Hind Siliguri', sans-serif; color: #000; }
             .doc-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px;}
@@ -169,7 +210,10 @@
             <button id="tab-inventory-btn" class="tab-btn"><i class="fa-solid fa-boxes-stacked"></i> স্টক ম্যানেজমেন্ট</button>
             <button id="tab-reports-btn" class="tab-btn"><i class="fa-solid fa-chart-pie"></i> রিপোর্ট</button>
         </div>
-        <button id="logoutBtn" class="btn-logout"><i class="fa-solid fa-power-off"></i> লগআউট</button>
+        <div>
+            <span style="margin-right: 15px; font-weight: bold; color: var(--secondary);"><i class="fa-solid fa-user"></i> <span id="displaySellerName"></span></span>
+            <button id="logoutBtn" class="btn-logout"><i class="fa-solid fa-power-off"></i> লগআউট</button>
+        </div>
     </div>
 
     <div id="pos-view">
@@ -180,10 +224,19 @@
                 <div id="productGrid" class="product-grid"></div>
             </div>
             <div class="pos-right">
-                <h3 style="border-bottom: 2px solid #ddd; padding-bottom: 10px;"><i class="fa-solid fa-file-invoice"></i> বর্তমান মেমো</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f2f6; padding-bottom: 10px; margin-bottom: 15px;">
+                    <h3 style="margin: 0; color: var(--dark);"><i class="fa-solid fa-file-invoice"></i> বর্তমান মেমো</h3>
+                    <button id="clearCartBtn" class="btn-clear-cart"><i class="fa-solid fa-trash-can"></i> ক্লিয়ার</button>
+                </div>
                 <div style="overflow-x: auto;">
                     <table class="cart-table" id="cartTable">
-                        <thead><tr><th>মাল</th><th class="text-center">পরিমাণ</th><th class="text-right">দাম (৳)</th><th class="text-center"></th></tr></thead>
+                        <thead><tr>
+                            <th style="border-radius: 6px 0 0 6px;">মাল</th>
+                            <th class="text-center">রেট (৳)</th>
+                            <th class="text-center">পরিমাণ</th>
+                            <th class="text-right">মোট (৳)</th>
+                            <th class="text-center" style="border-radius: 0 6px 6px 0;"></th>
+                        </tr></thead>
                         <tbody id="cartBody"></tbody>
                     </table>
                 </div>
@@ -238,6 +291,7 @@
                             <th class="text-right">বিক্রি দাম</th>
                             <th class="text-center">অ্যাকশন</th>
                             <th style="display:none;">AlertLimit</th>
+                            <th style="display:none;">RawStock</th>
                         </tr>
                     </thead>
                     <tbody id="inventoryTable"></tbody>
@@ -260,6 +314,12 @@
             <input type="date" id="reportStartDate">
             <label><strong>পর্যন্ত:</strong></label>
             <input type="date" id="reportEndDate">
+            
+            <label><strong>সেলসম্যান:</strong></label>
+            <select id="salesmanFilter">
+                <option value="All">সবাই</option>
+            </select>
+
             <button id="generateReportBtn"><i class="fa-solid fa-search"></i> খুঁজুন</button>
             <button id="printReportBtn" class="btn-print-report"><i class="fa-solid fa-print"></i> A4 প্রিন্ট</button>
         </div>
@@ -276,11 +336,17 @@
             </div>
         </div>
 
+        <div class="salesman-tracker-box">
+            <h3 style="margin-top:0; color:var(--dark);"><i class="fa-solid fa-users"></i> সেলসম্যানদের পারফরম্যান্স</h3>
+            <div id="salesmanGrid" class="salesman-grid">
+                </div>
+        </div>
+
         <div id="sales-table-container">
             <h3 style="margin-bottom: 15px; color: var(--success); border-bottom: 2px solid #eee; padding-bottom: 8px;"><i class="fa-solid fa-tags"></i> বিক্রির বিস্তারিত রিপোর্ট</h3>
             <table id="salesDataTable" class="display" style="width:100%">
                 <thead style="background: var(--success); color: white;">
-                    <tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">বিক্রি রেট</th><th class="text-right">মোট বিল</th><th class="text-right">লাভ</th></tr>
+                    <tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">বিক্রি রেট</th><th class="text-right">মোট বিল</th><th class="text-right">লাভ</th><th>পেমেন্ট</th><th>বিক্রেতা</th></tr>
                 </thead>
                 <tbody id="repSalesTable"></tbody>
             </table>
@@ -290,7 +356,7 @@
             <h3 style="margin-bottom: 15px; color: #e67e22; border-bottom: 2px solid #eee; padding-bottom: 8px;"><i class="fa-solid fa-truck-loading"></i> স্টক কেনার বিস্তারিত রিপোর্ট</h3>
             <table id="purchaseDataTable" class="display" style="width:100%">
                 <thead style="background: #e67e22; color: white;">
-                    <tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">কেনা রেট</th><th class="text-right">মোট খরচ</th></tr>
+                    <tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">কেনা রেট</th><th class="text-right">মোট খরচ</th><th>এন্ট্রি করেছেন</th></tr>
                 </thead>
                 <tbody id="repPurchaseTable"></tbody>
             </table>
@@ -300,16 +366,42 @@
 
 <div id="print-section">
     <div class="receipt-header">
-        <h2>আমার মুদি দোকান</h2><p>বাইপাইল, ঢাকা</p><p>তারিখ: <span id="printDate"></span></p>
+        <h2>আমার মুদি দোকান</h2>
+        <p>বাইপাইল, সাভার, ঢাকা</p>
+        <p>মোবাইল: ০১৭১২-৩৪৫৬৭৮</p>
     </div>
     <div class="dashed-line"></div>
+    <div class="receipt-details">
+        <p>মেমো নং: <span id="printInvoiceId"></span></p>
+        <p>তারিখ: <span id="printDate"></span></p>
+        <p>বিক্রেতা: <span id="printSeller"></span></p>
+    </div>
+    <div class="dashed-line"></div>
+    
     <table class="print-table">
-        <thead><tr><th style="width: 50%;">বিবরণ</th><th style="width: 20%; text-align: center;">পরিমাণ</th><th style="width: 30%; text-align: right;">মোট (৳)</th></tr></thead>
+        <thead>
+            <tr>
+                <th style="width: 40%;">বিবরণ</th>
+                <th style="width: 20%; text-align: center;">দর (৳)</th>
+                <th style="width: 20%; text-align: center;">পরিমাণ</th>
+                <th style="width: 20%; text-align: right;">মোট (৳)</th>
+            </tr>
+        </thead>
         <tbody id="printCartBody"></tbody>
     </table>
+    
     <div class="dashed-line"></div>
-    <div class="print-total-section">সর্বমোট: ৳ <span id="printTotal">0.00</span></div>
-    <div class="print-footer"><p>ধন্যবাদ! আবার আসবেন।</p></div>
+    <div class="print-total-section">
+        <p>উপ-মোট (Subtotal): ৳ <span id="printSubTotal">0.00</span></p>
+        <p id="printDiscountRow" style="color:#d35400;">ছাড় (Discount): ৳ <span id="printDiscount">0.00</span></p>
+        <p class="print-grand-total">সর্বমোট (Total): ৳ <span id="printTotal">0.00</span></p>
+        <p style="margin-top: 5px; font-weight:bold;">পেমেন্ট মেথড: <span id="printPayMethod">ক্যাশ</span></p>
+    </div>
+    <div class="dashed-line"></div>
+    <div class="print-footer">
+        <p>পণ্য পরিবর্তনের জন্য মেমো সাথে আনুন।</p>
+        <p>ধন্যবাদ! আবার আসবেন।</p>
+    </div>
 </div>
 
 <div id="print-report-section">
@@ -323,7 +415,7 @@
     <div class="doc-table" id="docSalesSection">
         <h3>বিক্রির বিস্তারিত (Sales Statement)</h3>
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-            <thead><tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">রেট (৳)</th><th class="text-right">মোট (৳)</th><th class="text-right">লাভ (৳)</th></tr></thead>
+            <thead><tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">রেট (৳)</th><th class="text-right">মোট (৳)</th><th class="text-right">লাভ (৳)</th><th>পেমেন্ট</th><th>বিক্রেতা</th></tr></thead>
             <tbody id="docSalesBody"></tbody>
         </table>
     </div>
@@ -331,7 +423,7 @@
     <div class="doc-table" id="docPurchaseSection">
         <h3>স্টক কেনার বিস্তারিত (Purchase Statement)</h3>
         <table style="width: 100%; border-collapse: collapse;">
-            <thead><tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">রেট (৳)</th><th class="text-right">মোট (৳)</th></tr></thead>
+            <thead><tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">রেট (৳)</th><th class="text-right">মোট (৳)</th><th>এন্ট্রি করেছেন</th></tr></thead>
             <tbody id="docPurchaseBody"></tbody>
         </table>
     </div>
@@ -340,7 +432,7 @@
 <script type="module">
     /* Firebase Imports */
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, writeBatch, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, writeBatch, increment, enableIndexedDbPersistence, query, where, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     const firebaseConfig = {
@@ -356,8 +448,13 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
+    
+    // OFFLINE PERSISTENCE
+    enableIndexedDbPersistence(db).catch((err) => {
+        console.log("Offline support error: ", err.message);
+    });
 
-    // SECURITY: Sanitize User Inputs (XSS Protection)
+    // SECURITY: Sanitize User Inputs
     const sanitizeHTML = (str) => {
         if (!str) return '';
         return String(str).replace(/[&<>'"]/g, 
@@ -365,13 +462,20 @@
         );
     };
 
-    // UTILITY: Floating Point Math Fix
+    // UTILITY: Floating Point Math Fix (Better Precision)
     const roundNum = (num) => Math.round((parseFloat(num) || 0) * 100) / 100;
+    const toPaisa = (num) => Math.round((parseFloat(num) || 0) * 100);
+    const toTaka = (paisa) => (paisa / 100);
+    
+    // NEW UTILITY: Capitalize First Letter
+    const capitalize = (str) => {
+        if (!str) return '';
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    };
 
     let allProducts = []; 
     let cart = []; 
-    let allSalesLogs = [];
-    let allPurchaseLogs = [];
+    let currentSeller = "অ্যাডমিন";
     
     // TAB LOGIC
     const tabs = ['pos', 'inventory', 'reports'];
@@ -385,25 +489,30 @@
             document.getElementById(`${tab}-view`).classList.remove('hidden');
             
             if(tab === 'pos') { renderPOSGrid(allProducts); document.getElementById('posSearch').focus(); }
-            if(tab === 'reports') loadAllLogsForReports(); 
+            if(tab === 'reports') document.getElementById('generateReportBtn').click(); 
         });
     });
 
+    // FIXED: DataTables Columns Adjust on Tab Switch to prevent layout shift
     document.getElementById('showSalesBtn').addEventListener('click', function() {
         this.classList.add('active'); document.getElementById('showPurchaseBtn').classList.remove('active');
         document.getElementById('sales-table-container').classList.remove('hidden'); document.getElementById('purchase-table-container').classList.add('hidden');
+        if ($.fn.DataTable.isDataTable('#salesDataTable')) { $('#salesDataTable').DataTable().columns.adjust(); }
     });
 
     document.getElementById('showPurchaseBtn').addEventListener('click', function() {
         this.classList.add('active'); document.getElementById('showSalesBtn').classList.remove('active');
         document.getElementById('purchase-table-container').classList.remove('hidden'); document.getElementById('sales-table-container').classList.add('hidden');
+        if ($.fn.DataTable.isDataTable('#purchaseDataTable')) { $('#purchaseDataTable').DataTable().columns.adjust(); }
     });
 
-    // AUTH
+    // AUTH & SELLER TRACKING
     onAuthStateChanged(auth, (user) => {
         if (user) {
             document.getElementById('login-section').classList.add('hidden');
             document.getElementById('dashboard-section').classList.remove('hidden');
+            currentSeller = user.displayName || user.email.split('@')[0];
+            document.getElementById('displaySellerName').innerText = capitalize(currentSeller); // Applied capitalization here too
             loadDataAndInit();
         } else {
             document.getElementById('dashboard-section').classList.add('hidden');
@@ -434,12 +543,12 @@
     // INIT DATA
     async function loadDataAndInit() {
         const querySnapshot = await getDocs(collection(db, "products"));
-        allProducts = []; let totalStockValue = 0; let lowStockCount = 0;
+        allProducts = []; let totalStockValuePaisa = 0; let lowStockCount = 0;
         
         if ($.fn.DataTable.isDataTable('#invDataTable')) { $('#invDataTable').DataTable().clear().destroy(); }
 
         const tableBody = document.getElementById('inventoryTable'); 
-        let tableHtml = ''; // BEST PRACTICE: DOM Batching
+        let tableHtml = ''; 
 
         querySnapshot.forEach((docSnap) => {
             const p = { id: docSnap.id, ...docSnap.data() };
@@ -450,8 +559,8 @@
             
             allProducts.push(p); 
             
-            const currentInvestment = p.quantity > 0 ? (p.quantity * p.buyPrice) : 0;
-            totalStockValue += currentInvestment;
+            const currentInvestmentPaisa = p.quantity > 0 ? toPaisa(p.quantity * p.buyPrice) : 0;
+            totalStockValuePaisa += currentInvestmentPaisa;
             if(p.quantity <= p.alertLimit) lowStockCount++;
 
             tableHtml += `
@@ -459,7 +568,7 @@
                     <td><strong>${sanitizeHTML(p.name)}</strong></td>
                     <td style="color: ${p.quantity > 0 ? 'green' : 'red'}; font-weight:bold;">${p.quantity.toFixed(2)} ${p.unit}</td>
                     <td class="text-right">৳ ${p.buyPrice.toFixed(2)}</td>
-                    <td class="text-right" style="color: #e67e22; font-weight:bold;">৳ ${currentInvestment.toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
+                    <td class="text-right" style="color: #e67e22; font-weight:bold;">৳ ${toTaka(currentInvestmentPaisa).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
                     <td class="text-right" style="color: purple; font-weight:bold;">৳ ${p.sellPrice.toFixed(2)}</td>
                     <td class="action-btns text-center">
                         <button class="btn-add-stock" title="স্টক যোগ করুন" data-id="${p.id}"><i class="fa-solid fa-plus"></i></button>
@@ -467,25 +576,26 @@
                         <button class="btn-delete" title="ডিলিট করুন" data-id="${p.id}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                     <td style="display:none;">${p.alertLimit}</td>
+                    <td style="display:none;">${p.quantity}</td>
                 </tr>
             `;
         });
         
-        tableBody.innerHTML = tableHtml; // One time DOM Update
+        tableBody.innerHTML = tableHtml;
 
         $('#invDataTable').DataTable({
             "pageLength": 10, "order": [],
             "language": { "search": "খুঁজুন:", "lengthMenu": " _MENU_ রেকর্ড/পেজ", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } }
         });
         
-        document.getElementById('statInvestment').innerText = totalStockValue.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        document.getElementById('statInvestment').innerText = toTaka(totalStockValuePaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 });
         document.getElementById('statLowStock').innerText = lowStockCount;
         renderPOSGrid(allProducts); loadOverallStats();
     }
 
     // POS LOGIC
     function renderPOSGrid(products) {
-        let gridHtml = ''; // DOM batching
+        let gridHtml = ''; 
         products.forEach(p => {
             const isOut = p.quantity <= 0;
             const safeName = sanitizeHTML(p.name);
@@ -500,7 +610,6 @@
         document.getElementById('productGrid').innerHTML = gridHtml;
     }
 
-    // POS Event Delegation (Remove window.addToCart)
     document.getElementById('productGrid').addEventListener('click', (e) => {
         const card = e.target.closest('.product-card:not(.out-of-stock)');
         if (card) {
@@ -510,14 +619,18 @@
         }
     });
 
+    let searchTimeout;
     document.getElementById('posSearch').addEventListener('input', (e) => {
-        renderPOSGrid(allProducts.filter(p => p.name.toLowerCase().includes(e.target.value.toLowerCase())));
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            renderPOSGrid(allProducts.filter(p => p.name.toLowerCase().includes(e.target.value.toLowerCase())));
+        }, 300);
     });
 
     function addToCart(p) {
         const existing = cart.find(i => i.id === p.id);
         if (existing) {
-            if (existing.cartQty + 1 > p.quantity) return Swal.fire('সতর্কতা', 'স্টকে পর্যাপ্ত মাল নেই!', 'warning');
+            if (existing.cartQty + 1 > p.quantity) return Swal.fire('সতর্কতা', 'স্টকে পর্যাপ্ত মাল নেই!', 'warning').then(() => document.getElementById('posSearch').focus());
             existing.cartQty += 1;
         } else cart.push({ ...p, cartQty: 1, customSellPrice: p.sellPrice });
         renderCart();
@@ -525,86 +638,214 @@
 
     function updateCartItem(id, field, val) {
         const item = cart.find(i => i.id === id); if(!item) return;
-        val = parseFloat(val) || 0;
-        if (field === 'qty') item.cartQty = val > item.quantity ? item.quantity : (val <= 0 ? 0.01 : val);
-        else if (field === 'price') item.customSellPrice = roundNum(val);
+        let parsedVal = parseFloat(val);
+        if (isNaN(parsedVal)) parsedVal = (field === 'qty') ? 1 : item.sellPrice; 
+        
+        if (field === 'qty') item.cartQty = parsedVal > item.quantity ? item.quantity : (parsedVal <= 0 ? 0.01 : parsedVal);
+        else if (field === 'price') item.customSellPrice = roundNum(parsedVal);
         renderCart();
     }
     
     function removeFromCart(id) { 
         cart = cart.filter(i => i.id !== id); 
         renderCart(); 
+        document.getElementById('posSearch').focus();
     }
 
-    // Cart Event Delegation
-    document.getElementById('cartBody').addEventListener('input', (e) => {
+    document.getElementById('cartBody').addEventListener('change', (e) => {
         if (e.target.classList.contains('cart-qty-input')) updateCartItem(e.target.dataset.id, 'qty', e.target.value);
         if (e.target.classList.contains('cart-price-input')) updateCartItem(e.target.dataset.id, 'price', e.target.value);
     });
 
     document.getElementById('cartBody').addEventListener('click', (e) => {
-        const btn = e.target.closest('.btn-remove');
-        if (btn) removeFromCart(btn.dataset.id);
+        const btnRemove = e.target.closest('.btn-remove');
+        const btnPlus = e.target.closest('.plus-btn');
+        const btnMinus = e.target.closest('.minus-btn');
+
+        if (btnRemove) removeFromCart(btnRemove.dataset.id);
+        if (btnPlus) {
+            const id = btnPlus.dataset.id;
+            const item = cart.find(i => i.id === id);
+            if(item) updateCartItem(id, 'qty', item.cartQty + 1);
+        }
+        if (btnMinus) {
+            const id = btnMinus.dataset.id;
+            const item = cart.find(i => i.id === id);
+            if(item) updateCartItem(id, 'qty', item.cartQty - 1);
+        }
+    });
+
+    document.getElementById('clearCartBtn').addEventListener('click', () => {
+        if(cart.length === 0) return;
+        Swal.fire({
+            title: 'কার্ট ক্লিয়ার করবেন?', text: "কার্টের সব মাল মুছে যাবে!", icon: 'warning',
+            showCancelButton: true, confirmButtonColor: '#e74c3c', cancelButtonColor: '#95a5a6', confirmButtonText: 'হ্যাঁ, ক্লিয়ার করুন', cancelButtonText: 'বাতিল'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                cart = []; renderCart(); document.getElementById('posSearch').focus();
+            }
+        });
     });
 
     function renderCart() {
         const tbody = document.getElementById('cartBody'); 
-        let html = ''; let total = 0; // PERFORMANCE FIX: DOM Batching
+        let html = ''; let totalPaisa = 0; 
         
         cart.forEach(item => {
-            total += roundNum(item.cartQty * item.customSellPrice);
+            const itemTotalPaisa = toPaisa(item.cartQty * item.customSellPrice);
+            totalPaisa += itemTotalPaisa;
             const safeName = sanitizeHTML(item.name);
             html += `
                 <tr>
-                    <td><strong>${safeName}</strong><br><small>${item.unit}</small></td>
-                    <td class="text-center"><input type="number" step="any" min="0.01" value="${item.cartQty}" class="cart-qty-input" data-id="${item.id}"></td>
-                    <td class="text-right"><input type="number" step="any" min="0" value="${item.customSellPrice}" class="cart-price-input" data-id="${item.id}"></td>
-                    <td class="text-center"><button class="btn-remove" data-id="${item.id}"><i class="fa-solid fa-xmark"></i></button></td>
+                    <td><strong>${safeName}</strong><br><small style="color:#7f8fa6; font-weight:500;">${item.unit}</small></td>
+                    <td class="text-center">
+                        <input type="number" step="any" min="0" value="${item.customSellPrice}" class="cart-price-input" data-id="${item.id}">
+                    </td>
+                    <td class="text-center">
+                        <div class="qty-wrapper">
+                            <button class="qty-btn minus-btn" data-id="${item.id}"><i class="fa-solid fa-minus" style="font-size:10px;"></i></button>
+                            <input type="number" step="any" min="0.01" value="${item.cartQty}" class="cart-qty-input" data-id="${item.id}">
+                            <button class="qty-btn plus-btn" data-id="${item.id}"><i class="fa-solid fa-plus" style="font-size:10px;"></i></button>
+                        </div>
+                    </td>
+                    <td class="text-right" style="color:var(--primary); font-weight:bold; font-size:16px;">${toTaka(itemTotalPaisa).toFixed(2)}</td>
+                    <td class="text-center"><button class="btn-remove" data-id="${item.id}" title="মুছে ফেলুন"><i class="fa-solid fa-trash"></i></button></td>
                 </tr>
             `;
         });
         
         tbody.innerHTML = html;
-        document.getElementById('cartTotalVal').innerText = total.toLocaleString('en-IN', {minimumFractionDigits: 2});
+        document.getElementById('cartTotalVal').innerText = toTaka(totalPaisa).toLocaleString('en-IN', {minimumFractionDigits: 2});
     }
 
+    // ================= SECURE CHECKOUT WITH TRANSACTION =================
     document.getElementById('checkoutBtn').addEventListener('click', async () => {
-        if(cart.length === 0) return Swal.fire('কার্ট খালি', 'আগে কার্টে মাল যুক্ত করুন', 'warning');
-        const totalToPay = cart.reduce((sum, item) => sum + roundNum(item.cartQty * item.customSellPrice), 0);
+        if(cart.length === 0) return Swal.fire('কার্ট খালি', 'আগে কার্টে মাল যুক্ত করুন', 'warning').then(()=> document.getElementById('posSearch').focus());
+        const totalToPayPaisa = cart.reduce((sum, item) => sum + toPaisa(item.cartQty * item.customSellPrice), 0);
+        const totalToPay = toTaka(totalToPayPaisa);
         
+        const swalHtml = `
+            <div style="text-align:left; font-family:'Hind Siliguri', sans-serif;">
+                <h3 style="color:var(--dark); text-align:center; margin-top:0;">উপ-মোট: ৳ ${totalToPay.toFixed(2)}</h3>
+                
+                <div style="background:#f8f9fa; padding:15px; border-radius:8px; border:1px solid #ddd; margin-top:15px;">
+                    <label style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px;">ছাড় (Discount) ৳:</label>
+                    <input type="number" id="swalDiscount" class="swal2-input" placeholder="0" min="0" style="margin:0; width:100%; box-sizing:border-box;">
+                    
+                    <h3 style="color:var(--success); text-align:center; border-top:2px dashed #ccc; padding-top:15px; margin-top:15px; font-size:22px;">
+                        চুড়ান্ত বিল: ৳ <span id="swalGrandTotal">${totalToPay.toFixed(2)}</span>
+                    </h3>
+                </div>
+
+                <label style="font-weight:bold; font-size:14px; display:block; margin-top:15px;">পেমেন্ট মেথড:</label>
+                <div class="pay-method-group">
+                    <label class="pay-method-label"><input type="radio" name="payMethod" value="Cash" checked> 💵 ক্যাশ</label>
+                    <label class="pay-method-label"><input type="radio" name="payMethod" value="bKash"> 🦅 বিকাশ</label>
+                    <label class="pay-method-label"><input type="radio" name="payMethod" value="Nagad"> 🟠 নগদ</label>
+                    <label class="pay-method-label"><input type="radio" name="payMethod" value="Rocket"> 🚀 রকেট</label>
+                </div>
+
+                <div style="margin-top:15px; background:#eef2f5; padding:15px; border-radius:8px; border:1px solid #c8d6e5;">
+                    <label style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px;">কাস্টমার দিয়েছে (৳):</label>
+                    <input type="number" id="swalGiven" class="swal2-input" placeholder="কাস্টমার কত টাকা দিয়েছে?" min="0" style="margin:0; width:100%; box-sizing:border-box;">
+                    <p style="margin:10px 0 0 0; font-weight:bold; font-size:18px; color:var(--danger); text-align:center;">
+                        ফেরত (Change): ৳ <span id="swalChange">0.00</span>
+                    </p>
+                </div>
+            </div>
+        `;
+
         const confirmResult = await Swal.fire({
-            title: 'বিল কনফার্ম করবেন?', text: `মোট বিল: ৳ ${totalToPay.toLocaleString('en-IN', {minimumFractionDigits:2})}`, 
-            icon: 'question', showCancelButton: true, confirmButtonColor: '#27ae60', confirmButtonText: 'হ্যাঁ, কনফার্ম করুন', cancelButtonText: 'বাতিল'
+            title: 'বিল পেমেন্ট কনফার্মেশন', html: swalHtml, showCancelButton: true, confirmButtonColor: '#27ae60',
+            confirmButtonText: '<i class="fa-solid fa-check-circle"></i> বিল সেভ করুন', cancelButtonText: 'বাতিল', width: '450px',
+            didOpen: () => {
+                const discountInput = document.getElementById('swalDiscount'); const givenInput = document.getElementById('swalGiven');
+                const grandTotalEl = document.getElementById('swalGrandTotal'); const changeEl = document.getElementById('swalChange');
+
+                const updateCalc = () => {
+                    const discount = parseFloat(discountInput.value) || 0;
+                    const grandTotal = totalToPay - discount;
+                    grandTotalEl.innerText = grandTotal > 0 ? grandTotal.toFixed(2) : "0.00";
+                    const given = parseFloat(givenInput.value) || 0; const change = given - grandTotal;
+                    changeEl.innerText = change > 0 ? change.toFixed(2) : "0.00";
+                };
+                discountInput.addEventListener('input', updateCalc); givenInput.addEventListener('input', updateCalc);
+            },
+            preConfirm: () => {
+                const discount = parseFloat(document.getElementById('swalDiscount').value) || 0;
+                const method = document.querySelector('input[name="payMethod"]:checked').value;
+                if(discount > totalToPay) { Swal.showValidationMessage('ছাড়ের পরিমাণ মোট বিলের চেয়ে বেশি হতে পারবে মোহনা!'); return false; }
+                return { discount, method, grandTotal: totalToPay - discount };
+            }
         });
 
         if (confirmResult.isConfirmed) {
+            const checkoutData = confirmResult.value;
             Swal.fire({ title: 'প্রসেস হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+            
             try {
-                const batch = writeBatch(db); const now = new Date(); const nowStr = now.toLocaleString('en-GB'); const timestamp = now.getTime();
-                document.getElementById('printDate').innerText = nowStr;
+                const now = new Date(); const nowStr = now.toLocaleString('en-GB'); const timestamp = now.getTime();
+                const invoiceId = 'INV-' + timestamp.toString().slice(-6);
+                
                 let printHtml = ''; 
-                
-                let shareMessage = `*আমার মুদি দোকান*\nতারিখ: ${nowStr}\n\n*মালের বিবরণ:*\n`;
+                let shareMessage = `*আমার মুদি দোকান*\nমেমো নং: ${invoiceId}\nতারিখ: ${nowStr}\nবিক্রেতা: ${capitalize(currentSeller)}\n\n*মালের বিবরণ:*\n`;
 
-                cart.forEach(item => {
-                    const cartQty = roundNum(item.cartQty);
-                    batch.update(doc(db, "products", item.id), { quantity: increment(-cartQty) });
+                await runTransaction(db, async (transaction) => {
+                    const productRefs = cart.map(item => doc(db, "products", item.id));
+                    const productDocs = await Promise.all(productRefs.map(ref => transaction.get(ref)));
                     
-                    const tSales = roundNum(cartQty * item.customSellPrice);
-                    const profit = roundNum(tSales - (cartQty * item.buyPrice));
-                    
-                    batch.set(doc(collection(db, "sales_logs")), {
-                        date: nowStr, productName: sanitizeHTML(item.name), sellQty: cartQty, unit: item.unit, actualSellRate: item.customSellPrice, totalPrice: tSales, profit: profit, timestamp: timestamp
+                    let outOfStockErrors = [];
+                    productDocs.forEach((pDoc, index) => {
+                        if (pDoc.data().quantity < cart[index].cartQty) outOfStockErrors.push(cart[index].name);
                     });
-                    
-                    printHtml += `<tr><td>${sanitizeHTML(item.name)}</td><td style="text-align: center;">${cartQty}</td><td style="text-align: right;">${tSales.toFixed(2)}</td></tr>`;
-                    shareMessage += `- ${sanitizeHTML(item.name)}: ${cartQty} ${item.unit} = ৳ ${tSales.toFixed(2)}\n`;
+
+                    if (outOfStockErrors.length > 0) throw new Error(`দুঃখিত, স্টকে মাল নেই: ${outOfStockErrors.join(', ')}`);
+
+                    productDocs.forEach((pDoc, index) => {
+                        const item = cart[index];
+                        const cartQty = roundNum(item.cartQty);
+                        
+                        transaction.update(pDoc.ref, { quantity: increment(-cartQty) });
+                        
+                        const tSalesPaisa = toPaisa(cartQty * item.customSellPrice);
+                        const itemWeight = tSalesPaisa / totalToPayPaisa;
+                        const itemDiscountPaisa = toPaisa(checkoutData.discount * itemWeight);
+                        const finalSalesValPaisa = tSalesPaisa - itemDiscountPaisa;
+                        const profitPaisa = finalSalesValPaisa - toPaisa(cartQty * item.buyPrice);
+                        
+                        const logRef = doc(collection(db, "sales_logs"));
+                        transaction.set(logRef, {
+                            date: nowStr, productName: sanitizeHTML(item.name), sellQty: cartQty, unit: item.unit, 
+                            actualSellRate: item.customSellPrice, totalPrice: toTaka(finalSalesValPaisa), 
+                            profit: toTaka(profitPaisa), timestamp: timestamp, sellerName: currentSeller, paymentMethod: checkoutData.method
+                        });
+                        
+                        printHtml += `<tr>
+                            <td>${sanitizeHTML(item.name)}</td><td style="text-align: center;">${item.customSellPrice}</td>
+                            <td style="text-align: center;">${cartQty} ${item.unit}</td><td style="text-align: right;">${toTaka(tSalesPaisa).toFixed(2)}</td>
+                        </tr>`;
+                        shareMessage += `- ${sanitizeHTML(item.name)}: ${cartQty} ${item.unit} = ৳ ${toTaka(tSalesPaisa).toFixed(2)}\n`;
+                    });
                 });
-                
+
+                document.getElementById('printDate').innerText = nowStr;
+                document.getElementById('printInvoiceId').innerText = invoiceId;
+                document.getElementById('printSeller').innerText = capitalize(currentSeller);
                 document.getElementById('printCartBody').innerHTML = printHtml;
-                shareMessage += `\n*সর্বমোট বিল: ৳ ${totalToPay.toFixed(2)}*\n\nধন্যবাদ! আবার আসবেন।`;
-                document.getElementById('printTotal').innerText = totalToPay.toFixed(2);
-                await batch.commit(); Swal.close();
+                
+                document.getElementById('printSubTotal').innerText = totalToPay.toFixed(2);
+                document.getElementById('printDiscount').innerText = checkoutData.discount.toFixed(2);
+                document.getElementById('printDiscountRow').style.display = checkoutData.discount > 0 ? 'block' : 'none';
+                document.getElementById('printTotal').innerText = checkoutData.grandTotal.toFixed(2);
+                
+                const methodNames = { 'Cash': 'ক্যাশ', 'bKash': 'বিকাশ', 'Nagad': 'নগদ', 'Rocket': 'রকেট' };
+                document.getElementById('printPayMethod').innerText = methodNames[checkoutData.method];
+
+                shareMessage += `\nউপ-মোট: ৳ ${totalToPay.toFixed(2)}`;
+                if(checkoutData.discount > 0) shareMessage += `\nছাড়: ৳ ${checkoutData.discount.toFixed(2)}`;
+                shareMessage += `\n*সর্বমোট বিল: ৳ ${checkoutData.grandTotal.toFixed(2)}*\nপেমেন্ট: ${methodNames[checkoutData.method]}\n\nধন্যবাদ! আবার আসবেন।`;
+                
+                Swal.close();
                 
                 const actionResult = await Swal.fire({
                     title: 'বিল সম্পন্ন!', icon: 'success', showDenyButton: true, showCancelButton: true,
@@ -612,32 +853,33 @@
                 });
 
                 if (actionResult.isConfirmed) { 
-                    // 🚨 NEW MOBILE PRINT FIX 🚨
                     document.body.classList.add('print-receipt'); 
                     setTimeout(() => {
                         window.print();
                         const cleanPrint = () => {
                             document.body.classList.remove('print-receipt');
+                            document.getElementById('posSearch').focus();
                             window.removeEventListener('focus', cleanPrint);
                             window.removeEventListener('afterprint', cleanPrint);
                         };
                         window.addEventListener('afterprint', cleanPrint);
-                        setTimeout(() => {
-                            window.addEventListener('focus', cleanPrint);
-                        }, 2000);
+                        setTimeout(() => window.addEventListener('focus', cleanPrint), 2000);
                     }, 800);
                 } 
                 else if (actionResult.isDenied) {
                     if (navigator.share) navigator.share({ title: 'ক্যাশ মেমো', text: shareMessage }).catch(e => console.log(e));
                     else window.open(`https://wa.me/?text=${encodeURIComponent(shareMessage)}`, '_blank');
-                }
+                    document.getElementById('posSearch').focus();
+                } else { document.getElementById('posSearch').focus(); }
                 
                 cart = []; renderCart(); document.getElementById('posSearch').value = ''; loadDataAndInit();
-            } catch (error) { Swal.fire('ত্রুটি!', 'বিল করতে সমস্যা হয়েছে।', 'error'); }
-        }
+            } catch (error) { 
+                Swal.fire('ত্রুটি!', error.message || 'বিল করতে সমস্যা হয়েছে।', 'error'); 
+            }
+        } else { document.getElementById('posSearch').focus(); }
     });
 
-    // INVENTORY OPERATIONS (Event Delegation)
+    // INVENTORY OPERATIONS
     document.getElementById('addBtn').addEventListener('click', async () => {
         const n = document.getElementById('productName').value;
         const q = parseFloat(document.getElementById('productQty').value);
@@ -649,8 +891,11 @@
         if(n && !isNaN(q) && !isNaN(b) && !isNaN(s) && q > 0) {
             Swal.fire({ title: 'সেভ হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
             await addDoc(collection(db, "products"), { name: n, quantity: q, unit: u, buyPrice: b, sellPrice: s, alertLimit: limit });
+            
+            // NEW: Added addedBy Field
             await addDoc(collection(db, "purchase_logs"), {
-                date: new Date().toLocaleString('en-GB'), productName: n, addedQty: q, unit: u, buyPrice: b, totalCost: roundNum(q * b), timestamp: Date.now()
+                date: new Date().toLocaleString('en-GB'), productName: n, addedQty: q, unit: u, buyPrice: b, totalCost: roundNum(q * b), timestamp: Date.now(),
+                addedBy: currentSeller 
             });
             document.querySelectorAll('.form-group input').forEach(el => el.value = '');
             Swal.fire({toast:true, position:'top-end', icon:'success', title:'যুক্ত হয়েছে', showConfirmButton:false, timer:1500});
@@ -658,11 +903,9 @@
         } else Swal.fire('সতর্কতা', 'সবগুলো তথ্য সঠিকভাবে পূরণ করুন।', 'warning');
     });
 
-    // Event Delegation for Datatables Action Buttons
     document.getElementById('inventory-view').addEventListener('click', (e) => {
         const btn = e.target.closest('button');
         if (!btn || !btn.dataset.id) return;
-        
         const id = btn.dataset.id;
         if (btn.classList.contains('btn-add-stock')) addStock(id);
         else if (btn.classList.contains('btn-edit')) editProduct(id);
@@ -696,7 +939,12 @@
                 }
                 
                 await updateDoc(doc(db, "products", id), { quantity: finalQty, buyPrice: avgBuyPrice, sellPrice: newSellPrice });
-                await addDoc(collection(db, "purchase_logs"), { date: new Date().toLocaleString('en-GB'), productName: p.name, addedQty: addedQty, unit: p.unit, buyPrice: newBuyPrice, totalCost: roundNum(addedQty * newBuyPrice), timestamp: Date.now() });
+                
+                // NEW: Added addedBy Field
+                await addDoc(collection(db, "purchase_logs"), { 
+                    date: new Date().toLocaleString('en-GB'), productName: p.name, addedQty: addedQty, unit: p.unit, buyPrice: newBuyPrice, totalCost: roundNum(addedQty * newBuyPrice), timestamp: Date.now(),
+                    addedBy: currentSeller
+                });
                 Swal.fire({toast:true, position:'top-end', icon:'success', title:'স্টক আপডেট হয়েছে', showConfirmButton:false, timer:1500}); loadDataAndInit();
             }
         }
@@ -729,55 +977,114 @@
     }
 
     async function loadOverallStats() {
-        const querySnapshot = await getDocs(collection(db, "sales_logs")); let totalSales = 0; let totalProfit = 0;
-        querySnapshot.forEach(d => { totalSales += (parseFloat(d.data().totalPrice) || 0); totalProfit += (parseFloat(d.data().profit) || 0); });
-        document.getElementById('statSales').innerText = totalSales.toLocaleString('en-IN', { minimumFractionDigits: 2 }); document.getElementById('statProfit').innerText = totalProfit.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        const querySnapshot = await getDocs(collection(db, "sales_logs")); let totalSalesPaisa = 0; let totalProfitPaisa = 0;
+        querySnapshot.forEach(d => { totalSalesPaisa += toPaisa(d.data().totalPrice); totalProfitPaisa += toPaisa(d.data().profit); });
+        document.getElementById('statSales').innerText = toTaka(totalSalesPaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 }); 
+        document.getElementById('statProfit').innerText = toTaka(totalProfitPaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 });
     }
 
-    // EXCEL EXPORT & REPORTS
-    async function loadAllLogsForReports() {
-        const sSnap = await getDocs(collection(db, "sales_logs")); allSalesLogs = []; sSnap.forEach(d => allSalesLogs.push(d.data())); allSalesLogs.sort((a, b) => b.timestamp - a.timestamp);
-        const pSnap = await getDocs(collection(db, "purchase_logs")); allPurchaseLogs = []; pSnap.forEach(d => allPurchaseLogs.push(d.data())); allPurchaseLogs.sort((a, b) => b.timestamp - a.timestamp);
-        renderReports(allSalesLogs, allPurchaseLogs);
-    }
+    // EXCEL EXPORT & DATE RANGE REPORTS WITH FILTER
+    document.getElementById('generateReportBtn').addEventListener('click', async () => {
+        const start = document.getElementById('reportStartDate').value; 
+        const end = document.getElementById('reportEndDate').value;
+        const selectedSalesman = document.getElementById('salesmanFilter').value; // Get filtered salesman
 
-    document.getElementById('generateReportBtn').addEventListener('click', () => {
-        const start = document.getElementById('reportStartDate').value; const end = document.getElementById('reportEndDate').value;
-        let filteredSales = allSalesLogs; let filteredPurchases = allPurchaseLogs;
-        if (start && end) {
-            const startTimestamp = new Date(start + "T00:00:00").getTime(); const endTimestamp = new Date(end + "T23:59:59").getTime();
-            filteredSales = allSalesLogs.filter(log => log.timestamp >= startTimestamp && log.timestamp <= endTimestamp);
-            filteredPurchases = allPurchaseLogs.filter(log => log.timestamp >= startTimestamp && log.timestamp <= endTimestamp);
-            document.getElementById('docDateRange').innerText = `${start} থেকে ${end}`;
-        } else document.getElementById('docDateRange').innerText = "সম্পূর্ণ সময়কাল";
-        renderReports(filteredSales, filteredPurchases);
+        let sLogs = []; let pLogs = [];
+        
+        Swal.fire({ title: 'ডেটা লোড হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+        try {
+            let salesQuery = collection(db, "sales_logs");
+            let purchaseQuery = collection(db, "purchase_logs");
+
+            if (start && end) {
+                const startTimestamp = new Date(start + "T00:00:00").getTime(); 
+                const endTimestamp = new Date(end + "T23:59:59").getTime();
+                salesQuery = query(salesQuery, where("timestamp", ">=", startTimestamp), where("timestamp", "<=", endTimestamp));
+                purchaseQuery = query(purchaseQuery, where("timestamp", ">=", startTimestamp), where("timestamp", "<=", endTimestamp));
+                document.getElementById('docDateRange').innerText = `${start} থেকে ${end}`;
+            } else {
+                document.getElementById('docDateRange').innerText = "সম্পূর্ণ সময়কাল";
+            }
+
+            const sSnap = await getDocs(salesQuery);
+            sSnap.forEach(d => sLogs.push(d.data())); 
+            sLogs.sort((a, b) => b.timestamp - a.timestamp);
+            
+            const pSnap = await getDocs(purchaseQuery);
+            pSnap.forEach(d => pLogs.push(d.data())); 
+            pLogs.sort((a, b) => b.timestamp - a.timestamp);
+
+            // Populate the Dropdown with unique salesman names (Runs smoothly on all datasets)
+            const uniqueSalesmen = [...new Set(sLogs.map(l => capitalize(l.sellerName || 'অ্যাডমিন')))];
+            const selectEl = document.getElementById('salesmanFilter');
+            if (selectEl.options.length === 1) { // Only 'All' exists right now
+                uniqueSalesmen.forEach(name => {
+                    let opt = document.createElement('option');
+                    opt.value = name; opt.innerText = name;
+                    selectEl.appendChild(opt);
+                });
+            }
+
+            // Apply Salesman Filter (This isolates the data before rendering & exporting!)
+            if (selectedSalesman !== 'All') {
+                sLogs = sLogs.filter(l => capitalize(l.sellerName || 'অ্যাডমিন') === selectedSalesman);
+                // By business logic, usually we only filter the Sales table for salesman performance.
+            }
+            
+            renderReports(sLogs, pLogs);
+            Swal.close();
+        } catch(e) {
+            Swal.fire('ত্রুটি!', 'রিপোর্ট জেনারেট করতে সমস্যা হয়েছে।', 'error');
+        }
     });
 
     function renderReports(salesLogs, purchaseLogs) {
-        let tSales = 0; let tProfit = 0; let tPurchase = 0;
+        let tSalesPaisa = 0; let tProfitPaisa = 0; let tPurchasePaisa = 0;
+        let salesmanData = {};
+        const methodNames = { 'Cash': 'ক্যাশ', 'bKash': 'বিকাশ', 'Nagad': 'নগদ', 'Rocket': 'রকেট' };
 
         if ($.fn.DataTable.isDataTable('#salesDataTable')) $('#salesDataTable').DataTable().clear().destroy();
         if ($.fn.DataTable.isDataTable('#purchaseDataTable')) $('#purchaseDataTable').DataTable().clear().destroy();
         
         let sHtml = ''; let dSalesHtml = '';
         salesLogs.forEach(l => {
-            tSales += (parseFloat(l.totalPrice) || 0); tProfit += (parseFloat(l.profit) || 0);
-            let rowHtml = `<tr><td>${l.date}</td><td>${sanitizeHTML(l.productName)}</td><td>${l.sellQty} ${l.unit}</td><td class="text-right">${parseFloat(l.actualSellRate).toFixed(2)}</td><td class="text-right">${(l.totalPrice || 0).toFixed(2)}</td><td class="text-right">${(l.profit||0).toFixed(2)}</td></tr>`;
+            const pricePaisa = toPaisa(l.totalPrice);
+            tSalesPaisa += pricePaisa; 
+            tProfitPaisa += toPaisa(l.profit);
+            
+            const seller = capitalize(l.sellerName || 'অ্যাডমিন');
+            const method = methodNames[l.paymentMethod] || 'ক্যাশ';
+            
+            // Populate salesman summary
+            if(!salesmanData[seller]) salesmanData[seller] = 0;
+            salesmanData[seller] += pricePaisa;
+            
+            let rowHtml = `<tr><td>${l.date}</td><td>${sanitizeHTML(l.productName)}</td><td>${l.sellQty} ${l.unit}</td><td class="text-right">${parseFloat(l.actualSellRate).toFixed(2)}</td><td class="text-right">${(l.totalPrice || 0).toFixed(2)}</td><td class="text-right">${(l.profit||0).toFixed(2)}</td><td>${method}</td><td>${seller}</td></tr>`;
             sHtml += rowHtml; dSalesHtml += rowHtml; 
         });
         document.getElementById('repSalesTable').innerHTML = sHtml; 
         document.getElementById('docSalesBody').innerHTML = dSalesHtml;
 
+        // Render Salesman Stats UI
+        let salesmanHtml = '';
+        for(let s in salesmanData) {
+            salesmanHtml += `<div class="salesman-card">${s}: <span style="color:var(--success);">৳ ${toTaka(salesmanData[s]).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></div>`;
+        }
+        if(Object.keys(salesmanData).length === 0) salesmanHtml = '<p style="color:#888;">কোনো সেলস ডেটা নেই</p>';
+        document.getElementById('salesmanGrid').innerHTML = salesmanHtml;
+
         let pHtml = ''; let dPurchaseHtml = '';
         purchaseLogs.forEach(l => {
-            tPurchase += (parseFloat(l.totalCost) || 0);
-            let rowHtml = `<tr><td>${l.date}</td><td>${sanitizeHTML(l.productName)}</td><td>${l.addedQty} ${l.unit}</td><td class="text-right">${parseFloat(l.buyPrice).toFixed(2)}</td><td class="text-right">${(l.totalCost || 0).toFixed(2)}</td></tr>`;
+            tPurchasePaisa += toPaisa(l.totalCost);
+            const addedBy = capitalize(l.addedBy || 'অ্যাডমিন'); // NEW: Stock Entered By
+
+            let rowHtml = `<tr><td>${l.date}</td><td>${sanitizeHTML(l.productName)}</td><td>${l.addedQty} ${l.unit}</td><td class="text-right">${parseFloat(l.buyPrice).toFixed(2)}</td><td class="text-right">${(l.totalCost || 0).toFixed(2)}</td><td>${addedBy}</td></tr>`;
             pHtml += rowHtml; dPurchaseHtml += rowHtml; 
         });
         document.getElementById('repPurchaseTable').innerHTML = pHtml; 
         document.getElementById('docPurchaseBody').innerHTML = dPurchaseHtml;
 
-        // Init DataTables with Excel export buttons
         $('#salesDataTable').DataTable({
             "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'],
             "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } }
@@ -787,10 +1094,11 @@
             "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } }
         });
 
-        document.getElementById('repTotalSales').innerText = tSales.toLocaleString('en-IN', { minimumFractionDigits: 2 }); document.getElementById('repTotalProfit').innerText = tProfit.toLocaleString('en-IN', { minimumFractionDigits: 2 }); document.getElementById('repTotalPurchase').innerText = tPurchase.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        document.getElementById('repTotalSales').innerText = toTaka(tSalesPaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 }); 
+        document.getElementById('repTotalProfit').innerText = toTaka(tProfitPaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 }); 
+        document.getElementById('repTotalPurchase').innerText = toTaka(tPurchasePaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 });
     }
 
-    // PRINT REPORTS (🚨 NEW MOBILE FIX 🚨)
     document.getElementById('printReportBtn').addEventListener('click', () => {
         if (document.getElementById('showSalesBtn').classList.contains('active')) {
             document.getElementById('docSalesSection').classList.remove('hidden-print'); document.getElementById('docPurchaseSection').classList.add('hidden-print'); document.getElementById('printReportTitle').innerText = "বিক্রির রিপোর্ট";
@@ -813,13 +1121,12 @@
         }, 800);
     });
 
-    // ALERT CARD FILTER & RESET FIX
     document.getElementById('alertCardBtn').addEventListener('click', () => {
         $.fn.dataTable.ext.search = [];
         $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-            const stockStr = parseFloat(data[1].split(' ')[0]);
             const limit = parseFloat(data[6]); 
-            return stockStr <= limit;
+            const rawStock = parseFloat(data[7]); 
+            return rawStock <= limit;
         });
         
         $('#invDataTable').DataTable().draw();
@@ -829,7 +1136,6 @@
         document.getElementById('invDataTable').scrollIntoView({behavior: 'smooth'});
     });
 
-    // RESET FILTER BUTTON LOGIC
     document.getElementById('resetFilterBtn').addEventListener('click', () => {
         $.fn.dataTable.ext.search = []; 
         $('#invDataTable').DataTable().draw(); 
