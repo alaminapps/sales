@@ -70,7 +70,6 @@
         /* POS Specific Design */
         .pos-grid { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
         .pos-left { flex: 1.2; min-width: 300px; background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; }
-        
         .pos-right { flex: 0.8; min-width: 300px; background: #fff; padding: 25px; border-radius: 12px; position: sticky; top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #eee; }
         
         .search-box { width: 100%; padding: 15px; font-size: 18px; border: 2px solid var(--primary); border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; transition: 0.3s;}
@@ -105,7 +104,6 @@
         
         .btn-remove { background: #ffeaa7; color: var(--danger); border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
         .btn-remove:hover { background: var(--danger); color: white; }
-        
         .btn-clear-cart { background: #f8f9fa; color: var(--danger); border: 1px solid #fad390; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; transition: 0.2s;}
 
         .hidden { display: none !important; }
@@ -114,6 +112,7 @@
         .btn-edit { background: #f39c12; }
         .btn-delete { background: var(--danger); }
         .btn-pay-due { background: var(--success); color: white; font-weight: bold; padding: 8px 15px !important;}
+        .btn-history { background: var(--primary); color: white; font-weight: bold; padding: 8px 15px !important;}
 
         .pay-method-group { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
         .pay-method-label { flex: 1; min-width: 80px; padding: 10px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-weight: bold; text-align: center; font-size: 14px; transition: 0.2s; background: #fff;}
@@ -146,6 +145,9 @@
         .swal-stock-info { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: left; border: 1px solid #ddd; font-size: 15px; }
         .swal-stock-info p { margin: 5px 0; color: #333;}
         .swal-stock-info strong { color: var(--primary); }
+        
+        .history-table th { background: #34495e; color: white; padding: 8px; font-size: 14px;}
+        .history-table td { padding: 8px; font-size: 14px; border-bottom: 1px solid #eee;}
 
         #print-section, #print-report-section { display: none; }
         
@@ -196,13 +198,12 @@
 </div>
 
 <div id="dashboard-section" class="container hidden">
-    <!-- NEW TABS ADDED HERE -->
     <div class="header-top">
         <div class="tabs">
             <button id="tab-pos-btn" class="tab-btn active"><i class="fa-solid fa-calculator"></i> POS</button>
             <button id="tab-inventory-btn" class="tab-btn"><i class="fa-solid fa-boxes-stacked"></i> স্টক</button>
             <button id="tab-expense-btn" class="tab-btn"><i class="fa-solid fa-money-bill-wave"></i> খরচ</button>
-            <button id="tab-due-btn" class="tab-btn"><i class="fa-solid fa-book"></i> বাকি</button>
+            <button id="tab-due-btn" class="tab-btn"><i class="fa-solid fa-book"></i> বাকি ও খাতা</button>
             <button id="tab-partner-btn" class="tab-btn"><i class="fa-solid fa-handshake"></i> পার্টনার</button>
             <button id="tab-reports-btn" class="tab-btn"><i class="fa-solid fa-chart-pie"></i> রিপোর্ট</button>
         </div>
@@ -212,7 +213,6 @@
         </div>
     </div>
 
-    <!-- POS View -->
     <div id="pos-view">
         <div class="pos-grid">
             <div class="pos-left">
@@ -244,7 +244,6 @@
         </div>
     </div>
 
-    <!-- Inventory View -->
     <div id="inventory-view" class="hidden">
         <div class="dashboard-stats">
             <div class="stat-card bg-blue">
@@ -298,7 +297,6 @@
         </div>
     </div>
 
-    <!-- NEW: Expense View -->
     <div id="expense-view" class="hidden">
         <h2 style="color: var(--danger);"><i class="fa-solid fa-money-bill-wave"></i> দোকানের খরচ</h2>
         <div class="form-group">
@@ -314,12 +312,11 @@
         </div>
     </div>
 
-    <!-- NEW: Due View -->
     <div id="due-view" class="hidden">
-        <h2 style="color: #e67e22;"><i class="fa-solid fa-book"></i> বাকির খাতা</h2>
+        <h2 style="color: #e67e22;"><i class="fa-solid fa-book"></i> বাকির খাতা ও লেজার</h2>
         <div class="form-group">
             <input type="text" id="dueCusName" placeholder="কাস্টমারের নাম">
-            <input type="text" id="dueCusPhone" placeholder="মোবাইল নাম্বার">
+            <input type="text" id="dueCusPhone" placeholder="মোবাইল নাম্বার (Primary ID)">
             <input type="number" step="any" id="dueAmount" placeholder="বাকির পরিমাণ (৳)">
             <button id="addDueBtn" class="btn-add-new"><i class="fa-solid fa-plus"></i> নতুন বাকি এন্ট্রি</button>
         </div>
@@ -331,7 +328,6 @@
         </div>
     </div>
 
-    <!-- NEW: Partner View -->
     <div id="partner-view" class="hidden">
         <h2 style="color: var(--secondary);"><i class="fa-solid fa-handshake"></i> পার্টনার ইনভেস্টমেন্ট</h2>
         <div class="form-group">
@@ -347,7 +343,6 @@
         </div>
     </div>
 
-    <!-- Reports View (UPDATED FOR NET PROFIT) -->
     <div id="reports-view" class="hidden">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <h2 style="color: var(--primary); margin: 0;"><i class="fa-solid fa-chart-line"></i> ব্যবসার রিপোর্ট</h2>
@@ -414,7 +409,6 @@
     </div>
 </div>
 
-<!-- Print Section Update to Show Due Details -->
 <div id="print-section">
     <div class="receipt-header">
         <h2>আমার মুদি দোকান</h2>
@@ -447,7 +441,10 @@
         <p>উপ-মোট (Subtotal): ৳ <span id="printSubTotal">0.00</span></p>
         <p id="printDiscountRow" style="color:#d35400;">ছাড় (Discount): ৳ <span id="printDiscount">0.00</span></p>
         <p class="print-grand-total">সর্বমোট (Total): ৳ <span id="printTotal">0.00</span></p>
+        
         <p style="margin-top: 5px; font-weight:bold;">পেমেন্ট মেথড: <span id="printPayMethod">ক্যাশ</span></p>
+        <p id="printGivenRow">জমা (Given): ৳ <span id="printGiven">0.00</span></p>
+        <p id="printChangeOrDueRow" style="font-weight:bold;"><span id="printChangeOrDueLabel">ফেরত (Change):</span> ৳ <span id="printChangeOrDueAmount">0.00</span></p>
     </div>
     <div class="dashed-line"></div>
     <div class="print-footer">
@@ -483,9 +480,10 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, writeBatch, increment, enableIndexedDbPersistence, query, where, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, updateDoc, increment, enableIndexedDbPersistence, query, where, orderBy, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
+    // IMPORTANT: Security alert as discussed! Do not expose in production without restrictions.
     const firebaseConfig = {
         apiKey: "AIzaSyAK_92W9YN7O0CNmtWjhwLH-awY2NCpVjg",
         authDomain: "my-grocery-inventory.firebaseapp.com",
@@ -512,7 +510,6 @@
     let cart = []; 
     let currentSeller = "অ্যাডমিন";
     
-    // TAB LOGIC (Updated for 6 tabs)
     const tabs = ['pos', 'inventory', 'expense', 'due', 'partner', 'reports'];
     tabs.forEach(tab => {
         document.getElementById(`tab-${tab}-btn`).addEventListener('click', function() {
@@ -572,11 +569,10 @@
         await loadPartners();
     }
 
-    // ================= 1. INVENTORY & POS =================
+    // ================= INVENTORY & POS =================
     async function loadProducts() {
         const querySnapshot = await getDocs(collection(db, "products"));
         allProducts = []; let totalStockValuePaisa = 0; let lowStockCount = 0;
-        
         if ($.fn.DataTable.isDataTable('#invDataTable')) { $('#invDataTable').DataTable().clear().destroy(); }
 
         const tableBody = document.getElementById('inventoryTable'); 
@@ -692,7 +688,7 @@
         tbody.innerHTML = html; document.getElementById('cartTotalVal').innerText = toTaka(totalPaisa).toLocaleString('en-IN', {minimumFractionDigits: 2});
     }
 
-    // CHECKOUT LOGIC WITH DUE HANDLING
+    // CHECKOUT LOGIC UPDATED FOR PARTIAL PAYMENT & LEDGER & FIREBASE FIX
     document.getElementById('checkoutBtn').addEventListener('click', async () => {
         if(cart.length === 0) return Swal.fire('কার্ট খালি', 'আগে কার্টে মাল যুক্ত করুন', 'warning').then(()=> document.getElementById('posSearch').focus());
         const totalToPayPaisa = cart.reduce((sum, item) => sum + toPaisa(item.cartQty * item.customSellPrice), 0);
@@ -713,20 +709,20 @@
                     <label class="pay-method-label"><input type="radio" name="payMethod" value="Cash" checked> 💵 ক্যাশ</label>
                     <label class="pay-method-label"><input type="radio" name="payMethod" value="bKash"> 🦅 বিকাশ</label>
                     <label class="pay-method-label"><input type="radio" name="payMethod" value="Nagad"> 🟠 নগদ</label>
-                    <label class="pay-method-label"><input type="radio" name="payMethod" value="Rocket"> 🚀 রকেট</label>
-                    <label class="pay-method-label"><input type="radio" name="payMethod" value="Due"> 📓 বাকি</label>
-                </div>
-
-                <div id="dueFields" style="display:none; margin-top:15px; background:#fbeeb8; padding:15px; border-radius:8px; border:1px solid #f1c40f;">
-                    <label style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px; color:#d35400;">কাস্টমারের তথ্য (বাকি খাতার জন্য):</label>
-                    <input type="text" id="swalCusName" class="swal2-input" placeholder="কাস্টমারের নাম (আবশ্যক)" style="margin:0 0 10px 0; width:100%; box-sizing:border-box;">
-                    <input type="text" id="swalCusPhone" class="swal2-input" placeholder="মোবাইল নাম্বার (আবশ্যক)" style="margin:0; width:100%; box-sizing:border-box;">
                 </div>
 
                 <div id="cashFields" style="margin-top:15px; background:#eef2f5; padding:15px; border-radius:8px; border:1px solid #c8d6e5;">
                     <label style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px;">কাস্টমার দিয়েছে (৳):</label>
                     <input type="number" id="swalGiven" class="swal2-input" placeholder="কাস্টমার কত টাকা দিয়েছে?" min="0" style="margin:0; width:100%; box-sizing:border-box;">
-                    <p style="margin:10px 0 0 0; font-weight:bold; font-size:18px; color:var(--danger); text-align:center;">ফেরত (Change): ৳ <span id="swalChange">0.00</span></p>
+                    <p style="margin:10px 0 0 0; font-weight:bold; font-size:18px; text-align:center;">
+                        <span id="swalChangeText">ফেরত (Change):</span> ৳ <span id="swalChange" style="color:var(--success);">0.00</span>
+                    </p>
+                </div>
+
+                <div id="dueFields" style="display:none; margin-top:15px; background:#fbeeb8; padding:15px; border-radius:8px; border:1px solid #f1c40f;">
+                    <label style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px; color:#d35400;">কাস্টমারের তথ্য (বাকি খাতার জন্য):</label>
+                    <input type="text" id="swalCusPhone" class="swal2-input" placeholder="মোবাইল নাম্বার (আবশ্যক)" style="margin:0 0 10px 0; width:100%; box-sizing:border-box;">
+                    <input type="text" id="swalCusName" class="swal2-input" placeholder="কাস্টমারের নাম" style="margin:0; width:100%; box-sizing:border-box;">
                 </div>
             </div>
         `;
@@ -736,35 +732,48 @@
             didOpen: () => {
                 const discountInput = document.getElementById('swalDiscount'); const givenInput = document.getElementById('swalGiven');
                 const grandTotalEl = document.getElementById('swalGrandTotal'); const changeEl = document.getElementById('swalChange');
+                const changeTextEl = document.getElementById('swalChangeText'); const dueFields = document.getElementById('dueFields');
 
                 const updateCalc = () => {
-                    const discount = parseFloat(discountInput.value) || 0; const grandTotal = totalToPay - discount;
+                    const discount = parseFloat(discountInput.value) || 0; 
+                    const grandTotal = totalToPay - discount;
                     grandTotalEl.innerText = grandTotal > 0 ? grandTotal.toFixed(2) : "0.00";
-                    const given = parseFloat(givenInput.value) || 0; const change = given - grandTotal;
-                    changeEl.innerText = change > 0 ? change.toFixed(2) : "0.00";
+                    
+                    const given = parseFloat(givenInput.value) || 0; 
+                    const diff = given - grandTotal;
+                    
+                    if (diff < 0) { // Customer gave less, it's a Due
+                        changeTextEl.innerText = "বাকি (Due):";
+                        changeEl.innerText = Math.abs(diff).toFixed(2);
+                        changeEl.style.color = "var(--danger)";
+                        dueFields.style.display = 'block'; // Force show customer fields
+                    } else { // Customer gave enough or exact
+                        changeTextEl.innerText = "ফেরত (Change):";
+                        changeEl.innerText = diff.toFixed(2);
+                        changeEl.style.color = "var(--success)";
+                        dueFields.style.display = 'none';
+                    }
                 };
                 discountInput.addEventListener('input', updateCalc); givenInput.addEventListener('input', updateCalc);
-
-                document.querySelectorAll('input[name="payMethod"]').forEach(r => r.addEventListener('change', e => {
-                    if (e.target.value === 'Due') {
-                        document.getElementById('dueFields').style.display = 'block';
-                        document.getElementById('cashFields').style.display = 'none';
-                    } else {
-                        document.getElementById('dueFields').style.display = 'none';
-                        document.getElementById('cashFields').style.display = 'block';
-                    }
-                }));
+                
+                // Initialize Calculation
+                givenInput.value = totalToPay; 
+                updateCalc();
             },
             preConfirm: () => {
                 const discount = parseFloat(document.getElementById('swalDiscount').value) || 0;
+                const grandTotal = totalToPay - discount;
+                const given = parseFloat(document.getElementById('swalGiven').value) || 0;
                 const method = document.querySelector('input[name="payMethod"]:checked').value;
-                const cusName = document.getElementById('swalCusName').value;
-                const cusPhone = document.getElementById('swalCusPhone').value;
+                const cusPhone = document.getElementById('swalCusPhone').value.trim();
+                const cusName = document.getElementById('swalCusName').value.trim();
+                
+                const dueAmount = grandTotal - given;
 
                 if(discount > totalToPay) { Swal.showValidationMessage('ছাড়ের পরিমাণ মোট বিলের চেয়ে বেশি হতে পারবে না!'); return false; }
-                if(method === 'Due' && (!cusName || !cusPhone)) { Swal.showValidationMessage('বাকি লেখার জন্য কাস্টমারের নাম ও নাম্বার অবশ্যই দিতে হবে!'); return false; }
+                if(dueAmount > 0 && !cusPhone) { Swal.showValidationMessage('বাকি রাখার জন্য কাস্টমারের মোবাইল নাম্বার অবশ্যই দিতে হবে!'); return false; }
                 
-                return { discount, method, grandTotal: totalToPay - discount, cusName, cusPhone };
+                return { discount, method, grandTotal, given, dueAmount: dueAmount > 0 ? dueAmount : 0, cusPhone, cusName };
             }
         });
 
@@ -778,13 +787,23 @@
                 let printHtml = ''; let shareMessage = `*আমার মুদি দোকান*\nমেমো নং: ${invoiceId}\nতারিখ: ${nowStr}\nবিক্রেতা: ${capitalize(currentSeller)}\n\n*মালের বিবরণ:*\n`;
 
                 await runTransaction(db, async (transaction) => {
+                    // STEP 1: ALL READS FIRST (No Writes Here!)
                     const productRefs = cart.map(item => doc(db, "products", item.id));
                     const productDocs = await Promise.all(productRefs.map(ref => transaction.get(ref)));
                     
+                    let cusDoc = null;
+                    let cusRef = null;
+                    if(checkoutData.dueAmount > 0) {
+                        cusRef = doc(db, "customers", checkoutData.cusPhone);
+                        cusDoc = await transaction.get(cusRef);
+                    }
+
+                    // STEP 2: VALIDATION
                     let outOfStockErrors = [];
                     productDocs.forEach((pDoc, index) => { if (pDoc.data().quantity < cart[index].cartQty) outOfStockErrors.push(cart[index].name); });
                     if (outOfStockErrors.length > 0) throw new Error(`দুঃখিত, স্টকে মাল নেই: ${outOfStockErrors.join(', ')}`);
 
+                    // STEP 3: ALL WRITES NOW (Safe to Write)
                     productDocs.forEach((pDoc, index) => {
                         const item = cart[index]; const cartQty = roundNum(item.cartQty);
                         transaction.update(pDoc.ref, { quantity: increment(-cartQty) });
@@ -806,10 +825,20 @@
                         shareMessage += `- ${sanitizeHTML(item.name)}: ${cartQty} ${item.unit} = ৳ ${toTaka(tSalesPaisa).toFixed(2)}\n`;
                     });
 
-                    // Add to Due ledger if Due is selected
-                    if(checkoutData.method === 'Due') {
-                        const dueRef = doc(collection(db, "customer_dues"));
-                        transaction.set(dueRef, { customerName: checkoutData.cusName, customerPhone: checkoutData.cusPhone, totalDue: checkoutData.grandTotal, date: nowStr, timestamp: timestamp });
+                    // Handle Due & Ledger Writes
+                    if(checkoutData.dueAmount > 0) {
+                        if(cusDoc && cusDoc.exists()){
+                            transaction.update(cusRef, { totalDue: increment(checkoutData.dueAmount) });
+                            if(checkoutData.cusName) transaction.update(cusRef, { name: checkoutData.cusName });
+                        } else {
+                            transaction.set(cusRef, { phone: checkoutData.cusPhone, name: checkoutData.cusName || 'অজানা কাস্টমার', totalDue: checkoutData.dueAmount, timestamp: timestamp });
+                        }
+
+                        // Add Ledger Entry
+                        const ledgerRef = doc(collection(db, "due_transactions"));
+                        transaction.set(ledgerRef, {
+                            phone: checkoutData.cusPhone, date: nowStr, type: "Baki", amount: checkoutData.dueAmount, memoNo: invoiceId, timestamp: timestamp
+                        });
                     }
                 });
 
@@ -822,20 +851,29 @@
                 document.getElementById('printDiscountRow').style.display = checkoutData.discount > 0 ? 'block' : 'none';
                 document.getElementById('printTotal').innerText = checkoutData.grandTotal.toFixed(2);
                 
-                const methodNames = { 'Cash': 'ক্যাশ', 'bKash': 'বিকাশ', 'Nagad': 'নগদ', 'Rocket': 'রকেট', 'Due': 'বাকি' };
+                const methodNames = { 'Cash': 'ক্যাশ', 'bKash': 'বিকাশ', 'Nagad': 'নগদ' };
                 document.getElementById('printPayMethod').innerText = methodNames[checkoutData.method];
-
-                if(checkoutData.method === 'Due') {
+                
+                document.getElementById('printGiven').innerText = checkoutData.given.toFixed(2);
+                
+                if(checkoutData.dueAmount > 0) {
+                    document.getElementById('printChangeOrDueLabel').innerText = "বাকি (Due):";
+                    document.getElementById('printChangeOrDueAmount').innerText = checkoutData.dueAmount.toFixed(2);
+                    
                     document.getElementById('printCusInfo').style.display = 'block';
-                    document.getElementById('printCusName').innerText = checkoutData.cusName;
+                    document.getElementById('printCusName').innerText = checkoutData.cusName || 'অজানা';
                     document.getElementById('printCusPhone').innerText = checkoutData.cusPhone;
                 } else {
+                    document.getElementById('printChangeOrDueLabel').innerText = "ফেরত (Change):";
+                    document.getElementById('printChangeOrDueAmount').innerText = (checkoutData.given - checkoutData.grandTotal).toFixed(2);
                     document.getElementById('printCusInfo').style.display = 'none';
                 }
 
                 shareMessage += `\nউপ-মোট: ৳ ${totalToPay.toFixed(2)}`;
                 if(checkoutData.discount > 0) shareMessage += `\nছাড়: ৳ ${checkoutData.discount.toFixed(2)}`;
-                shareMessage += `\n*সর্বমোট বিল: ৳ ${checkoutData.grandTotal.toFixed(2)}*\nপেমেন্ট: ${methodNames[checkoutData.method]}\n\nধন্যবাদ! আবার আসবেন।`;
+                shareMessage += `\n*সর্বমোট বিল: ৳ ${checkoutData.grandTotal.toFixed(2)}*\nপেমেন্ট: ${methodNames[checkoutData.method]}`;
+                if(checkoutData.dueAmount > 0) shareMessage += `\n*বাকি থাকলো: ৳ ${checkoutData.dueAmount.toFixed(2)}*`;
+                shareMessage += `\n\nধন্যবাদ! আবার আসবেন।`;
                 
                 Swal.close();
                 
@@ -908,7 +946,7 @@
             <input id="es" type="number" step="any" min="0" class="swal2-input" placeholder="বিক্রি দাম" value="${p.sellPrice}">
             <input id="elimit" type="number" step="any" min="0" class="swal2-input" placeholder="অ্যালার্ট লিমিট" value="${p.alertLimit}">
         `;
-        const { value: v } = await Swal.fire({ title: 'এডিট করুন', html: htmlContent, showCancelButton: true, confirmButtonText: 'আপডেট', preConfirm: () => { const name = document.getElementById('en').value; if(!name) { Swal.showValidationMessage('নাম খালি রাখা যাবে না'); return false; } return [name, document.getElementById('eu').value, document.getElementById('eb').value, document.getElementById('es').value, document.getElementById('elimit').value]; } });
+        const { value: v } = await Swal.fire({ title: 'এডিট করুন', html: htmlContent, showCancelButton: true, confirmButtonText: 'আপডেট', preConfirm: () => { const name = document.getElementById('en').value; if(!name) { Swal.showValidationMessage('নাম খালি রাখা যাবেবিধা'); return false; } return [name, document.getElementById('eu').value, document.getElementById('eb').value, document.getElementById('es').value, document.getElementById('elimit').value]; } });
 
         if (v) {
             Swal.fire({ title: 'আপডেট হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
@@ -926,7 +964,7 @@
         document.getElementById('statProfit').innerText = toTaka(totalProfitPaisa).toLocaleString('en-IN', { minimumFractionDigits: 2 });
     }
 
-    // ================= 2. EXPENSE LOGIC =================
+    // ================= EXPENSES =================
     async function loadExpenses() {
         const snap = await getDocs(collection(db, "expenses"));
         if ($.fn.DataTable.isDataTable('#expDataTable')) $('#expDataTable').DataTable().clear().destroy();
@@ -940,42 +978,95 @@
         if(reason && amt > 0) {
             await addDoc(collection(db, "expenses"), { reason, amount: amt, date: new Date().toLocaleString('en-GB'), timestamp: Date.now(), enteredBy: currentSeller });
             document.getElementById('expReason').value = ''; document.getElementById('expAmount').value = '';
-            loadExpenses(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'খরচ যুক্ত হয়েছে', showConfirmButton:false, timer:1500});
+            loadExpenses(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'খরচ যুক্ত হয়েছে', showConfirmButton:false, timer:1500});
         }
     });
 
-    // ================= 3. DUE LOGIC =================
+    // ================= DUE & LEDGER LOGIC =================
     async function loadDues() {
-        const snap = await getDocs(collection(db, "customer_dues"));
+        const snap = await getDocs(collection(db, "customers"));
         if ($.fn.DataTable.isDataTable('#dueDataTable')) $('#dueDataTable').DataTable().clear().destroy();
         let html = '';
         snap.forEach(d => {
-            const e = {id: d.id, ...d.data()};
-            html += `<tr><td><strong>${sanitizeHTML(e.customerName)}</strong></td><td>${sanitizeHTML(e.customerPhone)}</td><td class="text-right" style="color:var(--danger); font-weight:bold;">${e.totalDue.toFixed(2)}</td>
-            <td class="text-center"><button class="btn-pay-due action-btns" onclick="payDue('${e.id}', ${e.totalDue})"><i class="fa-solid fa-hand-holding-dollar"></i> টাকা জমা নিন</button></td></tr>`;
+            const e = d.data();
+            if(e.totalDue > 0) {
+                html += `<tr>
+                    <td><strong>${sanitizeHTML(e.name)}</strong></td>
+                    <td>${sanitizeHTML(e.phone)}</td>
+                    <td class="text-right" style="color:var(--danger); font-weight:bold;">${e.totalDue.toFixed(2)}</td>
+                    <td class="text-center action-btns">
+                        <button class="btn-pay-due" onclick="payDue('${e.phone}', ${e.totalDue})"><i class="fa-solid fa-hand-holding-dollar"></i> টাকা জমা</button>
+                        <button class="btn-history" onclick="viewDueHistory('${e.phone}', '${sanitizeHTML(e.name)}')"><i class="fa-solid fa-clock-rotate-left"></i> খাতা</button>
+                    </td>
+                </tr>`;
+            }
         });
         document.getElementById('dueTable').innerHTML = html; $('#dueDataTable').DataTable();
     }
 
-    window.payDue = async (id, currentDue) => {
-        const { value: amount } = await Swal.fire({ title: 'জমা পরিমাণ', input: 'number', inputAttributes: { min: 1, step: 'any' }, showCancelButton: true });
+    window.payDue = async (phone, currentDue) => {
+        const { value: amount } = await Swal.fire({ title: 'জমা পরিমাণ (৳)', input: 'number', inputAttributes: { min: 1, step: 'any', max: currentDue }, showCancelButton: true });
         if (amount && amount > 0) {
-            const newDue = currentDue - parseFloat(amount);
-            if(newDue <= 0) await deleteDoc(doc(db, "customer_dues", id));
-            else await updateDoc(doc(db, "customer_dues", id), { totalDue: newDue });
-            Swal.fire({toast:true, position:'top-end', icon:'success', title:'বাকি আপডেট হয়েছে', showConfirmButton:false, timer:1500}); loadDues();
+            const payAmt = parseFloat(amount);
+            Swal.fire({ title: 'প্রসেস হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+            
+            await runTransaction(db, async (transaction) => {
+                const cusRef = doc(db, "customers", phone);
+                transaction.update(cusRef, { totalDue: increment(-payAmt) });
+                
+                const ledgerRef = doc(collection(db, "due_transactions"));
+                transaction.set(ledgerRef, {
+                    phone: phone, date: new Date().toLocaleString('en-GB'), type: "Joma", amount: payAmt, memoNo: "N/A", timestamp: Date.now()
+                });
+            });
+            
+            Swal.fire({toast:true, position:'top-end', icon:'success', title:'বাকি জমা হয়েছে', showConfirmButton:false, timer:1500}); loadDues();
         }
     };
 
+    window.viewDueHistory = async (phone, name) => {
+        Swal.fire({ title: 'লোড হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+        const q = query(collection(db, "due_transactions"), where("phone", "==", phone), orderBy("timestamp", "desc"));
+        const querySnapshot = await getDocs(q);
+        
+        let html = `<table class="history-table" style="width:100%; text-align:left; border-collapse:collapse; margin-top:10px;">
+            <thead><tr><th>তারিখ</th><th>ধরণ</th><th class="text-right">টাকা</th><th>মেমো</th></tr></thead><tbody>`;
+        
+        querySnapshot.forEach(doc => {
+            const data = doc.data();
+            const color = data.type === 'Baki' ? '#e74c3c' : '#2ecc71';
+            const label = data.type === 'Baki' ? 'বাকি নিয়েছেন' : 'জমা দিয়েছেন';
+            html += `<tr><td>${data.date.split(',')[0]}</td><td style="color:${color}; font-weight:bold;">${label}</td><td class="text-right">৳ ${data.amount.toFixed(2)}</td><td>${data.memoNo || 'N/A'}</td></tr>`;
+        });
+        html += `</tbody></table>`;
+        
+        Swal.fire({ title: `${name}-এর খাতা`, html: html, width: '600px', confirmButtonColor: '#2b2d42' });
+    };
+
     document.getElementById('addDueBtn').addEventListener('click', async () => {
-        const n = document.getElementById('dueCusName').value; const p = document.getElementById('dueCusPhone').value; const a = parseFloat(document.getElementById('dueAmount').value);
-        if(n && a > 0) {
-            await addDoc(collection(db, "customer_dues"), { customerName: n, customerPhone: p, totalDue: a, date: new Date().toLocaleString('en-GB'), timestamp: Date.now() });
+        const n = document.getElementById('dueCusName').value; const p = document.getElementById('dueCusPhone').value.trim(); const a = parseFloat(document.getElementById('dueAmount').value);
+        if(p && a > 0) {
+            Swal.fire({ title: 'প্রসেস হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+            await runTransaction(db, async (transaction) => {
+                const cusRef = doc(db, "customers", p);
+                const cusDoc = await transaction.get(cusRef);
+                
+                if(cusDoc.exists()){
+                    transaction.update(cusRef, { totalDue: increment(a) });
+                    if(n) transaction.update(cusRef, { name: n });
+                } else {
+                    transaction.set(cusRef, { phone: p, name: n || 'অজানা কাস্টমার', totalDue: a, timestamp: Date.now() });
+                }
+
+                const ledgerRef = doc(collection(db, "due_transactions"));
+                transaction.set(ledgerRef, { phone: p, date: new Date().toLocaleString('en-GB'), type: "Baki", amount: a, memoNo: "Manual Entry", timestamp: Date.now() });
+            });
+            document.getElementById('dueCusName').value = ''; document.getElementById('dueCusPhone').value = ''; document.getElementById('dueAmount').value = '';
             loadDues(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'বাকি এন্ট্রি সম্পন্ন', showConfirmButton:false, timer:1500});
-        }
+        } else Swal.fire('সতর্কতা', 'মোবাইল নাম্বার ও টাকার পরিমাণ আবশ্যক।', 'warning');
     });
 
-    // ================= 4. PARTNER INVESTMENT =================
+    // ================= PARTNERS =================
     async function loadPartners() {
         const snap = await getDocs(collection(db, "partner_investments"));
         if ($.fn.DataTable.isDataTable('#investDataTable')) $('#investDataTable').DataTable().clear().destroy();
@@ -991,11 +1082,11 @@
         const n = document.getElementById('partnerName').value; const a = parseFloat(document.getElementById('partnerInvestAmount').value);
         if(n && a > 0) {
             await addDoc(collection(db, "partner_investments"), { partnerName: n, amount: a, date: new Date().toLocaleString('en-GB'), timestamp: Date.now() });
-            loadPartners(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'ইনভেস্টমেন্ট যুক্ত হয়েছে', showConfirmButton:false, timer:1500});
+            loadPartners(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'ইনভেস্টমেন্ট যুক্ত হয়েছে', showConfirmButton:false, timer:1500});
         }
     });
 
-    // ================= 5. REPORTS & EXPORT =================
+    // ================= REPORTS =================
     document.getElementById('generateReportBtn').addEventListener('click', async () => {
         const start = document.getElementById('reportStartDate').value; const end = document.getElementById('reportEndDate').value;
         const selectedSalesman = document.getElementById('salesmanFilter').value;
