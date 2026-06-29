@@ -612,20 +612,20 @@
                 });
 
                 if (actionResult.isConfirmed) { 
-                    // 🚨 MOBILE PRINT FIX (UPDATED) 🚨
+                    // 🚨 NEW MOBILE PRINT FIX 🚨
                     document.body.classList.add('print-receipt'); 
                     setTimeout(() => {
                         window.print();
                         const cleanPrint = () => {
                             document.body.classList.remove('print-receipt');
                             window.removeEventListener('focus', cleanPrint);
-                            document.removeEventListener('touchstart', cleanPrint);
-                            document.removeEventListener('click', cleanPrint);
+                            window.removeEventListener('afterprint', cleanPrint);
                         };
-                        window.addEventListener('focus', cleanPrint);
-                        document.addEventListener('touchstart', cleanPrint);
-                        document.addEventListener('click', cleanPrint);
-                    }, 500);
+                        window.addEventListener('afterprint', cleanPrint);
+                        setTimeout(() => {
+                            window.addEventListener('focus', cleanPrint);
+                        }, 2000);
+                    }, 800);
                 } 
                 else if (actionResult.isDenied) {
                     if (navigator.share) navigator.share({ title: 'ক্যাশ মেমো', text: shareMessage }).catch(e => console.log(e));
@@ -637,7 +637,7 @@
         }
     });
 
-    // INVENTORY OPERATIONS (Removed global window hacks, using Event Delegation)
+    // INVENTORY OPERATIONS (Event Delegation)
     document.getElementById('addBtn').addEventListener('click', async () => {
         const n = document.getElementById('productName').value;
         const q = parseFloat(document.getElementById('productQty').value);
@@ -712,7 +712,7 @@
             <input id="elimit" type="number" step="any" min="0" class="swal2-input" placeholder="অ্যালার্ট লিমিট" value="${p.alertLimit}">
         `;
         const { value: v } = await Swal.fire({ title: 'এডিট করুন', html: htmlContent, showCancelButton: true, confirmButtonText: 'আপডেট',
-            preConfirm: () => { const name = document.getElementById('en').value; if(!name) { Swal.showValidationMessage('নাম খালি রাখা যাবে মজাবে না'); return false; } return [name, document.getElementById('eu').value, document.getElementById('eb').value, document.getElementById('es').value, document.getElementById('elimit').value]; }
+            preConfirm: () => { const name = document.getElementById('en').value; if(!name) { Swal.showValidationMessage('নাম খালি রাখা যাবে না'); return false; } return [name, document.getElementById('eu').value, document.getElementById('eb').value, document.getElementById('es').value, document.getElementById('elimit').value]; }
         });
 
         if (v) {
@@ -790,7 +790,7 @@
         document.getElementById('repTotalSales').innerText = tSales.toLocaleString('en-IN', { minimumFractionDigits: 2 }); document.getElementById('repTotalProfit').innerText = tProfit.toLocaleString('en-IN', { minimumFractionDigits: 2 }); document.getElementById('repTotalPurchase').innerText = tPurchase.toLocaleString('en-IN', { minimumFractionDigits: 2 });
     }
 
-    // PRINT REPORTS (🚨 MOBILE FIX ADDED 🚨)
+    // PRINT REPORTS (🚨 NEW MOBILE FIX 🚨)
     document.getElementById('printReportBtn').addEventListener('click', () => {
         if (document.getElementById('showSalesBtn').classList.contains('active')) {
             document.getElementById('docSalesSection').classList.remove('hidden-print'); document.getElementById('docPurchaseSection').classList.add('hidden-print'); document.getElementById('printReportTitle').innerText = "বিক্রির রিপোর্ট";
@@ -804,13 +804,13 @@
             const cleanPrint = () => {
                 document.body.classList.remove('print-report');
                 window.removeEventListener('focus', cleanPrint);
-                document.removeEventListener('touchstart', cleanPrint);
-                document.removeEventListener('click', cleanPrint);
+                window.removeEventListener('afterprint', cleanPrint);
             };
-            window.addEventListener('focus', cleanPrint);
-            document.addEventListener('touchstart', cleanPrint);
-            document.addEventListener('click', cleanPrint);
-        }, 500);
+            window.addEventListener('afterprint', cleanPrint);
+            setTimeout(() => {
+                window.addEventListener('focus', cleanPrint);
+            }, 2000);
+        }, 800);
     });
 
     // ALERT CARD FILTER & RESET FIX
