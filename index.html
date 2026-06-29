@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- DataTables & jQuery -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <!-- DataTables Buttons for Excel/CSV Export -->
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -174,7 +172,6 @@
         <button id="logoutBtn" class="btn-logout"><i class="fa-solid fa-power-off"></i> লগআউট</button>
     </div>
 
-    <!-- POS Section -->
     <div id="pos-view">
         <div class="pos-grid">
             <div class="pos-left">
@@ -197,7 +194,6 @@
         </div>
     </div>
 
-    <!-- Inventory Section -->
     <div id="inventory-view" class="hidden">
         <div class="dashboard-stats">
             <div class="stat-card bg-blue">
@@ -229,7 +225,6 @@
         </div>
 
         <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-            <!-- Reset Filter Button -->
             <button id="resetFilterBtn" class="btn-show-all hidden"><i class="fa-solid fa-arrows-rotate"></i> সবগুলো মাল দেখুন (ফিল্টার ক্লিয়ার)</button>
             
             <div style="overflow-x: auto;">
@@ -251,7 +246,6 @@
         </div>
     </div>
 
-    <!-- Reports Section -->
     <div id="reports-view" class="hidden">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <h2 style="color: var(--primary); margin: 0;"><i class="fa-solid fa-chart-line"></i> ব্যবসার রিপোর্ট</h2>
@@ -304,7 +298,6 @@
     </div>
 </div>
 
-<!-- ================= THERMAL RECEIPT (POS PRINT) ================= -->
 <div id="print-section">
     <div class="receipt-header">
         <h2>আমার মুদি দোকান</h2><p>বাইপাইল, ঢাকা</p><p>তারিখ: <span id="printDate"></span></p>
@@ -319,7 +312,6 @@
     <div class="print-footer"><p>ধন্যবাদ! আবার আসবেন।</p></div>
 </div>
 
-<!-- ================= A4 REPORT (PROFESSIONAL PRINT) ================= -->
 <div id="print-report-section">
     <div class="doc-header">
         <h1>আমার মুদি দোকান</h1>
@@ -328,7 +320,6 @@
         <p>রিপোর্টের তারিখ: <span id="docDateRange">সম্পূর্ণ সময়কাল</span></p>
     </div>
 
-    <!-- Tables populated via JS when print is triggered -->
     <div class="doc-table" id="docSalesSection">
         <h3>বিক্রির বিস্তারিত (Sales Statement)</h3>
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
@@ -621,12 +612,20 @@
                 });
 
                 if (actionResult.isConfirmed) { 
-                    // MOBILE PRINT FIX
+                    // 🚨 MOBILE PRINT FIX (UPDATED) 🚨
                     document.body.classList.add('print-receipt'); 
-                    setTimeout(() => window.print(), 500);
-                    window.addEventListener('afterprint', () => {
-                        document.body.classList.remove('print-receipt');
-                    }, { once: true });
+                    setTimeout(() => {
+                        window.print();
+                        const cleanPrint = () => {
+                            document.body.classList.remove('print-receipt');
+                            window.removeEventListener('focus', cleanPrint);
+                            document.removeEventListener('touchstart', cleanPrint);
+                            document.removeEventListener('click', cleanPrint);
+                        };
+                        window.addEventListener('focus', cleanPrint);
+                        document.addEventListener('touchstart', cleanPrint);
+                        document.addEventListener('click', cleanPrint);
+                    }, 500);
                 } 
                 else if (actionResult.isDenied) {
                     if (navigator.share) navigator.share({ title: 'ক্যাশ মেমো', text: shareMessage }).catch(e => console.log(e));
@@ -713,7 +712,7 @@
             <input id="elimit" type="number" step="any" min="0" class="swal2-input" placeholder="অ্যালার্ট লিমিট" value="${p.alertLimit}">
         `;
         const { value: v } = await Swal.fire({ title: 'এডিট করুন', html: htmlContent, showCancelButton: true, confirmButtonText: 'আপডেট',
-            preConfirm: () => { const name = document.getElementById('en').value; if(!name) { Swal.showValidationMessage('নাম খালি রাখা যাবে না'); return false; } return [name, document.getElementById('eu').value, document.getElementById('eb').value, document.getElementById('es').value, document.getElementById('elimit').value]; }
+            preConfirm: () => { const name = document.getElementById('en').value; if(!name) { Swal.showValidationMessage('নাম খালি রাখা যাবে মজাবে না'); return false; } return [name, document.getElementById('eu').value, document.getElementById('eb').value, document.getElementById('es').value, document.getElementById('elimit').value]; }
         });
 
         if (v) {
@@ -791,7 +790,7 @@
         document.getElementById('repTotalSales').innerText = tSales.toLocaleString('en-IN', { minimumFractionDigits: 2 }); document.getElementById('repTotalProfit').innerText = tProfit.toLocaleString('en-IN', { minimumFractionDigits: 2 }); document.getElementById('repTotalPurchase').innerText = tPurchase.toLocaleString('en-IN', { minimumFractionDigits: 2 });
     }
 
-    // PRINT REPORTS (MOBILE FIX ADDED)
+    // PRINT REPORTS (🚨 MOBILE FIX ADDED 🚨)
     document.getElementById('printReportBtn').addEventListener('click', () => {
         if (document.getElementById('showSalesBtn').classList.contains('active')) {
             document.getElementById('docSalesSection').classList.remove('hidden-print'); document.getElementById('docPurchaseSection').classList.add('hidden-print'); document.getElementById('printReportTitle').innerText = "বিক্রির রিপোর্ট";
@@ -800,10 +799,18 @@
         }
         
         document.body.classList.add('print-report'); 
-        setTimeout(() => window.print(), 500);
-        window.addEventListener('afterprint', () => {
-            document.body.classList.remove('print-report');
-        }, { once: true });
+        setTimeout(() => {
+            window.print();
+            const cleanPrint = () => {
+                document.body.classList.remove('print-report');
+                window.removeEventListener('focus', cleanPrint);
+                document.removeEventListener('touchstart', cleanPrint);
+                document.removeEventListener('click', cleanPrint);
+            };
+            window.addEventListener('focus', cleanPrint);
+            document.addEventListener('touchstart', cleanPrint);
+            document.addEventListener('click', cleanPrint);
+        }, 500);
     });
 
     // ALERT CARD FILTER & RESET FIX
