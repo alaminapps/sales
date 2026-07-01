@@ -22,183 +22,185 @@
     <style>
         :root {
             --primary: #4361ee; --secondary: #3f37c9; --success: #2ecc71; 
-            --danger: #e74c3c; --warning: #f1c40f; --dark: #2b2d42; 
-            --light: #f8f9fa; --text: #333;
+            --danger: #e74c3c; --warning: #f1c40f; --dark: #1e293b; 
+            --light: #f8f9fa; --text: #334155; --border: #e2e8f0;
         }
 
-        body { font-family: 'Hind Siliguri', 'Poppins', sans-serif; background-color: #eef2f5; color: var(--text); margin: 0; padding: 0; }
-        .container { max-width: 1300px; margin: 30px auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        body { font-family: 'Hind Siliguri', 'Poppins', sans-serif; background-color: #f1f5f9; color: var(--text); margin: 0; padding: 0; }
+        .container { max-width: 1300px; margin: 30px auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
         h2, h3, h4 { margin-top: 0; color: var(--dark); }
 
         /* Login */
         #login-section { max-width: 400px; margin: 100px auto; text-align: center; padding: 40px; background: #fff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .login-input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        .login-input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-size: 16px; }
         .btn-login { width: 100%; padding: 12px; background: var(--primary); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 18px; font-weight: 600; }
 
         /* Header & Tabs */
-        .header-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap:10px;}
+        .header-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap:10px;}
         .tabs { display: flex; gap: 10px; flex-wrap: wrap;}
-        .tab-btn { padding: 10px 20px; font-size: 15px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; background: #e0e0e0; color: #555; transition: 0.3s; font-family: inherit;}
+        .tab-btn { padding: 10px 20px; font-size: 15px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; background: #e2e8f0; color: #475569; transition: 0.3s; font-family: inherit;}
         .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3); }
-        .btn-logout { background: var(--danger); color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-logout { background: var(--danger); color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-logout:hover { background: #c0392b; }
 
         /* Dashboard Stats */
         .dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .stat-card { padding: 20px; border-radius: 12px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative;}
-        .stat-card i { font-size: 30px; margin-bottom: 10px; opacity: 0.9; }
-        .stat-card h4 { margin: 0 0 5px 0; font-size: 16px; font-weight: 500; opacity: 0.9; color: white;}
+        .stat-card i { font-size: 28px; margin-bottom: 10px; opacity: 0.9; }
+        .stat-card h4 { margin: 0 0 5px 0; font-size: 15px; font-weight: 500; opacity: 0.9; color: white;}
         .stat-card p { margin: 0; font-size: 24px; font-weight: bold; }
         .bg-blue { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
         .bg-green { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
         .bg-purple { background: linear-gradient(135deg, #c471ed 0%, #f64f59 100%); }
+        .bg-slate { background: linear-gradient(135deg, #64748b 0%, #475569 100%); }
         .bg-red { background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%); cursor: pointer; transition: 0.3s;}
         .bg-red:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4); }
 
-        /* Inputs & Tables */
-        .form-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; background: var(--light); padding: 20px; border-radius: 10px; margin-bottom: 20px; align-items: center;}
-        .form-group input, .form-group select, .form-group button { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; font-size: 14px; width: 100%; box-sizing: border-box;}
-        .btn-add-new { background: var(--success); color: white; font-weight: bold; border: none; cursor: pointer; height: 100%;}
-        .btn-reset { background: #95a5a6; color: white; font-weight: bold; border: none; cursor: pointer; height: 100%;}
-        .btn-show-all { background: var(--dark); color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 10px; }
+        /* Modern Premium Inputs & Forms */
+        .premium-box { background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .form-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; align-items: start;}
+        .input-wrapper { display: flex; flex-direction: column; text-align: left; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 30px;}
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        .input-wrapper label { font-size: 13px; color: #475569; font-weight: 600; margin-bottom: 6px; display: inline-block; }
+        .required-star { color: #ef4444; margin-left: 2px; }
+        
+        .input-with-icon { position: relative; width: 100%; }
+        .input-with-icon i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; pointer-events: none; }
+        
+        .form-group input, .form-group select { 
+            padding: 12px 16px; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; color: #1e293b; transition: all 0.3s ease; width: 100%; box-sizing: border-box; font-family: inherit;
+        }
+        .input-with-icon input, .input-with-icon select { padding-left: 40px !important; }
+        
+        .form-group input:focus, .form-group select:focus { background-color: #ffffff; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15); outline: none; }
+        .form-group input::placeholder { color: #94a3b8; font-weight: 400; }
+        
+        .btn-add-new { background: var(--success); color: white; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; height: 100%; min-height: 42px; transition: 0.2s; box-shadow: 0 4px 6px rgba(46, 204, 113, 0.2);}
+        .btn-add-new:hover { background: #27ae60; transform: translateY(-1px); }
+        
+        /* Premium Tables */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 30px; font-size: 14px;}
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        .premium-table thead th { background: #f8fafc; color: #475569; font-weight: 600; border-bottom: 2px solid #cbd5e1; text-transform: uppercase; font-size: 13px; letter-spacing: 0.5px;}
         th { background: var(--primary); color: white; font-weight: 500; }
         .text-right { text-align: right !important; }
         .text-center { text-align: center !important; }
-        
+
+        .truncate-text { max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; vertical-align: middle; cursor: pointer; }
+
+        /* Action Buttons */
+        .action-btns { display: flex; gap: 5px; justify-content: center; }
+        .btn-icon { padding: 8px 10px; border-radius: 6px; color: white; border: none; cursor: pointer; font-size: 13px; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none;}
+        .btn-icon:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+        .btn-edit { background: #f59e0b; }
+        .btn-delete { background: var(--danger); }
+        .btn-pay { background: var(--success); }
+        .btn-history { background: var(--primary); }
+
         /* POS Specific Design */
         .pos-grid { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
-        .pos-left { flex: 1.2; min-width: 300px; background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; }
-        .pos-right { flex: 0.8; min-width: 300px; background: #fff; padding: 25px; border-radius: 12px; position: sticky; top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #eee; }
+        .pos-left { flex: 1.2; min-width: 300px; background: #fff; border: 1px solid var(--border); padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
+        .pos-right { flex: 0.8; min-width: 300px; background: #fff; padding: 25px; border-radius: 12px; position: sticky; top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid var(--border); }
         
-        .search-box { width: 100%; padding: 15px; font-size: 18px; border: 2px solid var(--primary); border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; transition: 0.3s;}
+        .search-box { width: 100%; padding: 15px; font-size: 16px; border: 2px solid var(--primary); border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; transition: 0.3s;}
         .search-box:focus { box-shadow: 0 0 15px rgba(67, 97, 238, 0.2); outline: none;}
-        .shortcut-hint { font-size: 12px; color: #7f8fa6; text-align: right; margin-top: -10px; margin-bottom: 15px; display: block;}
+        .shortcut-hint { font-size: 12px; color: #94a3b8; text-align: right; margin-top: -10px; margin-bottom: 15px; display: block;}
         
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; max-height: 500px; overflow-y: auto; padding-right: 5px;}
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; max-height: 500px; overflow-y: auto; padding-right: 5px;}
         .product-grid::-webkit-scrollbar { width: 6px; }
         .product-grid::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
-        .product-card { background: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; }
-        .product-card:hover { border-color: var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.1); transform: translateY(-2px); }
-        .product-card h4 { margin: 0 0 5px 0; color: var(--dark); font-size: 15px; }
-        .product-card p { margin: 0; color: #7f8fa6; font-size: 12px; }
+        .product-card { background: #fff; border: 1px solid var(--border); padding: 15px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05);}
+        .product-card:hover { border-color: var(--primary); box-shadow: 0 4px 10px rgba(67, 97, 238, 0.15); transform: translateY(-2px); }
+        .product-card h4 { margin: 0 0 5px 0; color: var(--dark); font-size: 14px; }
+        .product-card p { margin: 0; color: #64748b; font-size: 12px; }
         .product-card .price { font-weight: bold; color: var(--success); font-size: 15px; margin-top: 5px; }
-        .out-of-stock { opacity: 0.5; pointer-events: none; background: #ffeaa7; }
+        .out-of-stock { opacity: 0.5; pointer-events: none; background: #fef0f0; border-color: #fca5a5;}
 
         .cart-table th { background: var(--dark); color: white; padding: 12px 10px; font-weight: 500; border:none;}
-        .cart-table td { vertical-align: middle; padding: 12px 5px; border-bottom: 1px solid #f1f2f6;}
+        .cart-table td { vertical-align: middle; padding: 12px 5px; border-bottom: 1px solid var(--border);}
         
-        .qty-wrapper { display: inline-flex; align-items: center; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; background: #fff; }
+        .qty-wrapper { display: inline-flex; align-items: center; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; background: #fff; }
         .qty-wrapper input { border: none; border-radius: 0; width: 45px; background: transparent; padding: 6px 0; text-align: center; font-weight: 600; font-family: inherit;}
         .qty-wrapper input:focus { outline: none; background: #f8f9fa;}
-        .qty-btn { background: #f1f2f6; border: none; padding: 6px 12px; cursor: pointer; color: var(--dark); font-weight: bold; transition: 0.2s;}
-        .qty-btn:hover { background: #dfe4ea; }
+        .qty-btn { background: #f1f5f9; border: none; padding: 6px 12px; cursor: pointer; color: var(--dark); font-weight: bold; transition: 0.2s;}
+        .qty-btn:hover { background: #e2e8f0; }
         
-        .cart-price-input { width: 65px; padding: 6px; border: 1px solid #ddd; border-radius: 4px; text-align: center; font-family: inherit; font-weight: 600; background: #f8f9fa; transition: 0.3s;}
+        .cart-price-input { width: 65px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: center; font-family: inherit; font-weight: 600; background: #f8f9fa; transition: 0.3s;}
         .cart-price-input:focus { border-color: var(--primary); background: #fff; outline: none; box-shadow: 0 0 5px rgba(67, 97, 238, 0.2);}
 
         .cart-total { font-size: 24px; font-weight: bold; text-align: right; margin: 20px 0; color: var(--primary); }
         .btn-checkout { width: 100%; padding: 15px; background: var(--success); color: white; font-size: 18px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4); transition: 0.3s;}
         .btn-checkout:hover { background: #27ae60; transform: translateY(-2px);}
         
-        .btn-remove { background: #ffeaa7; color: var(--danger); border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .btn-remove { background: #fee2e2; color: var(--danger); border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
         .btn-remove:hover { background: var(--danger); color: white; }
-        .btn-clear-cart { background: #f8f9fa; color: var(--danger); border: 1px solid #fad390; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; transition: 0.2s;}
+        .btn-clear-cart { background: #f1f5f9; color: var(--danger); border: 1px solid #fca5a5; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; transition: 0.2s;}
 
-        /* Smooth tab transition fixes jump issue */
         .hidden { display: none !important; }
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        .action-btns button { padding: 6px 10px; border-radius: 4px; color: white; border: none; cursor: pointer; margin-right: 5px; font-size: 13px;}
-        .btn-add-stock { background: #00cec9; color: var(--dark) !important; font-weight: bold;}
-        .btn-edit { background: #f39c12; }
-        .btn-delete { background: var(--danger); }
-        .btn-pay-due { background: var(--success); color: white; font-weight: bold; padding: 8px 15px !important;}
-        .btn-history { background: var(--primary); color: white; font-weight: bold; padding: 8px 15px !important;}
-
         .pay-method-group { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
-        .pay-method-label { flex: 1; min-width: 80px; padding: 10px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-weight: bold; text-align: center; font-size: 14px; transition: 0.2s; background: #fff;}
+        .pay-method-label { flex: 1; min-width: 80px; padding: 10px; border: 2px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: bold; text-align: center; font-size: 14px; transition: 0.2s; background: #fff;}
         .pay-method-label input { display: none; }
         .pay-method-label:hover { border-color: var(--primary); }
-        .pay-method-label:has(input:checked) { border-color: var(--primary); background: #eef2f5; color: var(--primary); box-shadow: 0 4px 10px rgba(67, 97, 238, 0.15); }
+        .pay-method-label:has(input:checked) { border-color: var(--primary); background: #eff6ff; color: var(--primary); box-shadow: 0 4px 10px rgba(67, 97, 238, 0.15); }
 
-        /* Equity / Partner Styles */
-        .equity-grid { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;}
-        .equity-card { background: #fff; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); flex: 1; min-width: 200px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);}
-        .equity-card h3 { margin: 0 0 5px 0; font-size: 18px;}
-        .equity-card p { margin: 0; color: #555;}
-        .equity-percentage { font-size: 24px; font-weight: bold; color: var(--success); margin-top: 10px; display: block;}
-
-        .report-filter { display: flex; gap: 15px; align-items: center; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 20px; flex-wrap: wrap;}
-        .report-filter input, .report-filter select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit;}
-        .report-filter button { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;}
-        .btn-print-report { background: var(--dark) !important; }
-        
-        .report-summary-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .report-box { padding: 20px; background: var(--light); border-radius: 8px; text-align: center; border: 1px solid #ddd; }
-        .report-box h3 { margin: 0; color: #555; font-size: 15px; }
-        .report-box p { margin: 10px 0 0 0; font-size: 22px; font-weight: bold; color: var(--primary); }
-
-        .salesman-tracker-box { margin-bottom: 20px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
-        .salesman-grid { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 10px; }
-        .salesman-card { padding: 10px 20px; background: #eef2f5; border-radius: 6px; font-weight: bold; border-left: 4px solid var(--primary); }
-
-        .report-tabs { display: flex; gap: 10px; flex-wrap: wrap;}
-        .report-tabs .tab-btn { padding: 8px 15px; font-size: 15px; }
-
+        /* DataTables Buttons Styling */
         .dataTables_wrapper .dt-buttons { float: left; margin-bottom: 15px; }
+        .dataTables_wrapper .dt-buttons button { background: var(--success); color: white; border: none; border-radius: 6px; padding: 6px 12px; font-weight: bold; font-family: inherit; }
         .dataTables_wrapper .dataTables_filter { float: right; margin-bottom: 15px; }
-        .dataTables_wrapper .dataTables_filter input { margin-left: 8px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; outline: none; font-family: inherit; }
+        .dataTables_wrapper .dataTables_filter input { margin-left: 8px; padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; font-family: inherit; }
         .dataTables_wrapper::after { content: ""; display: table; clear: both; }
 
-        .swal-stock-info { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: left; border: 1px solid #ddd; font-size: 15px; }
-        .swal-stock-info p { margin: 5px 0; color: #333;}
-        .swal-stock-info strong { color: var(--primary); }
+        .premium-swal-container { text-align: left; font-family: 'Hind Siliguri', sans-serif; }
+        .premium-swal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+        .premium-swal-input-group { display: flex; flex-direction: column; }
+        .premium-swal-input-group label { font-size: 13px; color: #475569; font-weight: 600; margin-bottom: 5px; }
+        .premium-swal-input-group input { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; outline: none; transition: 0.3s; }
+        .premium-swal-input-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1); }
+        .swal-divider { grid-column: span 2; border-bottom: 1px dashed #cbd5e1; margin: 10px 0; color: #94a3b8; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
 
+        /* Compact Print Sections (For Thermal Printer Premium Look) */
         #print-section, #print-report-section, #khataPrintArea { display: none; }
-        
-        .memo-badge-link { transition: 0.2s; }
-        .memo-badge-link:hover { background: var(--primary) !important; color: white !important; box-shadow: 0 2px 5px rgba(67, 97, 238, 0.4); }
-
         @media print {
-            @page { margin: 10mm; }
+            @page { margin: 0; }
             body { background: #fff !important; margin: 0 !important; padding: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             #login-section, #dashboard-section, .swal2-container { display: none !important; }
             
             body.print-receipt #print-section { 
-                display: block !important; width: 58mm; margin: 0 auto; padding: 5mm 0; font-family: 'Hind Siliguri', sans-serif; color: #000; font-size: 12px;
+                display: block !important; width: 58mm; margin: 0 auto; padding: 2mm; font-family: 'Hind Siliguri', sans-serif; color: #000; font-size: 11px;
             }
-            .receipt-header { text-align: center; margin-bottom: 10px; }
-            .receipt-header h2 { margin: 0; font-size: 18px; color: #000; font-weight: bold; }
-            .receipt-header p { margin: 2px 0; font-size: 11px; color: #000; }
-            .receipt-details { margin-top: 8px; text-align: left; font-size: 11px; }
-            .receipt-details p { margin: 1px 0; }
-            .dashed-line { border-top: 1px dashed #000; margin: 5px 0; width: 100%; }
+            .receipt-header { text-align: center; margin-bottom: 5px; }
+            .receipt-header h2 { margin: 0 0 2px 0; font-size: 16px; color: #000; font-weight: bold; }
+            .receipt-header p { margin: 0; font-size: 10px; }
             
-            .print-table { width: 100%; font-size: 11px; text-align: left; border-collapse: collapse; margin-bottom: 5px;}
-            .print-table th { background: transparent; color: #000; padding: 3px 0; border-bottom: 1px dashed #000; font-weight: bold;}
-            .print-table td { padding: 3px 0; color: #000; border: none; vertical-align: top; }
+            .receipt-details { margin-top: 5px; text-align: left; font-size: 10px; }
+            .receipt-details p { margin: 2px 0; }
             
-            .print-total-section { text-align: right; font-size: 11px; margin-top: 5px; }
+            .dashed-line { border-top: 1px dashed #000; margin: 4px 0; width: 100%; }
+            
+            .print-table { width: 100%; font-size: 10px; text-align: left; border-collapse: collapse; margin-bottom: 5px;}
+            .print-table th { background: transparent; color: #000; padding: 2px 0; border-bottom: 1px dashed #000; font-weight: bold;}
+            .print-table td { padding: 3px 0; vertical-align: top;}
+            
+            .print-total-section { text-align: right; font-size: 10px; margin-top: 5px; }
             .print-total-section p { margin: 2px 0; }
-            .print-grand-total { font-size: 14px; font-weight: bold; border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 4px 0; margin-top: 4px;}
+            .print-grand-total { font-size: 13px; font-weight: bold; border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 3px 0; margin: 4px 0;}
             
-            .print-footer { text-align: center; font-size: 11px; margin-top: 10px; }
+            .print-footer { text-align: center; font-size: 10px; margin-top: 8px; }
             .print-footer p { margin: 2px 0; }
-
-            body.print-report #print-report-section { display: block !important; width: 100%; padding: 0; margin: 0; font-family: 'Hind Siliguri', sans-serif; color: #000; }
+            
+            /* Report & Khata Print untouched */
+            body.print-report #print-report-section { display: block !important; width: 100%; font-family: 'Hind Siliguri', sans-serif; color: #000; padding: 10mm;}
             .doc-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px;}
-            .doc-header h1 { margin: 0; font-size: 24px; color: #000;}
             .doc-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 12px;}
-            .doc-table th, .doc-table td { border: 1px solid #000; padding: 8px; text-align: left; }
-            .doc-table th { background-color: #f0f0f0 !important; color: #000 !important; font-weight: bold; }
+            .doc-table th, .doc-table td { border: 1px solid #000; padding: 8px; text-align: left; font-size: 12px; }
             .hidden-print { display: none !important; }
 
-            body.print-khata #khataPrintArea { display: block !important; width: 100%; padding: 0; font-family: 'Hind Siliguri', sans-serif; color: #000; }
+            body.print-khata #khataPrintArea { display: block !important; width: 100%; font-family: 'Hind Siliguri', sans-serif; color: #000; padding: 10mm;}
             .khata-print-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 12px;}
-            .khata-print-table th, .khata-print-table td { border: 1px solid #000; padding: 6px; text-align: left;}
+            .khata-print-table th, .khata-print-table td { border: 1px solid #000; padding: 6px; text-align: left; font-size: 12px;}
         }
     </style>
 </head>
@@ -223,11 +225,12 @@
             <button id="tab-reports-btn" class="tab-btn"><i class="fa-solid fa-chart-pie"></i> রিপোর্ট</button>
         </div>
         <div>
-            <span style="margin-right: 15px; font-weight: bold; color: var(--secondary);"><i class="fa-solid fa-user"></i> <span id="displaySellerName"></span></span>
+            <span style="margin-right: 15px; font-weight: bold; color: var(--secondary);"><i class="fa-solid fa-user-circle"></i> <span id="displaySellerName"></span></span>
             <button id="logoutBtn" class="btn-logout"><i class="fa-solid fa-power-off"></i> লগআউট</button>
         </div>
     </div>
 
+    <!-- POS VIEW -->
     <div id="pos-view" class="fade-in">
         <div class="pos-grid">
             <div class="pos-left">
@@ -236,12 +239,11 @@
                 <div id="productGrid" class="product-grid"></div>
             </div>
             <div class="pos-right">
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px; display: flex; gap: 10px;">
-                    <input type="text" id="searchInvoiceInput" placeholder="পুরোনো মেমো খুঁজুন (যেমন: 123456)" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit;">
-                    <button onclick="searchInvoiceAction()" style="background: var(--dark); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold;"><i class="fa-solid fa-search"></i> খুঁজুন</button>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 15px; display: flex; gap: 10px;">
+                    <input type="text" id="searchInvoiceInput" placeholder="পুরোনো মেমো (যেমন: 123456)" style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit;">
+                    <button onclick="searchInvoiceAction()" style="background: var(--dark); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold;"><i class="fa-solid fa-search"></i></button>
                 </div>
-
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f2f6; padding-bottom: 10px; margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-bottom: 15px;">
                     <h3 style="margin: 0; color: var(--dark);"><i class="fa-solid fa-file-invoice"></i> বর্তমান মেমো</h3>
                     <button id="clearCartBtn" class="btn-clear-cart"><i class="fa-solid fa-trash-can"></i> ক্লিয়ার</button>
                 </div>
@@ -249,7 +251,7 @@
                     <table class="cart-table" id="cartTable">
                         <thead><tr>
                             <th style="border-radius: 6px 0 0 6px;">মাল</th>
-                            <th class="text-center">রেট (৳)</th>
+                            <th class="text-center">রেট</th>
                             <th class="text-center">পরিমাণ</th>
                             <th class="text-right">মোট (৳)</th>
                             <th class="text-center" style="border-radius: 0 6px 6px 0;"></th>
@@ -264,6 +266,7 @@
         </div>
     </div>
 
+    <!-- INVENTORY VIEW -->
     <div id="inventory-view" class="hidden">
         <div class="dashboard-stats">
             <div class="stat-card bg-blue">
@@ -280,36 +283,58 @@
             </div>
         </div>
         
-        <div class="form-group">
-            <input type="text" id="productBarcode" placeholder="বারকোড স্ক্যান (ঐচ্ছিক)">
-            <input type="text" id="productName" placeholder="মালের নাম">
-            <input type="number" step="any" id="productQty" placeholder="পরিমাণ">
-            <select id="productUnit">
-                <option value="কেজি">কেজি</option><option value="পিস">পিস</option>
-                <option value="প্যাকেট">প্যাকেট</option><option value="লিটার">লিটার</option><option value="বস্তা">বস্তা</option>
-            </select>
-            <input type="number" step="any" id="productBuyPrice" placeholder="কেনা দাম (একক)">
-            <input type="number" step="any" id="productSellPrice" placeholder="বিক্রি দাম (একক)">
-            <input type="number" id="productAlertLimit" placeholder="অ্যালার্ট লিমিট (যেমন: 5)">
-            <button id="addBtn" class="btn-add-new"><i class="fa-solid fa-plus"></i> যুক্ত করুন</button>
-            <button id="resetBtn" class="btn-reset" onclick="document.querySelectorAll('.form-group input').forEach(el => el.value = '');"><i class="fa-solid fa-rotate-left"></i> ক্লিয়ার</button>
+        <div class="premium-box">
+            <h4 style="margin-top:0; color: #475569;"><i class="fa-solid fa-plus-circle"></i> নতুন মাল যুক্ত করুন</h4>
+            <div class="form-group" style="align-items: flex-end;">
+                <div class="input-wrapper">
+                    <label>বারকোড (ঐচ্ছিক)</label>
+                    <div class="input-with-icon"><i class="fa-solid fa-barcode"></i><input type="text" id="productBarcode" placeholder="উদাঃ 123456789"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>মালের নাম <span class="required-star">*</span></label>
+                    <div class="input-with-icon"><i class="fa-solid fa-box-open"></i><input type="text" id="productName" placeholder="উদাঃ মিনিকেট চাল"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>পরিমাণ <span class="required-star">*</span></label>
+                    <div class="input-with-icon"><i class="fa-solid fa-scale-balanced"></i><input type="number" step="any" id="productQty" placeholder="উদাঃ 50"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>ইউনিট <span class="required-star">*</span></label>
+                    <div class="input-with-icon"><i class="fa-solid fa-weight-hanging"></i>
+                        <select id="productUnit">
+                            <option value="কেজি">কেজি</option><option value="পিস">পিস</option>
+                            <option value="প্যাকেট">প্যাকেট</option><option value="লিটার">লিটার</option><option value="বস্তা">বস্তা</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>কেনা দাম <span class="required-star">*</span></label>
+                    <div class="input-with-icon"><i class="fa-solid fa-bangladeshi-taka-sign"></i><input type="number" step="any" id="productBuyPrice" placeholder="উদাঃ 55"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>বিক্রি দাম <span class="required-star">*</span></label>
+                    <div class="input-with-icon"><i class="fa-solid fa-bangladeshi-taka-sign"></i><input type="number" step="any" id="productSellPrice" placeholder="উদাঃ 60"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>অ্যালার্ট লিমিট</label>
+                    <div class="input-with-icon"><i class="fa-solid fa-bell"></i><input type="number" id="productAlertLimit" placeholder="উদাঃ 5"></div>
+                </div>
+                <div class="input-wrapper">
+                    <button id="addBtn" class="btn-add-new"><i class="fa-solid fa-plus"></i> যুক্ত করুন</button>
+                </div>
+            </div>
         </div>
 
-        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-            <button id="resetFilterBtn" class="btn-show-all hidden"><i class="fa-solid fa-arrows-rotate"></i> সবগুলো মাল দেখুন</button>
+        <div class="premium-box">
+            <button id="resetFilterBtn" class="btn-icon hidden" style="background:var(--dark); margin-bottom: 10px; font-weight:bold; padding: 10px 15px;"><i class="fa-solid fa-arrows-rotate"></i> সবগুলো মাল দেখুন</button>
             <div style="overflow-x: auto;">
-                <table id="invDataTable" class="display" style="width:100%">
+                <table id="invDataTable" class="display premium-table" style="width:100%">
                     <thead>
                         <tr>
-                            <th>বারকোড</th>
-                            <th>নাম</th>
-                            <th>স্টক</th>
-                            <th class="text-right">কেনা দাম</th>
-                            <th class="text-right" style="color:#e67e22;">মোট খরচ</th>
-                            <th class="text-right">বিক্রি দাম</th>
-                            <th class="text-center">অ্যাকশন</th>
-                            <th style="display:none;">AlertLimit</th>
-                            <th style="display:none;">RawStock</th>
+                            <th>বারকোড</th><th>নাম</th><th>স্টক</th>
+                            <th class="text-right">কেনা দাম</th><th class="text-right">মোট খরচ</th>
+                            <th class="text-right">বিক্রি দাম</th><th class="text-center">অ্যাকশন</th>
+                            <th style="display:none;">AlertLimit</th><th style="display:none;">RawStock</th>
                         </tr>
                     </thead>
                     <tbody id="inventoryTable"></tbody>
@@ -318,54 +343,160 @@
         </div>
     </div>
 
+    <!-- EXPENSE VIEW -->
     <div id="expense-view" class="hidden">
-        <h2 style="color: var(--danger);"><i class="fa-solid fa-money-bill-wave"></i> দোকানের খরচ</h2>
-        <div class="form-group">
-            <input type="text" id="expReason" placeholder="খরচের বিবরণ (যেমন: কারেন্ট বিল, চা-নাস্তা)">
-            <input type="number" step="any" id="expAmount" placeholder="টাকার পরিমাণ (৳)">
-            <button id="addExpBtn" class="btn-add-new"><i class="fa-solid fa-plus"></i> খরচ যুক্ত করুন</button>
+        <h2 style="color: var(--danger);"><i class="fa-solid fa-money-bill-trend-up"></i> দৈনন্দিন খরচ</h2>
+        
+        <div class="dashboard-stats">
+            <div class="stat-card bg-slate">
+                <i class="fa-solid fa-calendar-day"></i><h4>আজকের খরচ</h4><p>৳ <span id="statExpToday">0.00</span></p>
+            </div>
+            <div class="stat-card bg-slate">
+                <i class="fa-solid fa-calendar-days"></i><h4>এই মাসের খরচ</h4><p>৳ <span id="statExpMonth">0.00</span></p>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+                <i class="fa-solid fa-wallet"></i><h4>সর্বমোট খরচ</h4><p>৳ <span id="statExpTotal">0.00</span></p>
+            </div>
         </div>
-        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-            <table id="expDataTable" class="display" style="width:100%">
-                <thead><tr><th>তারিখ</th><th>বিবরণ</th><th class="text-right">পরিমাণ (৳)</th><th>এন্ট্রি করেছেন</th></tr></thead>
+
+        <div class="premium-box">
+            <div class="form-group" style="align-items: flex-end;">
+                <div class="input-wrapper">
+                    <label>তারিখ <span class="required-star">*</span></label>
+                    <div class="input-with-icon"><i class="fa-regular fa-calendar-days"></i><input type="date" id="expDate"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>খাত / ক্যাটাগরি <span class="required-star">*</span></label>
+                    <div class="input-with-icon"><i class="fa-solid fa-list"></i>
+                        <select id="expCategory">
+                            <option value="দোকান ভাড়া">দোকান ভাড়া</option>
+                            <option value="কারেন্ট বিল">কারেন্ট বিল</option>
+                            <option value="চা-নাস্তা">চা-নাস্তা / আপ্যায়ন</option>
+                            <option value="যাতায়াত / ভ্যান ভাড়া">যাতায়াত / ভ্যান ভাড়া</option>
+                            <option value="কর্মচারীর বেতন">কর্মচারীর বেতন</option>
+                            <option value="অন্যান্য" selected>অন্যান্য</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>খরচের বিবরণ (ঐচ্ছিক)</label>
+                    <div class="input-with-icon"><i class="fa-solid fa-pen-clip"></i><input type="text" id="expReason" placeholder="উদাঃ বিস্কুট ও চা"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>পরিমাণ (৳) <span class="required-star">*</span></label>
+                    <div class="input-with-icon"><i class="fa-solid fa-bangladeshi-taka-sign"></i><input type="number" step="any" id="expAmount" placeholder="উদাঃ 150"></div>
+                </div>
+                <div class="input-wrapper">
+                    <button id="addExpBtn" class="btn-add-new"><i class="fa-solid fa-plus"></i> খরচ যুক্ত করুন</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Expense Date Filter & Excel Options -->
+        <div class="premium-box" style="margin-bottom: 20px; padding: 20px;">
+            <div class="form-group" style="align-items: flex-end; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+                <div class="input-wrapper">
+                    <label>তারিখ থেকে:</label>
+                    <div class="input-with-icon"><i class="fa-regular fa-calendar"></i><input type="date" id="expFilterStart"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>পর্যন্ত:</label>
+                    <div class="input-with-icon"><i class="fa-regular fa-calendar"></i><input type="date" id="expFilterEnd"></div>
+                </div>
+                <div class="input-wrapper" style="flex-direction: row; gap:10px; flex: 2;">
+                    <button id="filterExpBtn" class="btn-add-new" style="flex:1; background:var(--primary);"><i class="fa-solid fa-filter"></i> ফিল্টার</button>
+                    <button id="resetExpFilterBtn" class="btn-add-new" style="flex:1; background:var(--danger);"><i class="fa-solid fa-rotate-left"></i> রিসেট</button>
+                    <!-- কাস্টম এক্সেল বাটন -->
+                    <button id="customExcelBtn" class="btn-add-new" style="flex:1; background:#10b981;"><i class="fa-solid fa-file-excel"></i> এক্সেল ডাউনলোড</button>
+                </div>
+            </div>
+        </div>
+
+
+<!-- Premium Expense Table with Footer -->
+        <div class="premium-box">
+            <!-- DataTables এর ডিফল্ট বাটন লুকানোর জন্য ইনলাইন CSS -->
+            <style> #expDataTable_wrapper .dt-buttons { display: none !important; } </style>
+            
+            <table id="expDataTable" class="display premium-table" style="width:100%">
+                <thead>
+                    <tr><th>তারিখ</th><th>খাত</th><th>বিবরণ</th><th class="text-right">পরিমাণ (৳)</th><th>এন্ট্রি করেছেন</th><th class="text-center">অ্যাকশন</th></tr>
+                </thead>
                 <tbody id="expenseTable"></tbody>
+                <tfoot>
+                    <tr style="background: #f8fafc; border-top: 3px solid #cbd5e1; border-bottom: 1px solid #e2e8f0;">
+                        <th colspan="3" style="text-align:right; font-size: 15px; color: #475569; padding: 15px;">ফিল্টার করা মোট খরচ:</th>
+                        <th class="text-right" style="font-size: 18px; color: var(--danger); font-weight: bold; padding: 15px;" id="expFilteredTotal">৳ 0.00</th>
+                        <th colspan="2"></th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
 
+    <!-- DUE VIEW -->
     <div id="due-view" class="hidden">
-        <h2 style="color: #e67e22;"><i class="fa-solid fa-book"></i> বাকির খাতা ও লেজার</h2>
-        <div style="background: #fff0e6; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #fbdcce;">
-            <h4 style="margin-top:0; color: #d35400;"><i class="fa-solid fa-user-plus"></i> নতুন কাস্টমার / বাকি এন্ট্রি</h4>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-                <input type="text" id="dueCusName" placeholder="কাস্টমারের নাম" style="padding:10px; border:1px solid #ccc; border-radius:6px; font-family:inherit;">
-                <input type="text" id="dueCusPhone" placeholder="মোবাইল নাম্বার (Primary ID)" style="padding:10px; border:1px solid #ccc; border-radius:6px; font-family:inherit;">
-                <input type="text" id="dueCusAddress" placeholder="ঠিকানা" style="padding:10px; border:1px solid #ccc; border-radius:6px; font-family:inherit;">
-                <input type="number" id="dueCreditLimit" placeholder="সর্বোচ্চ বাকির লিমিট (৳)" style="padding:10px; border:1px solid #ccc; border-radius:6px; font-family:inherit;">
-                <input type="text" id="dueGuarantorName" placeholder="জামিনদারের নাম" style="padding:10px; border:1px solid #ccc; border-radius:6px; font-family:inherit;">
-                <input type="text" id="dueGuarantorPhone" placeholder="জামিনদারের মোবাইল" style="padding:10px; border:1px solid #ccc; border-radius:6px; font-family:inherit;">
-                <input type="number" step="any" id="dueAmount" placeholder="প্রাথমিক বাকির পরিমাণ (৳)" style="padding:10px; border:1px solid #ccc; border-radius:6px; font-family:inherit;">
-                <button id="addDueBtn" class="btn-add-new" style="padding:10px;"><i class="fa-solid fa-plus"></i> সেভ করুন</button>
+        <h2 style="color: #e67e22;"><i class="fa-solid fa-book-open-reader"></i> বাকির খাতা ও লেজার</h2>
+        
+        <div class="dashboard-stats">
+            <div class="stat-card bg-red">
+                <i class="fa-solid fa-hand-holding-dollar"></i><h4>মার্কেটে মোট বকেয়া</h4><p>৳ <span id="statTotalMarketDue">0.00</span></p>
+            </div>
+            <div class="stat-card bg-slate">
+                <i class="fa-solid fa-users"></i><h4>বাকি নেওয়া কাস্টমার</h4><p><span id="statTotalDueCustomers">0</span> জন</p>
             </div>
         </div>
-        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-            <table id="dueDataTable" class="display" style="width:100%">
-                <thead><tr><th>কাস্টমার</th><th>মোবাইল</th><th>ঠিকানা</th><th class="text-right">লিমিট (৳)</th><th class="text-right">মোট বাকি (৳)</th><th class="text-center">অ্যাকশন</th></tr></thead>
+
+        <div class="premium-box" style="border-left: 4px solid #e67e22; background: #fffcf9;">
+            <h4 style="margin-top:0; color: #d35400;"><i class="fa-solid fa-user-plus"></i> নতুন কাস্টমার / বাকি এন্ট্রি</h4>
+            <div class="form-group" style="align-items: flex-end;">
+                <div class="input-wrapper">
+                    <label>কাস্টমারের নাম</label>
+                    <div class="input-with-icon"><i class="fa-regular fa-user"></i><input type="text" id="dueCusName" placeholder="উদাঃ মোঃ রহিম"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>মোবাইল নাম্বার <span class="required-star">*</span></label>
+                    <div class="input-with-icon"><i class="fa-solid fa-phone"></i><input type="text" id="dueCusPhone" placeholder="উদাঃ ০১৭XX-XXXXXX"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>ঠিকানা</label>
+                    <div class="input-with-icon"><i class="fa-solid fa-location-dot"></i><input type="text" id="dueCusAddress" placeholder="উদাঃ বাইপাইল, সাভার"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>সর্বোচ্চ বাকির লিমিট</label>
+                    <div class="input-with-icon"><i class="fa-solid fa-ban"></i><input type="number" id="dueCreditLimit" placeholder="উদাঃ 5000"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>প্রাথমিক বাকি (৳)</label>
+                    <div class="input-with-icon"><i class="fa-solid fa-bangladeshi-taka-sign"></i><input type="number" step="any" id="dueAmount" placeholder="উদাঃ 0.00"></div>
+                </div>
+                <div class="input-wrapper">
+                    <button id="addDueBtn" class="btn-add-new"><i class="fa-solid fa-save"></i> সেভ করুন</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="premium-box">
+            <table id="dueDataTable" class="display premium-table" style="width:100%">
+                <thead><tr><th>কাস্টমার তথ্য</th><th>ঠিকানা</th><th class="text-right">লিমিট (৳)</th><th class="text-right">মোট বাকি (৳)</th><th class="text-center">অ্যাকশন</th></tr></thead>
                 <tbody id="dueTable"></tbody>
             </table>
         </div>
     </div>
 
+    <!-- PARTNER VIEW -->
     <div id="partner-view" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="color: var(--secondary); margin:0;"><i class="fa-solid fa-handshake"></i> পার্টনার ইনভেস্টমেন্ট ও শেয়ার</h2>
-            <button id="distributeProfitBtn" class="btn-add-new" style="height:auto; padding:10px 15px; border-radius:6px; background:var(--primary);"><i class="fa-solid fa-coins"></i> লভ্যাংশ বণ্টন করুন</button>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap; gap:10px;">
+            <h2 style="color: var(--secondary); margin:0;"><i class="fa-solid fa-handshake"></i> পার্টনার ইনভেস্টমেন্ট</h2>
+            <div style="display:flex; gap:10px;">
+                <button id="addNewPartnerBtn" class="btn-add-new" style="background:#10b981; height:auto; padding:10px 15px; border-radius:6px;"><i class="fa-solid fa-user-plus"></i> নতুন পার্টনার</button>
+                <button id="distributeProfitBtn" class="btn-add-new" style="height:auto; padding:10px 15px; border-radius:6px; background:var(--primary);"><i class="fa-solid fa-coins"></i> লভ্যাংশ বণ্টন</button>
+            </div>
         </div>
         
-        <!-- NEW: Master Capital & Fund Utilization Card -->
         <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; padding: 25px; border-radius: 10px; margin-top: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.15); flex-wrap: wrap; gap:15px;">
             <div>
-                <h3 style="margin: 0; color: #cbd5e1; font-weight: 500; font-size: 16px;"><i class="fa-solid fa-vault"></i> ব্যবসায়িক মোট মূলধন (Total Capital)</h3>
+                <h3 style="margin: 0; color: #cbd5e1; font-weight: 500; font-size: 16px;"><i class="fa-solid fa-vault"></i> ব্যবসায়িক মোট মূলধন</h3>
                 <div style="font-size: 32px; font-weight: bold; margin-top: 5px; color: #10b981;">৳ <span id="displayTotalCapital">0.00</span></div>
             </div>
             <div style="text-align: right; background: rgba(255,255,255,0.1); padding: 15px 25px; border-radius: 8px; min-width: 180px;">
@@ -375,29 +506,56 @@
             </div>
         </div>
 
-        <div id="equityDashboard" class="equity-grid"></div>
+        <div id="equityDashboard" class="dashboard-stats" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));"></div>
 
-        <div class="form-group" style="margin-top:20px; background:#e0e7ff;">
-            <select id="partnerTxType">
-                <option value="Invest">ইনভেস্ট (Invest)</option>
-                <option value="Withdraw">উত্তোলন (Withdraw)</option>
-            </select>
-            <input type="text" id="partnerName" placeholder="পার্টনারের নাম">
-            <input type="number" step="any" id="partnerInvestAmount" placeholder="টাকার পরিমাণ (৳)">
-            <button id="addInvestBtn" class="btn-add-new" style="background:var(--secondary);"><i class="fa-solid fa-check"></i> কনফার্ম</button>
+        <div class="premium-box">
+            <div class="form-group" style="align-items: start;">
+                <div class="input-wrapper">
+                    <label>পার্টনার নির্বাচন করুন <span class="required-star">*</span></label>
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <select id="partnerNameSelect">
+                            <option value="">নির্বাচন করুন...</option>
+                        </select>
+                    </div>
+                    <div id="partnerPreview"></div> <!-- Live Preview Box -->
+                </div>
+                <div class="input-wrapper">
+                    <label>ধরণ <span class="required-star">*</span></label>
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                        <select id="partnerTxType">
+                            <option value="Invest">ইনভেস্ট (Invest)</option>
+                            <option value="Withdraw">উত্তোলন (Withdraw)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label>টাকার পরিমাণ (৳) <span class="required-star">*</span></label>
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-bangladeshi-taka-sign"></i>
+                        <input type="number" step="any" id="partnerInvestAmount" placeholder="উদাঃ 10000">
+                    </div>
+                </div>
+                <div class="input-wrapper" style="display: flex; align-items: flex-end; height: 100%;">
+                    <button id="addInvestBtn" class="btn-add-new" style="background:var(--secondary); width:100%;"><i class="fa-solid fa-check"></i> কনফার্ম</button>
+                </div>
+            </div>
         </div>
-        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-            <table id="investDataTable" class="display" style="width:100%">
-                <thead><tr><th>তারিখ</th><th>পার্টনারের নাম</th><th>ধরণ</th><th class="text-right">পরিমাণ (৳)</th></tr></thead>
+        
+        <div class="premium-box">
+            <table id="investDataTable" class="display premium-table" style="width:100%">
+                <thead><tr><th style="display:none;">Timestamp</th><th>তারিখ</th><th>পার্টনারের নাম</th><th>ধরণ</th><th class="text-right">পরিমাণ (৳)</th></tr></thead>
                 <tbody id="investTable"></tbody>
             </table>
         </div>
     </div>
 
+    <!-- REPORTS VIEW -->
     <div id="reports-view" class="hidden">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <h2 style="color: var(--primary); margin: 0;"><i class="fa-solid fa-chart-line"></i> ব্যবসার রিপোর্ট</h2>
-            <div class="report-tabs">
+            <div class="tabs">
                 <button id="showSalesBtn" class="tab-btn active"><i class="fa-solid fa-tags"></i> বিক্রির তালিকা</button>
                 <button id="showPurchaseBtn" class="tab-btn"><i class="fa-solid fa-truck-loading"></i> স্টক কেনার তালিকা</button>
                 <button id="showReturnBtn" class="tab-btn" style="color: #e74c3c;"><i class="fa-solid fa-rotate-left"></i> ফেরত তালিকা</button>
@@ -405,79 +563,75 @@
             </div>
         </div>
         
-        <div class="report-filter" style="margin-top: 20px;">
-            <label><strong>তারিখ থেকে:</strong></label>
-            <input type="date" id="reportStartDate">
-            <label><strong>পর্যন্ত:</strong></label>
-            <input type="date" id="reportEndDate">
-            <label><strong>সেলসম্যান:</strong></label>
-            <select id="salesmanFilter"><option value="All">সবাই</option></select>
-            <button id="generateReportBtn"><i class="fa-solid fa-search"></i> খুঁজুন</button>
-            <button id="printReportBtn" class="btn-print-report"><i class="fa-solid fa-print"></i> A4 প্রিন্ট</button>
+        <div class="premium-box" style="margin-top: 20px; padding: 15px;">
+            <div class="form-group" style="align-items: flex-end; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+                <div class="input-wrapper">
+                    <label>তারিখ থেকে:</label>
+                    <div class="input-with-icon"><i class="fa-regular fa-calendar"></i><input type="date" id="reportStartDate"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>পর্যন্ত:</label>
+                    <div class="input-with-icon"><i class="fa-regular fa-calendar"></i><input type="date" id="reportEndDate"></div>
+                </div>
+                <div class="input-wrapper">
+                    <label>সেলসম্যান:</label>
+                    <div class="input-with-icon"><i class="fa-solid fa-user-tie"></i><select id="salesmanFilter"><option value="All">সবাই</option></select></div>
+                </div>
+                <div class="input-wrapper" style="flex-direction: row; gap:10px;">
+                    <button id="generateReportBtn" class="btn-add-new" style="flex:1; background:var(--primary);"><i class="fa-solid fa-search"></i> খুঁজুন</button>
+                    <button id="printReportBtn" class="btn-add-new" style="flex:1; background:var(--dark);"><i class="fa-solid fa-print"></i> A4 প্রিন্ট</button>
+                </div>
+            </div>
         </div>
 
-        <div class="report-summary-box">
-            <div class="report-box"><h3>মোট বিক্রি (Gross Sales)</h3><p style="color: #27ae60;">৳ <span id="repTotalSales">0.00</span></p></div>
-            <div class="report-box" style="background: #fff3cd; border-color: #ffeeba;"><h3 style="color: #856404;">মাল ফেরত (Return)</h3><p style="color: #856404;">৳ <span id="repTotalReturn">0.00</span></p></div>
-            <div class="report-box" style="background: #d4edda; border-color: #c3e6cb;"><h3 style="color: #155724;">প্রকৃত বিক্রি (Net Sales)</h3><p style="color: #155724; font-weight: bold;">৳ <span id="repNetSales">0.00</span></p></div>
-            <div class="report-box"><h3>গ্রস লাভ (বিক্রি থেকে)</h3><p style="color: #8e44ad;">৳ <span id="repGrossProfit">0.00</span></p></div>
-            <div class="report-box"><h3>মোট খরচ (Expenses)</h3><p style="color: #e74c3c;">৳ <span id="repTotalExpense">0.00</span></p></div>
-            <div class="report-box" style="background: #d4edda; border-color: #c3e6cb;"><h3 style="color: #155724;">নিট লাভ (Net Profit)</h3><p style="color: #155724;">৳ <span id="repNetProfit">0.00</span></p></div>
+        <div class="report-summary-box" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px;">
+            <div class="premium-box" style="text-align: center; margin-bottom:0;"><h4 style="color:#64748b; margin-bottom:5px;">মোট বিক্রি</h4><p style="margin:0; font-size: 22px; font-weight: bold; color: #27ae60;">৳ <span id="repTotalSales">0.00</span></p></div>
+            <div class="premium-box" style="text-align: center; margin-bottom:0; background: #fffcf9; border-color: #fed7aa;"><h4 style="color:#c2410c; margin-bottom:5px;">মাল ফেরত</h4><p style="margin:0; font-size: 22px; font-weight: bold; color: #c2410c;">৳ <span id="repTotalReturn">0.00</span></p></div>
+            <div class="premium-box" style="text-align: center; margin-bottom:0; background: #f0fdf4; border-color: #bbf7d0;"><h4 style="color:#15803d; margin-bottom:5px;">প্রকৃত বিক্রি</h4><p style="margin:0; font-size: 22px; font-weight: bold; color: #15803d;">৳ <span id="repNetSales">0.00</span></p></div>
+            <div class="premium-box" style="text-align: center; margin-bottom:0;"><h4 style="color:#64748b; margin-bottom:5px;">গ্রস লাভ</h4><p style="margin:0; font-size: 22px; font-weight: bold; color: #8e44ad;">৳ <span id="repGrossProfit">0.00</span></p></div>
+            <div class="premium-box" style="text-align: center; margin-bottom:0;"><h4 style="color:#64748b; margin-bottom:5px;">মোট খরচ</h4><p style="margin:0; font-size: 22px; font-weight: bold; color: #e74c3c;">৳ <span id="repTotalExpense">0.00</span></p></div>
+            <div class="premium-box" style="text-align: center; margin-bottom:0; background: #f0fdf4; border-color: #bbf7d0;"><h4 style="color:#15803d; margin-bottom:5px;">নিট লাভ</h4><p style="margin:0; font-size: 22px; font-weight: bold; color: #15803d;">৳ <span id="repNetProfit">0.00</span></p></div>
         </div>
 
-        <div class="salesman-tracker-box">
+        <div class="premium-box">
             <h3 style="margin-top:0; color:var(--dark);"><i class="fa-solid fa-users"></i> সেলসম্যানদের পারফরম্যান্স</h3>
-            <div id="salesmanGrid" class="salesman-grid"></div>
+            <div id="salesmanGrid" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 10px;"></div>
         </div>
 
-        <!-- DataTable Containers (Added transition classes logic via JS) -->
-        <div id="sales-table-container">
-            <h3 style="margin-bottom: 15px; color: var(--success); border-bottom: 2px solid #eee; padding-bottom: 8px;"><i class="fa-solid fa-tags"></i> বিক্রির বিস্তারিত রিপোর্ট</h3>
-            <table id="salesDataTable" class="display" style="width:100%">
-                <thead style="background: var(--success); color: white;">
-                    <tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">বিক্রি রেট</th><th class="text-right">মোট বিল</th><th class="text-right">লাভ</th><th>পেমেন্ট</th><th>বিক্রেতা</th></tr>
-                </thead>
+        <div id="sales-table-container" class="premium-box">
+            <h3 style="margin-bottom: 15px; color: var(--success);"><i class="fa-solid fa-tags"></i> বিক্রির বিস্তারিত রিপোর্ট</h3>
+            <table id="salesDataTable" class="display premium-table" style="width:100%">
+                <thead><tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">বিক্রি রেট</th><th class="text-right">মোট বিল</th><th class="text-right">লাভ</th><th>পেমেন্ট</th><th>বিক্রেতা</th></tr></thead>
                 <tbody id="repSalesTable"></tbody>
             </table>
         </div>
 
-        <div id="purchase-table-container" class="hidden">
-            <h3 style="margin-bottom: 15px; color: #e67e22; border-bottom: 2px solid #eee; padding-bottom: 8px;"><i class="fa-solid fa-truck-loading"></i> স্টক কেনার বিস্তারিত রিপোর্ট</h3>
-            <table id="purchaseDataTable" class="display" style="width:100%">
-                <thead style="background: #e67e22; color: white;">
-                    <tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">কেনা রেট</th><th class="text-right">মোট খরচ</th><th>এন্ট্রি করেছেন</th></tr>
-                </thead>
+        <div id="purchase-table-container" class="premium-box hidden">
+            <h3 style="margin-bottom: 15px; color: #e67e22;"><i class="fa-solid fa-truck-loading"></i> স্টক কেনার বিস্তারিত রিপোর্ট</h3>
+            <table id="purchaseDataTable" class="display premium-table" style="width:100%">
+                <thead><tr><th>তারিখ</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">কেনা রেট</th><th class="text-right">মোট খরচ</th><th>এন্ট্রি করেছেন</th></tr></thead>
                 <tbody id="repPurchaseTable"></tbody>
             </table>
         </div>
 
-        <div id="return-table-container" class="hidden">
-            <h3 style="margin-bottom: 15px; color: #e74c3c; border-bottom: 2px solid #eee; padding-bottom: 8px;">
-                <i class="fa-solid fa-rotate-left"></i> মাল ফেরতের বিস্তারিত রিপোর্ট
-            </h3>
-            <table id="returnDataTable" class="display" style="width:100%">
-                <thead style="background: #e74c3c; color: white;">
-                    <tr><th>তারিখ</th><th>মেমো নং</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">ফেরত মূল্য (৳)</th><th>অ্যাডজাস্টমেন্ট</th></tr>
-                </thead>
+        <div id="return-table-container" class="premium-box hidden">
+            <h3 style="margin-bottom: 15px; color: #e74c3c;"><i class="fa-solid fa-rotate-left"></i> মাল ফেরতের বিস্তারিত রিপোর্ট</h3>
+            <table id="returnDataTable" class="display premium-table" style="width:100%">
+                <thead><tr><th>তারিখ</th><th>মেমো নং</th><th>মালের নাম</th><th>পরিমাণ</th><th class="text-right">ফেরত মূল্য (৳)</th><th>অ্যাডজাস্টমেন্ট</th></tr></thead>
                 <tbody id="repReturnTable"></tbody>
             </table>
         </div>
 
-        <div id="audit-table-container" class="hidden">
-            <h3 style="margin-bottom: 15px; color: var(--dark); border-bottom: 2px solid #eee; padding-bottom: 8px;">
-                <i class="fa-solid fa-shield-halved"></i> সিস্টেম অডিট লগ (অ্যাক্টিভিটি ট্র্যাকিং)
-            </h3>
-            <table id="auditDataTable" class="display" style="width:100%">
-                <thead style="background: var(--dark); color: white;">
-                    <tr><th>তারিখ ও সময়</th><th>ইউজার</th><th>অ্যাকশন</th><th>বিস্তারিত</th></tr>
-                </thead>
+        <div id="audit-table-container" class="premium-box hidden">
+            <h3 style="margin-bottom: 15px; color: var(--dark);"><i class="fa-solid fa-shield-halved"></i> সিস্টেম অডিট লগ</h3>
+            <table id="auditDataTable" class="display premium-table" style="width:100%">
+                <thead><tr><th>তারিখ ও সময়</th><th>ইউজার</th><th>অ্যাকশন</th><th>বিস্তারিত</th></tr></thead>
                 <tbody id="repAuditTable"></tbody>
             </table>
         </div>
     </div>
 </div>
 
-<!-- Print Sections -->
 <div id="print-section">
     <div class="receipt-header">
         <h2>আমার মুদি দোকান</h2>
@@ -493,17 +647,17 @@
     </div>
     <div class="dashed-line"></div>
     <table class="print-table">
-        <thead><tr><th style="width: 40%;">বিবরণ</th><th style="width: 20%; text-align: center;">দর (৳)</th><th style="width: 20%; text-align: center;">পরিমাণ</th><th style="width: 20%; text-align: right;">মোট (৳)</th></tr></thead>
+        <thead><tr><th style="width: 45%;">বিবরণ</th><th style="width: 15%; text-align: center;">দর</th><th style="width: 15%; text-align: center;">পরিমাণ</th><th style="width: 25%; text-align: right;">মোট(৳)</th></tr></thead>
         <tbody id="printCartBody"></tbody>
     </table>
     <div class="dashed-line"></div>
     <div class="print-total-section">
-        <p>উপ-মোট (Subtotal): ৳ <span id="printSubTotal">0.00</span></p>
-        <p id="printDiscountRow" style="color:#d35400;">ছাড় (Discount): ৳ <span id="printDiscount">0.00</span></p>
-        <p class="print-grand-total">সর্বমোট (Total): ৳ <span id="printTotal">0.00</span></p>
-        <p style="margin-top: 5px; font-weight:bold;">পেমেন্ট মেথড: <span id="printPayMethod">ক্যাশ</span></p>
-        <p id="printGivenRow">জমা (Given): ৳ <span id="printGiven">0.00</span></p>
-        <p id="printChangeOrDueRow" style="font-weight:bold;"><span id="printChangeOrDueLabel">ফেরত (Change):</span> ৳ <span id="printChangeOrDueAmount">0.00</span></p>
+        <p>উপ-মোট: ৳ <span id="printSubTotal">0.00</span></p>
+        <p id="printDiscountRow" style="color:#d35400;">ছাড়: ৳ <span id="printDiscount">0.00</span></p>
+        <p class="print-grand-total">সর্বমোট: ৳ <span id="printTotal">0.00</span></p>
+        <p style="margin-top: 2px; font-weight:bold;">পেমেন্ট: <span id="printPayMethod">ক্যাশ</span></p>
+        <p id="printGivenRow">জমা: ৳ <span id="printGiven">0.00</span></p>
+        <p id="printChangeOrDueRow" style="font-weight:bold;"><span id="printChangeOrDueLabel">ফেরত:</span> ৳ <span id="printChangeOrDueAmount">0.00</span></p>
     </div>
     <div class="dashed-line"></div>
     <div class="print-footer"><p>পণ্য পরিবর্তনের জন্য মেমো সাথে আনুন।</p><p>ধন্যবাদ! আবার আসবেন।</p></div>
@@ -551,7 +705,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, updateDoc, increment, enableIndexedDbPersistence, query, where, orderBy, runTransaction, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, updateDoc, increment, enableIndexedDbPersistence, query, where, orderBy, runTransaction, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     const firebaseConfig = {
@@ -574,10 +728,21 @@
     const toPaisa = num => Math.round((parseFloat(num) || 0) * 100);
     const toTaka = paisa => (paisa / 100);
     const capitalize = str => !str ? '' : str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    
+    const formatPhone = phone => phone.replace(/\s+/g, '').replace(/\D/g, ''); 
+    
+    const getTodayDateString = () => {
+        const today = new Date();
+        return today.toISOString().split('T')[0];
+    };
+    
+    document.getElementById('expDate').value = getTodayDateString();
+    
     const formatTime = ts => new Date(ts).toLocaleString('en-GB', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit', hour12:true});
 
     let allProducts = []; let cart = []; let currentSeller = "অ্যাডমিন";
-    let globalTotalStockInvestment = 0; // NEW: Global var for stock capital tracking
+    let globalTotalStockInvestment = 0; 
+    let allPartnerData = {}; let totalBusinessCapital = 0;
     
     async function logAudit(action, details) {
         try {
@@ -608,17 +773,13 @@
                 document.getElementById(container).classList.add('hidden');
                 document.getElementById(container).classList.remove('fade-in');
             });
-            
             const activeContainer = document.getElementById(reportContainers[index]);
             activeContainer.classList.remove('hidden');
             activeContainer.classList.add('fade-in');
             
-            // FIX: Set timeout allows DOM to fully render display block before calculating width
             let dataTableIds = ['#salesDataTable', '#purchaseDataTable', '#returnDataTable', '#auditDataTable'];
             if ($.fn.DataTable.isDataTable(dataTableIds[index])) { 
-                setTimeout(() => {
-                    $(dataTableIds[index]).DataTable().columns.adjust().draw();
-                }, 50);
+                setTimeout(() => { $(dataTableIds[index]).DataTable().columns.adjust().draw(); }, 50);
             }
         });
     });
@@ -659,17 +820,23 @@
             const currInvPaisa = p.quantity > 0 ? toPaisa(p.quantity * p.buyPrice) : 0; 
             const currSellPaisa = p.quantity > 0 ? toPaisa(p.quantity * p.sellPrice) : 0; 
             
-            invPaisa += currInvPaisa;
-            sellValuePaisa += currSellPaisa;
-            
+            invPaisa += currInvPaisa; sellValuePaisa += currSellPaisa;
             if(p.quantity <= p.alertLimit) lowStock++;
 
-            tableHtml += `<tr><td>${p.barcode || '-'}</td><td><strong>${sanitizeHTML(p.name)}</strong></td><td style="color:${p.quantity>0?'green':'red'}; font-weight:bold;">${p.quantity.toFixed(2)} ${p.unit}</td><td class="text-right">৳ ${p.buyPrice.toFixed(2)}</td><td class="text-right" style="color:#e67e22; font-weight:bold;">৳ ${toTaka(currInvPaisa).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td><td class="text-right" style="color: purple; font-weight:bold;">৳ ${p.sellPrice.toFixed(2)}</td><td class="action-btns text-center"><button class="btn-add-stock" title="স্টক যোগ করুন" onclick="addStock('${p.id}')"><i class="fa-solid fa-plus"></i></button><button class="btn-edit" title="এডিট করুন" onclick="editProduct('${p.id}')"><i class="fa-solid fa-pen"></i></button><button class="btn-delete" title="ডিলিট করুন" onclick="deleteProduct('${p.id}')"><i class="fa-solid fa-trash"></i></button></td><td style="display:none;">${p.alertLimit}</td><td style="display:none;">${p.quantity}</td></tr>`;
+            tableHtml += `<tr><td>${p.barcode || '-'}</td><td><strong>${sanitizeHTML(p.name)}</strong></td>
+            <td style="color:${p.quantity>0?'#16a085':'#e74c3c'}; font-weight:bold;">${p.quantity.toFixed(2)} <small>${p.unit}</small></td>
+            <td class="text-right">৳ ${p.buyPrice.toFixed(2)}</td><td class="text-right" style="color:#d35400; font-weight:bold;">৳ ${toTaka(currInvPaisa).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
+            <td class="text-right" style="color: #8e44ad; font-weight:bold;">৳ ${p.sellPrice.toFixed(2)}</td>
+            <td class="action-btns">
+                <button class="btn-icon" style="background:#0ea5e9;" title="স্টক যোগ করুন" onclick="addStock('${p.id}')"><i class="fa-solid fa-plus"></i></button>
+                <button class="btn-icon btn-edit" title="এডিট করুন" onclick="editProduct('${p.id}')"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn-icon btn-delete" title="ডিলিট করুন" onclick="deleteProduct('${p.id}')"><i class="fa-solid fa-trash"></i></button>
+            </td><td style="display:none;">${p.alertLimit}</td><td style="display:none;">${p.quantity}</td></tr>`;
         });
         document.getElementById('inventoryTable').innerHTML = tableHtml;
-        $('#invDataTable').DataTable({ "pageLength": 10, "order": [], "language": { "search": "খুঁজুন:", "lengthMenu": " _MENU_ রেকর্ড/পেজ", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
+        $('#invDataTable').DataTable({ "pageLength": 10, "order": [], "language": { "lengthMenu": "_MENU_ টি রেকর্ড দেখান", "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
         
-        globalTotalStockInvestment = toTaka(invPaisa); // Update global stock value
+        globalTotalStockInvestment = toTaka(invPaisa); 
         const potentialProfit = sellValuePaisa - invPaisa;
         
         document.getElementById('statInvestment').innerText = globalTotalStockInvestment.toLocaleString('en-IN', {minimumFractionDigits: 2}); 
@@ -751,7 +918,7 @@
                 const limitW = document.getElementById('limitWarn');
 
                 cPhoneI.addEventListener('input', async e => {
-                    const ph = e.target.value.trim();
+                    const ph = formatPhone(e.target.value);
                     if (ph.length >= 10) { 
                         try {
                             const dSnap = await getDoc(doc(db, "customers", ph));
@@ -760,7 +927,7 @@
                                 cNameI.value = cusDocData.name; cNameI.style.backgroundColor = "#eafaf1";
                                 updateCalc(); 
                             } else { cusDocData = null; cNameI.value = ""; cNameI.style.backgroundColor = "#fff"; limitW.style.display="none"; }
-                        } catch (err) {}
+                        } catch (err) { console.error(err); }
                     } else { cNameI.style.backgroundColor = "#fff"; limitW.style.display="none"; }
                 });
 
@@ -789,7 +956,7 @@
             preConfirm: () => {
                 const disc = parseFloat(document.getElementById('sDisc').value) || 0; const grand = tToPay - disc;
                 const giv = parseFloat(document.getElementById('sGiven').value) || 0; const method = document.querySelector('input[name="pMethod"]:checked').value;
-                const phone = document.getElementById('sCPhone').value.trim(); const name = document.getElementById('sCName').value.trim();
+                const phone = formatPhone(document.getElementById('sCPhone').value); const name = document.getElementById('sCName').value.trim();
                 const due = grand - giv;
                 if(disc > tToPay) { Swal.showValidationMessage('ছাড় মোট বিলের চেয়ে বেশি হতে পারবে না!'); return false; }
                 if(due > 0 && !phone) { Swal.showValidationMessage('বাকি রাখার জন্য মোবাইল নাম্বার আবশ্যক!'); return false; }
@@ -829,8 +996,8 @@
                     });
 
                     if(data.due > 0) {
-                        if(cDoc && cDoc.exists()) t.update(cRef, { totalDue: increment(data.due), name: data.name || cDoc.data().name });
-                        else t.set(cRef, { phone: data.phone, name: data.name || 'অজানা', totalDue: data.due, timestamp: ts });
+                        if(cDoc && cDoc.exists()) t.update(cRef, { totalDue: increment(data.due), name: data.name || cDoc.data().name, updatedAt: serverTimestamp() });
+                        else t.set(cRef, { phone: data.phone, name: data.name || 'অজানা', totalDue: data.due, timestamp: ts, createdAt: serverTimestamp() });
                         t.set(doc(collection(db, "due_transactions")), { phone: data.phone, date: nowStr, type: "Baki", amount: data.due, memoNo: invId, timestamp: ts });
                     }
                     
@@ -1057,7 +1224,7 @@
 
                     if (invoiceData.dueAmount > 0 && invoiceData.cusPhone) {
                         const cRef = doc(db, "customers", invoiceData.cusPhone);
-                        t.update(cRef, { totalDue: increment(-returnItems.totalRefundAmount) });
+                        t.update(cRef, { totalDue: increment(-returnItems.totalRefundAmount), updatedAt: serverTimestamp() });
                         t.set(doc(collection(db, "due_transactions")), { phone: invoiceData.cusPhone, date: returnDate, type: "Joma", amount: returnItems.totalRefundAmount, memoNo: `Return: ${invoiceData.memoNo}`, timestamp: ts });
                     }
                 });
@@ -1091,8 +1258,65 @@
 
     window.addStock = async (id) => {
         const p = allProducts.find(i => i.id === id);
-        const htmlContent = `<div class="swal-stock-info"><p><strong>বর্তমান স্টক:</strong> ${p.quantity} ${p.unit}</p><p><strong>বর্তমান কেনা দাম:</strong> ৳ ${p.buyPrice}</p></div><input id="sq" type="number" step="any" min="0.01" class="swal2-input" placeholder="নতুন পরিমাণ (${p.unit})"><input id="sb" type="number" step="any" min="0" class="swal2-input" placeholder="নতুন কেনা দাম" value="${p.buyPrice}"><input id="ss" type="number" step="any" min="0" class="swal2-input" placeholder="নতুন বিক্রি দাম" value="${p.sellPrice}">`;
-        const { value: v } = await Swal.fire({ title: 'স্টক আপডেট', html: htmlContent, showCancelButton: true, confirmButtonText: 'সেভ করুন', preConfirm: () => { const qty = document.getElementById('sq').value; if(!qty || qty<=0) { Swal.showValidationMessage('সঠিক পরিমাণ দিন'); return false; } return [qty, document.getElementById('sb').value, document.getElementById('ss').value]; } });
+        
+        // কাস্টম এবং প্রিমিয়াম HTML ডিজাইন
+        const htmlContent = `
+            <style>
+                .custom-swal-input { width: 100%; padding: 12px 16px 12px 40px !important; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box; outline:none; transition:0.3s; font-family: inherit; margin:0;}
+                .custom-swal-input:focus { background-color: #ffffff; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15); }
+                .input-icon-swal { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; pointer-events:none; }
+                .swal-label { font-size: 13px; color: #475569; font-weight: 600; margin-bottom: 6px; display: block; text-align: left; }
+            </style>
+            
+            <div style="background:#e0e7ff; padding:15px; border-radius:8px; margin-bottom:20px; text-align:left; border:1px solid #c7d2fe;">
+                <p style="margin:0 0 5px 0; color:#3730a3; font-size:14px;"><i class="fa-solid fa-box"></i> <strong>বর্তমান স্টক:</strong> ${p.quantity} ${p.unit}</p>
+                <p style="margin:0; color:#3730a3; font-size:14px;"><i class="fa-solid fa-tag"></i> <strong>বর্তমান কেনা দাম:</strong> ৳ ${p.buyPrice}</p>
+            </div>
+            
+            <div style="margin-bottom:15px;">
+                <label class="swal-label">নতুন পরিমাণ যোগ করুন (${p.unit}) <span style="color:#ef4444;">*</span></label>
+                <div style="position: relative; width: 100%;">
+                    <i class="fa-solid fa-plus-circle input-icon-swal"></i>
+                    <input id="sq" type="number" step="any" min="0.01" class="custom-swal-input" placeholder="কত ${p.unit} যোগ করবেন?">
+                </div>
+            </div>
+
+            <div style="display:flex; gap:15px;">
+                <div style="flex:1;">
+                    <label class="swal-label">নতুন কেনা দাম (৳)</label>
+                    <div style="position: relative; width: 100%;">
+                        <i class="fa-solid fa-bangladeshi-taka-sign input-icon-swal"></i>
+                        <input id="sb" type="number" step="any" min="0" class="custom-swal-input" value="${p.buyPrice}">
+                    </div>
+                </div>
+                <div style="flex:1;">
+                    <label class="swal-label">নতুন বিক্রি দাম (৳)</label>
+                    <div style="position: relative; width: 100%;">
+                        <i class="fa-solid fa-tags input-icon-swal"></i>
+                        <input id="ss" type="number" step="any" min="0" class="custom-swal-input" value="${p.sellPrice}">
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        const { value: v } = await Swal.fire({ 
+            title: '<span style="font-size: 20px; color: var(--dark);"><i class="fa-solid fa-boxes-stacked"></i> স্টক আপডেট</span>', 
+            html: htmlContent, 
+            showCancelButton: true, 
+            confirmButtonText: '<i class="fa-solid fa-save"></i> সেভ করুন', 
+            cancelButtonText: 'বাতিল',
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#64748b',
+            width: '450px',
+            preConfirm: () => { 
+                const qty = document.getElementById('sq').value; 
+                if(!qty || qty<=0) { 
+                    Swal.showValidationMessage('সঠিক পরিমাণ দিন'); 
+                    return false; 
+                } 
+                return [qty, document.getElementById('sb').value, document.getElementById('ss').value]; 
+            } 
+        });
 
         if(v && v[0]) {
             const addedQty = parseFloat(v[0]); const newBuyPrice = roundNum(v[1]) || p.buyPrice; const newSellPrice = roundNum(v[2]) || p.sellPrice;
@@ -1111,8 +1335,91 @@
 
     window.editProduct = async (id) => {
         const p = allProducts.find(i => i.id === id);
-        const htmlContent = `<input id="ebarcode" class="swal2-input" placeholder="বারকোড" value="${p.barcode || ''}"><input id="en" class="swal2-input" placeholder="মালের নাম" value="${sanitizeHTML(p.name)}"><select id="eu" class="swal2-input"><option value="কেজি" ${p.unit==='কেজি'?'selected':''}>কেজি</option><option value="পিস" ${p.unit==='পিস'?'selected':''}>পিস</option><option value="প্যাকেট" ${p.unit==='প্যাকেট'?'selected':''}>প্যাকেট</option><option value="লিটার" ${p.unit==='লিটার'?'selected':''}>লিটার</option><option value="বস্তা" ${p.unit==='বস্তা'?'selected':''}>বস্তা</option></select><input id="eb" type="number" step="any" min="0" class="swal2-input" placeholder="কেনা দাম" value="${p.buyPrice}"><input id="es" type="number" step="any" min="0" class="swal2-input" placeholder="বিক্রি দাম" value="${p.sellPrice}"><input id="elimit" type="number" step="any" min="0" class="swal2-input" placeholder="অ্যালার্ট লিমিট" value="${p.alertLimit}">`;
-        const { value: v } = await Swal.fire({ title: 'এডিট করুন', html: htmlContent, showCancelButton: true, confirmButtonText: 'আপডেট', preConfirm: () => { const name = document.getElementById('en').value; if(!name) { Swal.showValidationMessage('নাম খালি রাখা যাবে না'); return false; } return [name, document.getElementById('eu').value, document.getElementById('eb').value, document.getElementById('es').value, document.getElementById('elimit').value, document.getElementById('ebarcode').value]; } });
+        
+        const htmlContent = `
+            <style>
+                .custom-swal-input { width: 100%; padding: 12px 16px 12px 40px !important; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box; outline:none; transition:0.3s; font-family: inherit; margin:0;}
+                .custom-swal-input:focus { background-color: #ffffff; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15); }
+                .input-icon-swal { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; pointer-events:none; z-index:1; }
+                .swal-label { font-size: 13px; color: #475569; font-weight: 600; margin-bottom: 6px; display: block; text-align: left; }
+                .edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+            </style>
+            
+            <div class="edit-grid">
+                <div style="grid-column: span 2;">
+                    <label class="swal-label">মালের নাম <span style="color:#ef4444;">*</span></label>
+                    <div style="position: relative; width: 100%;">
+                        <i class="fa-solid fa-box-open input-icon-swal"></i>
+                        <input id="en" type="text" class="custom-swal-input" value="${sanitizeHTML(p.name)}">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="swal-label">বারকোড (ঐচ্ছিক)</label>
+                    <div style="position: relative; width: 100%;">
+                        <i class="fa-solid fa-barcode input-icon-swal"></i>
+                        <input id="ebarcode" type="text" class="custom-swal-input" value="${p.barcode || ''}" placeholder="বারকোড দিন">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="swal-label">ইউনিট</label>
+                    <div style="position: relative; width: 100%;">
+                        <i class="fa-solid fa-weight-hanging input-icon-swal"></i>
+                        <select id="eu" class="custom-swal-input" style="padding-left:40px; cursor:pointer;">
+                            <option value="কেজি" ${p.unit==='কেজি'?'selected':''}>কেজি</option>
+                            <option value="পিস" ${p.unit==='পিস'?'selected':''}>পিস</option>
+                            <option value="প্যাকেট" ${p.unit==='প্যাকেট'?'selected':''}>প্যাকেট</option>
+                            <option value="লিটার" ${p.unit==='লিটার'?'selected':''}>লিটার</option>
+                            <option value="বস্তা" ${p.unit==='বস্তা'?'selected':''}>বস্তা</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="swal-label">কেনা দাম (৳) <span style="color:#ef4444;">*</span></label>
+                    <div style="position: relative; width: 100%;">
+                        <i class="fa-solid fa-bangladeshi-taka-sign input-icon-swal"></i>
+                        <input id="eb" type="number" step="any" min="0" class="custom-swal-input" value="${p.buyPrice}">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="swal-label">বিক্রি দাম (৳) <span style="color:#ef4444;">*</span></label>
+                    <div style="position: relative; width: 100%;">
+                        <i class="fa-solid fa-tags input-icon-swal"></i>
+                        <input id="es" type="number" step="any" min="0" class="custom-swal-input" value="${p.sellPrice}">
+                    </div>
+                </div>
+
+                <div style="grid-column: span 2;">
+                    <label class="swal-label">অ্যালার্ট লিমিট (স্টক ওয়ার্নিং)</label>
+                    <div style="position: relative; width: 100%;">
+                        <i class="fa-solid fa-bell input-icon-swal"></i>
+                        <input id="elimit" type="number" step="any" min="0" class="custom-swal-input" value="${p.alertLimit}">
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        const { value: v } = await Swal.fire({ 
+            title: '<span style="font-size: 20px; color: var(--dark);"><i class="fa-solid fa-pen-to-square"></i> মালের তথ্য এডিট</span>', 
+            html: htmlContent, 
+            showCancelButton: true, 
+            confirmButtonText: '<i class="fa-solid fa-check-circle"></i> আপডেট করুন', 
+            cancelButtonText: 'বাতিল',
+            confirmButtonColor: '#4361ee',
+            cancelButtonColor: '#64748b',
+            width: '600px',
+            preConfirm: () => { 
+                const name = document.getElementById('en').value; 
+                if(!name) { 
+                    Swal.showValidationMessage('নাম খালি রাখা যাবে না'); 
+                    return false; 
+                } 
+                return [name, document.getElementById('eu').value, document.getElementById('eb').value, document.getElementById('es').value, document.getElementById('elimit').value, document.getElementById('ebarcode').value]; 
+            } 
+        });
 
         if (v) {
             Swal.fire({ title: 'আপডেট হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
@@ -1132,38 +1439,201 @@
         } 
     };
 
+    function getCategoryBadge(category) {
+        let bg = '#f1f5f9', color = '#475569';
+        if (category === 'দোকান ভাড়া') { bg = '#dbeafe'; color = '#1e40af'; }
+        else if (category === 'কারেন্ট বিল') { bg = '#fef3c7'; color = '#b45309'; }
+        else if (category === 'চা-নাস্তা') { bg = '#dcfce7'; color = '#166534'; }
+        else if (category === 'যাতায়াত / ভ্যান ভাড়া') { bg = '#f3e8ff'; color = '#6b21a8'; }
+        else if (category === 'কর্মচারীর বেতন') { bg = '#ffe4e6'; color = '#be123c'; }
+        return `<span style="background: ${bg}; color: ${color}; padding: 4px 12px; border-radius: 20px; font-size:12px; font-weight:700; border: 1px solid ${bg.replace('e', 'c')};">${category || 'অন্যান্য'}</span>`;
+    }
+
     async function loadExpenses() {
         const snap = await getDocs(collection(db, "expenses"));
         if ($.fn.DataTable.isDataTable('#expDataTable')) $('#expDataTable').DataTable().clear().destroy();
         let html = '';
-        snap.forEach(d => { const e = d.data(); html += `<tr><td>${e.date}</td><td>${sanitizeHTML(e.reason)}</td><td class="text-right">${e.amount.toFixed(2)}</td><td>${e.enteredBy}</td></tr>`; });
-        document.getElementById('expenseTable').innerHTML = html; $('#expDataTable').DataTable({"order": [[0, "desc"]], "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
+        
+        let total = 0, today = 0, month = 0;
+        const now = new Date();
+        const currentMonth = now.getMonth();
+        const currentYear = now.getFullYear();
+        const todayStr = now.toLocaleDateString('en-CA'); 
+        
+        let expensesData = [];
+        snap.forEach(d => expensesData.push({ id: d.id, ...d.data() }));
+        expensesData.sort((a, b) => b.timestamp - a.timestamp);
+
+        expensesData.forEach(e => { 
+            total += e.amount;
+            let expDateObj = new Date(e.timestamp);
+            if (expDateObj.toLocaleDateString('en-CA') === todayStr) { today += e.amount; }
+            if(expDateObj.getMonth() === currentMonth && expDateObj.getFullYear() === currentYear) { month += e.amount; }
+
+            html += `<tr>
+                <td style="vertical-align: middle;">${e.date}</td>
+                <td style="vertical-align: middle;">${getCategoryBadge(e.category)}</td>
+                <td style="vertical-align: middle;">${sanitizeHTML(e.reason || '-')}</td>
+                <td class="text-right" style="vertical-align: middle; font-weight:bold; color:var(--danger)">৳ ${e.amount.toFixed(2)}</td>
+                <td style="vertical-align: middle;"><small style="color: #64748b; font-weight: 500;">${e.enteredBy}</small></td>
+                <td class="action-btns text-center" style="vertical-align: middle;">
+                    <button class="btn-icon btn-delete" onclick="deleteExpense('${e.id}')" title="ডিলিট"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>`; 
+        });
+        
+        document.getElementById('expenseTable').innerHTML = html; 
+        
+        // Excel Export and Footer Summation for Expense Table
+        $('#expDataTable').DataTable({
+            "order": [], 
+            "dom": 'Bfrtip',
+            "buttons": [
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa-solid fa-file-excel"></i> এক্সেল ডাউনলোড',
+                    title: 'দোকানের খরচের তালিকা'
+                }
+            ],
+            "language": { "lengthMenu": "_MENU_ টি রেকর্ড দেখান", "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } },
+            "footerCallback": function (row, data, start, end, display) {
+                let api = this.api();
+                let intVal = function (i) { return typeof i === 'string' ? parseFloat(i.replace(/[\৳, ]/g, '')) : typeof i === 'number' ? i : 0; };
+                
+                let total = api.column(3, { search: 'applied' }).data().reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+                
+                document.getElementById('expFilteredTotal').innerText = '৳ ' + total.toLocaleString('en-IN', {minimumFractionDigits: 2});
+            }
+        });
+        
+        document.getElementById('statExpToday').innerText = today.toLocaleString('en-IN', {minimumFractionDigits: 2});
+        document.getElementById('statExpMonth').innerText = month.toLocaleString('en-IN', {minimumFractionDigits: 2});
+        document.getElementById('statExpTotal').innerText = total.toLocaleString('en-IN', {minimumFractionDigits: 2});
     }
 
-    document.getElementById('addExpBtn').addEventListener('click', async () => {
-        const reason = document.getElementById('expReason').value; const amt = parseFloat(document.getElementById('expAmount').value);
-        if(reason && amt > 0) {
-            await addDoc(collection(db, "expenses"), { reason, amount: amt, date: formatTime(Date.now()), timestamp: Date.now(), enteredBy: currentSeller });
-            document.getElementById('expReason').value = ''; document.getElementById('expAmount').value = '';
-            loadExpenses(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'খরচ যুক্ত হয়েছে', showConfirmButton:false, timer:1500});
+    // Expense Date Range Filter Logic
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        if (settings.nTable.id !== 'expDataTable') return true;
+
+        let startEl = document.getElementById('expFilterStart');
+        let endEl = document.getElementById('expFilterEnd');
+        if (!startEl || !endEl) return true;
+
+        let start = startEl.value;
+        let end = endEl.value;
+
+        if (!start && !end) return true;
+
+        let dateStr = data[0].split(',')[0].trim(); 
+        let parts = dateStr.split('/');
+        let rowDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+        rowDate.setHours(0,0,0,0);
+
+        let startDate = start ? new Date(start) : null;
+        if(startDate) startDate.setHours(0,0,0,0);
+        
+        let endDate = end ? new Date(end) : null;
+        if(endDate) endDate.setHours(23,59,59,999);
+
+        if (startDate && endDate) {
+            return rowDate >= startDate && rowDate <= endDate;
+        } else if (startDate) {
+            return rowDate >= startDate;
+        } else if (endDate) {
+            return rowDate <= endDate;
         }
+        return true;
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('filterExpBtn').addEventListener('click', () => {
+            $('#expDataTable').DataTable().draw();
+        });
+
+        document.getElementById('resetExpFilterBtn').addEventListener('click', () => {
+            document.getElementById('expFilterStart').value = '';
+            document.getElementById('expFilterEnd').value = '';
+            $('#expDataTable').DataTable().draw();
+        });
+
+        // কাস্টম এক্সেল ডাউনলোড বাটন কাজ করানোর কোড
+        document.getElementById('customExcelBtn').addEventListener('click', () => {
+            document.querySelector('#expDataTable_wrapper .buttons-excel').click();
+        });
+    });
+
+    document.getElementById('addExpBtn').addEventListener('click', async () => {
+        const dateInput = document.getElementById('expDate').value; 
+        const category = document.getElementById('expCategory').value;
+        const reason = document.getElementById('expReason').value; 
+        const amt = parseFloat(document.getElementById('expAmount').value);
+        
+        if(!dateInput || isNaN(amt) || amt <= 0) return Swal.fire('সতর্কতা', 'সঠিক তারিখ ও টাকার পরিমাণ দিন!', 'warning');
+        
+        Swal.fire({ title: 'প্রসেস হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+        
+        let parts = dateInput.split('-');
+        let customDateStr = `${parts[2]}/${parts[1]}/${parts[0]}`; 
+        let finalDateStr = `${customDateStr}, ${new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit', hour12:true})}`;
+        let finalTimestamp = new Date(`${dateInput}T00:00:00`).getTime();
+
+        await addDoc(collection(db, "expenses"), { 
+            category: category, 
+            reason: reason, 
+            amount: amt, 
+            date: finalDateStr, 
+            timestamp: finalTimestamp, 
+            enteredBy: currentSeller 
+        });
+        
+        document.getElementById('expReason').value = ''; 
+        document.getElementById('expAmount').value = '';
+        logAudit("Expense Added", `খরচ যুক্ত: ${category} - ৳${amt}`);
+        Swal.fire({toast:true, position:'top-end', icon:'success', title:'খরচ যুক্ত হয়েছে', showConfirmButton:false, timer:1500});
+        loadExpenses(); 
+    });
+
+    window.deleteExpense = async (id) => {
+        if((await Swal.fire({title:'ডিলিট করবেন?', icon:'warning', showCancelButton:true, confirmButtonColor:'#d33'})).isConfirmed) { 
+            await deleteDoc(doc(db, "expenses", id)); 
+            logAudit("Delete Expense", `একটি খরচের এন্ট্রি ডিলিট করা হয়েছে`);
+            loadExpenses(); 
+            Swal.fire({toast:true, position:'top-end', icon:'success', title:'ডিলিট সম্পন্ন', showConfirmButton:false, timer:1500});
+        }
+    };
 
     async function loadDues() {
         const snap = await getDocs(collection(db, "customers"));
         if ($.fn.DataTable.isDataTable('#dueDataTable')) $('#dueDataTable').DataTable().clear().destroy();
-        let html = '';
+        let html = ''; let tDue = 0; let cCount = 0;
+
         snap.forEach(d => {
             const e = d.data();
             if(e.totalDue > 0 || e.creditLimit > 0) {
-                html += `<tr><td><strong>${sanitizeHTML(e.name)}</strong></td><td>${sanitizeHTML(e.phone)}</td><td>${sanitizeHTML(e.address||'N/A')}</td><td class="text-right" style="color:#2980b9;">${e.creditLimit ? e.creditLimit.toFixed(2) : 'No Limit'}</td><td class="text-right" style="color:var(--danger); font-weight:bold;">${(e.totalDue||0).toFixed(2)}</td><td class="text-center action-btns">
-                    <button class="btn-edit" onclick="editCustomer('${e.phone}')" style="color:white; font-weight:bold; padding:8px 12px !important;" title="এডিট করুন"><i class="fa-solid fa-pen"></i></button>
-                    <button class="btn-pay-due" onclick="payDue('${e.phone}', ${e.totalDue||0})"><i class="fa-solid fa-hand-holding-dollar"></i> টাকা জমা</button>
-                    <button class="btn-history" onclick="viewDueHistory('${e.phone}', '${sanitizeHTML(e.name)}')"><i class="fa-solid fa-clock-rotate-left"></i> খাতা</button>
-                </td></tr>`;
+                cCount++; tDue += (e.totalDue || 0);
+                
+                let limitBadge = (e.creditLimit > 0 && (e.totalDue || 0) > e.creditLimit) ? `<br><span style="background: #fee2e2; color: #ef4444; font-size: 11px; padding: 2px 6px; border-radius: 4px; border: 1px solid #fca5a5; display:inline-block; margin-top:5px;">লিমিট ওভার</span>` : '';
+                let displayAddress = sanitizeHTML(e.address || 'N/A');
+
+                html += `<tr>
+                    <td><strong style="color:var(--dark); font-size:15px;">${sanitizeHTML(e.name)}</strong><br><small style="color:#64748b;"><i class="fa-solid fa-phone"></i> ${sanitizeHTML(e.phone)}</small></td>
+                    <td title="${displayAddress}"><span class="truncate-text"><small>${displayAddress}</small></span></td>
+                    <td class="text-right" style="color:#0284c7; font-weight:600;">৳ ${e.creditLimit ? e.creditLimit.toFixed(2) : 'No Limit'}</td>
+                    <td class="text-right" style="font-weight:bold;"><span style="color:var(--danger); font-size:16px;">৳ ${(e.totalDue||0).toFixed(2)}</span>${limitBadge}</td>
+                    <td class="action-btns text-center">
+                        <button class="btn-icon btn-pay" onclick="payDue('${e.phone}', ${e.totalDue||0})" title="টাকা জমা নিন"><i class="fa-solid fa-hand-holding-dollar"></i></button>
+                        <button class="btn-icon btn-history" onclick="viewDueHistory('${e.phone}', '${sanitizeHTML(e.name)}')" title="খাতা দেখুন"><i class="fa-solid fa-clock-rotate-left"></i></button>
+                        <button class="btn-icon btn-edit" onclick="editCustomer('${e.phone}')" title="এডিট করুন"><i class="fa-solid fa-pen"></i></button>
+                    </td>
+                </tr>`;
             }
         });
-        document.getElementById('dueTable').innerHTML = html; $('#dueDataTable').DataTable({"language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } }});
+        document.getElementById('dueTable').innerHTML = html; 
+        $('#dueDataTable').DataTable({"language": { "lengthMenu": "_MENU_ টি রেকর্ড দেখান", "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } }});
+        document.getElementById('statTotalMarketDue').innerText = tDue.toLocaleString('en-IN', {minimumFractionDigits: 2});
+        document.getElementById('statTotalDueCustomers').innerText = cCount;
     }
 
     window.editCustomer = async (oldPhone) => {
@@ -1173,40 +1643,64 @@
         const cData = docSnap.data();
 
         const htmlContent = `
-            <input id="ecName" class="swal2-input" placeholder="নাম" value="${sanitizeHTML(cData.name || '')}">
-            <input id="ecPhone" class="swal2-input" placeholder="মোবাইল নাম্বার" value="${cData.phone}">
-            <input id="ecAddress" class="swal2-input" placeholder="ঠিকানা" value="${sanitizeHTML(cData.address || '')}">
-            <input id="ecLimit" type="number" class="swal2-input" placeholder="ক্রেডিট লিমিট" value="${cData.creditLimit || ''}">
-            <input id="ecGName" class="swal2-input" placeholder="জামিনদারের নাম" value="${sanitizeHTML(cData.guarantorName || '')}">
-            <input id="ecGPhone" class="swal2-input" placeholder="জামিনদারের মোবাইল" value="${sanitizeHTML(cData.guarantorPhone || '')}">
+            <div class="premium-swal-container">
+                <div class="premium-swal-grid">
+                    <div class="swal-divider">কাস্টমারের নিজস্ব তথ্য</div>
+                    
+                    <div class="premium-swal-input-group">
+                        <label>কাস্টমারের নাম</label>
+                        <input id="ecName" value="${sanitizeHTML(cData.name || '')}" placeholder="নাম লিখুন">
+                    </div>
+                    <div class="premium-swal-input-group">
+                        <label>মোবাইল নাম্বার</label>
+                        <input id="ecPhone" value="${cData.phone}" placeholder="017..." disabled style="background:#f1f5f9; cursor:not-allowed;">
+                    </div>
+                    <div class="premium-swal-input-group" style="grid-column: span 2;">
+                        <label>ঠিকানা</label>
+                        <input id="ecAddress" value="${sanitizeHTML(cData.address || '')}" placeholder="বিস্তারিত ঠিকানা">
+                    </div>
+                    <div class="premium-swal-input-group">
+                        <label>সর্বোচ্চ বাকির লিমিট (৳)</label>
+                        <input id="ecLimit" type="number" value="${cData.creditLimit || ''}" placeholder="যেমন: 5000">
+                    </div>
+
+                    <div class="swal-divider" style="margin-top:20px;">জামিনদারের তথ্য (ঐচ্ছিক)</div>
+                    
+                    <div class="premium-swal-input-group">
+                        <label>জামিনদারের নাম</label>
+                        <input id="ecGName" value="${sanitizeHTML(cData.guarantorName || '')}">
+                    </div>
+                    <div class="premium-swal-input-group">
+                        <label>জামিনদারের মোবাইল</label>
+                        <input id="ecGPhone" value="${sanitizeHTML(cData.guarantorPhone || '')}">
+                    </div>
+                </div>
+            </div>
         `;
 
         const { value: v } = await Swal.fire({
-            title: 'কাস্টমার তথ্য আপডেট', html: htmlContent, showCancelButton: true, confirmButtonText: 'আপডেট করুন', confirmButtonColor: '#4361ee',
+            title: '<span style="font-size: 20px; color: var(--dark);">কাস্টমার তথ্য আপডেট</span>', 
+            html: htmlContent, 
+            showCancelButton: true, 
+            confirmButtonText: '<i class="fa-solid fa-save"></i> আপডেট করুন', 
+            confirmButtonColor: '#4361ee',
+            cancelButtonText: 'বাতিল',
+            width: '600px',
             preConfirm: () => {
-                const newPhone = document.getElementById('ecPhone').value.trim();
-                if (!newPhone) { Swal.showValidationMessage('মোবাইল নাম্বার দিতেই হবে'); return false; }
-                return { name: document.getElementById('ecName').value.trim(), phone: newPhone, address: document.getElementById('ecAddress').value.trim(), creditLimit: parseFloat(document.getElementById('ecLimit').value) || 0, guarantorName: document.getElementById('ecGName').value.trim(), guarantorPhone: document.getElementById('ecGPhone').value.trim() };
+                return { 
+                    name: document.getElementById('ecName').value.trim(), 
+                    address: document.getElementById('ecAddress').value.trim(), 
+                    creditLimit: parseFloat(document.getElementById('ecLimit').value) || 0, 
+                    guarantorName: document.getElementById('ecGName').value.trim(), 
+                    guarantorPhone: document.getElementById('ecGPhone').value.trim() 
+                };
             }
         });
 
         if (v) {
             Swal.fire({ title: 'আপডেট হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
             try {
-                await runTransaction(db, async (t) => {
-                    const oldRef = doc(db, "customers", oldPhone);
-                    if (v.phone !== oldPhone) {
-                        const newRef = doc(db, "customers", v.phone);
-                        const newDocCheck = await t.get(newRef);
-                        if (newDocCheck.exists()) throw new Error("এই নতুন নাম্বারে আগে থেকেই একজন কাস্টমার আছেন!");
-                        
-                        t.set(newRef, { ...cData, ...v, timestamp: Date.now() });
-                        t.delete(oldRef);
-
-                        const txDocs = await getDocs(query(collection(db, "due_transactions"), where("phone", "==", oldPhone)));
-                        txDocs.forEach(txDoc => { t.update(txDoc.ref, { phone: v.phone }); });
-                    } else { t.update(oldRef, v); }
-                });
+                await updateDoc(doc(db, "customers", oldPhone), { ...v, updatedAt: serverTimestamp() });
                 Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'আপডেট সম্পন্ন', showConfirmButton: false, timer: 1500 });
                 loadDues();
             } catch (error) { Swal.fire('ত্রুটি!', error.message, 'error'); }
@@ -1214,8 +1708,16 @@
     };
 
     document.getElementById('addDueBtn').addEventListener('click', async () => {
-        const n = document.getElementById('dueCusName').value; const p = document.getElementById('dueCusPhone').value.trim(); const addr = document.getElementById('dueCusAddress').value; const gName = document.getElementById('dueGuarantorName').value; const gPhone = document.getElementById('dueGuarantorPhone').value; const limit = parseFloat(document.getElementById('dueCreditLimit').value) || 0; const a = parseFloat(document.getElementById('dueAmount').value) || 0;
-        if(!p) return Swal.fire('সতর্কতা', 'মোবাইল নাম্বার আবশ্যক।', 'warning');
+        const n = document.getElementById('dueCusName').value; 
+        const pRaw = document.getElementById('dueCusPhone').value;
+        const p = formatPhone(pRaw);
+        const addr = document.getElementById('dueCusAddress').value; 
+        const gName = document.getElementById('dueGuarantorName').value; 
+        const gPhone = document.getElementById('dueGuarantorPhone').value; 
+        const limit = parseFloat(document.getElementById('dueCreditLimit').value) || 0; 
+        const a = parseFloat(document.getElementById('dueAmount').value) || 0;
+        
+        if(!p) return Swal.fire('সতর্কতা', 'সঠিক মোবাইল নাম্বার আবশ্যক।', 'warning');
         
         Swal.fire({ title: 'প্রসেস হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
         await runTransaction(db, async t => {
@@ -1224,7 +1726,7 @@
             if(n) updateData.name = n; if(addr) updateData.address = addr; if(gName) updateData.guarantorName = gName; if(gPhone) updateData.guarantorPhone = gPhone; if(limit>0) updateData.creditLimit = limit;
             
             if(cDoc.exists()){ if(a>0) updateData.totalDue = increment(a); t.update(cRef, updateData); } 
-            else { updateData.totalDue = a; updateData.name = updateData.name || 'অজানা'; t.set(cRef, updateData); }
+            else { updateData.totalDue = a; updateData.name = updateData.name || 'অজানা'; updateData.createdAt = serverTimestamp(); t.set(cRef, updateData); }
 
             if(a>0) t.set(doc(collection(db, "due_transactions")), { phone: p, date: formatTime(Date.now()), type: "Baki", amount: a, memoNo: "Manual Entry", timestamp: Date.now() });
         });
@@ -1239,7 +1741,7 @@
             Swal.fire({ title: 'প্রসেস হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
             const ts = Date.now();
             await runTransaction(db, async t => {
-                t.update(doc(db, "customers", phone), { totalDue: increment(-parseFloat(amount)) });
+                t.update(doc(db, "customers", phone), { totalDue: increment(-parseFloat(amount)), updatedAt: serverTimestamp() });
                 t.set(doc(collection(db, "due_transactions")), { phone: phone, date: formatTime(ts), type: "Joma", amount: parseFloat(amount), memoNo: "N/A", timestamp: ts });
             });
             logAudit("Due Payment", `${phone} নাম্বারের খাতায় ৳${amount} জমা নেওয়া হয়েছে`);
@@ -1380,108 +1882,265 @@
         }});
     };
 
-    let allPartnerData = {};
-    let totalBusinessCapital = 0;
-
     async function loadPartners() {
         const snap = await getDocs(collection(db, "partner_investments"));
         if ($.fn.DataTable.isDataTable('#investDataTable')) $('#investDataTable').DataTable().clear().destroy();
-        let html = '';
+        
         allPartnerData = {}; totalBusinessCapital = 0;
+        let partnerRecords = [];
+        
+        snap.forEach(d => partnerRecords.push({ id: d.id, ...d.data() }));
 
-        snap.forEach(d => { 
-            const e = d.data(); 
+        partnerRecords.sort((a, b) => a.timestamp - b.timestamp);
+        
+        partnerRecords.forEach(e => { 
             const pName = capitalize(e.partnerName);
-            
-            if(!allPartnerData[pName]) allPartnerData[pName] = { balance: 0, history: [] };
-            
-            if(e.type === 'Withdraw') {
+            if(!allPartnerData[pName]) allPartnerData[pName] = { balance: 0, isActive: true };
+
+            if(e.type === 'Settlement') {
                 allPartnerData[pName].balance -= e.amount;
                 totalBusinessCapital -= e.amount;
-                html += `<tr><td>${e.date}</td><td><strong>${pName}</strong></td><td><span style="color:var(--danger); font-weight:bold;">উত্তোলন</span></td><td class="text-right" style="color:var(--danger); font-weight:bold;">- ${e.amount.toFixed(2)}</td></tr>`; 
+                allPartnerData[pName].isActive = false;
+            } else if (e.type === 'Withdraw') {
+                allPartnerData[pName].balance -= e.amount;
+                totalBusinessCapital -= e.amount;
             } else if (e.type === 'Profit') {
                 allPartnerData[pName].balance += e.amount;
                 totalBusinessCapital += e.amount;
-                html += `<tr><td>${e.date}</td><td><strong>${pName}</strong></td><td><span style="color:var(--success); font-weight:bold;">লভ্যাংশ</span></td><td class="text-right" style="color:var(--success); font-weight:bold;">+ ${e.amount.toFixed(2)}</td></tr>`; 
-            } else {
+            } else { // Invest
                 allPartnerData[pName].balance += e.amount;
                 totalBusinessCapital += e.amount;
-                html += `<tr><td>${e.date}</td><td><strong>${pName}</strong></td><td><span style="color:var(--primary); font-weight:bold;">ইনভেস্টমেন্ট</span></td><td class="text-right" style="color:var(--primary); font-weight:bold;">+ ${e.amount.toFixed(2)}</td></tr>`; 
+                allPartnerData[pName].isActive = true; 
             }
         });
 
-        document.getElementById('investTable').innerHTML = html; $('#investDataTable').DataTable({"order": [[0, "desc"]], "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } }});
+        partnerRecords.sort((a, b) => b.timestamp - a.timestamp);
+        
+        let html = '';
+        partnerRecords.forEach(e => {
+            const pName = capitalize(e.partnerName);
+            if(e.type === 'Withdraw' || e.type === 'Settlement') {
+                html += `<tr><td style="display:none;">${e.timestamp}</td><td>${e.date}</td><td><strong>${pName}</strong></td><td><span style="color:var(--danger); font-weight:bold;">${e.type}</span></td><td class="text-right" style="color:var(--danger); font-weight:bold;">- ${e.amount.toFixed(2)}</td></tr>`; 
+            } else if (e.type === 'Profit') {
+                html += `<tr><td style="display:none;">${e.timestamp}</td><td>${e.date}</td><td><strong>${pName}</strong></td><td><span style="color:var(--success); font-weight:bold;">লভ্যাংশ</span></td><td class="text-right" style="color:var(--success); font-weight:bold;">+ ${e.amount.toFixed(2)}</td></tr>`; 
+            } else {
+                html += `<tr><td style="display:none;">${e.timestamp}</td><td>${e.date}</td><td><strong>${pName}</strong></td><td><span style="color:var(--primary); font-weight:bold;">ইনভেস্টমেন্ট</span></td><td class="text-right" style="color:var(--primary); font-weight:bold;">+ ${e.amount.toFixed(2)}</td></tr>`; 
+            }
+        });
 
-        // Set Master Capital Data
+        document.getElementById('investTable').innerHTML = html; 
+        $('#investDataTable').DataTable({
+            "order": [[0, "desc"]], 
+            "columnDefs": [ { "targets": [0], "visible": false } ],
+            "language": { "lengthMenu": "_MENU_ টি রেকর্ড দেখান", "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } }
+        });
+
         document.getElementById('displayTotalCapital').innerText = totalBusinessCapital.toLocaleString('en-IN', {minimumFractionDigits: 2});
         document.getElementById('displayStockCapital').innerText = `৳ ` + globalTotalStockInvestment.toLocaleString('en-IN', {minimumFractionDigits: 2});
         let liquidCash = totalBusinessCapital - globalTotalStockInvestment;
         document.getElementById('displayLiquidCapital').innerText = `৳ ` + liquidCash.toLocaleString('en-IN', {minimumFractionDigits: 2});
 
-        // Update Equity Dashboard
         let equityHtml = '';
-        if(totalBusinessCapital > 0) {
-            for(let partner in allPartnerData) {
-                let sharePercentage = ((allPartnerData[partner].balance / totalBusinessCapital) * 100).toFixed(2);
-                equityHtml += `<div class="equity-card"><h3>${partner}</h3><p>ব্যালেন্স: ৳ ${allPartnerData[partner].balance.toLocaleString('en-IN', {minimumFractionDigits: 2})}</p><span class="equity-percentage">${sharePercentage}% শেয়ার</span></div>`;
+        const partnerSelect = document.getElementById('partnerNameSelect');
+        partnerSelect.innerHTML = '<option value="">নির্বাচন করুন...</option>';
+
+        for(let partner in allPartnerData) {
+            let balance = roundNum(allPartnerData[partner].balance);
+            
+            if(allPartnerData[partner].isActive && balance > 0) {
+                partnerSelect.innerHTML += `<option value="${partner}">${partner}</option>`;
             }
-        } else {
-            equityHtml = '<p style="color:#777; width:100%;">কোনো পার্টনারশিপ ডেটা নেই</p>';
+
+            if(balance > 0 && allPartnerData[partner].isActive) {
+                let sharePercentage = totalBusinessCapital > 0 ? ((balance / totalBusinessCapital) * 100).toFixed(2) : 0;
+                equityHtml += `
+                <div class="stat-card" style="background:#fff; border:1px solid #cbd5e1; box-shadow:0 2px 4px rgba(0,0,0,0.02);">
+                    <h3 style="color:var(--dark); font-size:18px;">${partner}</h3>
+                    <p style="color:#64748b; font-size:15px; margin-bottom:5px;">ব্যালেন্স: ৳ ${balance.toLocaleString('en-IN', {minimumFractionDigits: 2})}</p>
+                    <span style="background:#e0e7ff; color:var(--primary); padding:4px 10px; border-radius:6px; font-weight:bold; margin-bottom:10px;">${sharePercentage}% শেয়ার</span>
+                    <button class="btn-clear-cart" style="width:100%; margin-top:10px; border-color:#e2e8f0; color:#64748b;" onclick="settlePartner('${partner}', ${balance})"><i class="fa-solid fa-right-from-bracket"></i> হিসাব ক্লোজ</button>
+                </div>`;
+            }
         }
+        if(equityHtml === '') equityHtml = '<p style="color:#777; width:100%;">কোনো অ্যাক্টিভ পার্টনারশিপ ডেটা নেই</p>';
         document.getElementById('equityDashboard').innerHTML = equityHtml;
+        
+        document.getElementById('partnerPreview').innerHTML = ''; 
     }
+
+    document.getElementById('addNewPartnerBtn').addEventListener('click', async () => {
+        const htmlContent = `
+            <style>
+                .custom-swal-input { width: 100%; padding: 12px 16px 12px 40px !important; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box; outline:none; transition:0.3s; font-family: inherit; margin:0;}
+                .custom-swal-input:focus { background-color: #ffffff; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15); }
+                .input-icon-swal { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; pointer-events:none; }
+                .swal-label { font-size: 13px; color: #475569; font-weight: 600; margin-bottom: 6px; display: block; text-align: left; }
+            </style>
+            
+            <div style="margin-bottom:15px; margin-top:10px;">
+                <label class="swal-label">পার্টনারের নাম লিখুন <span style="color:#ef4444;">*</span></label>
+                <div style="position: relative; width: 100%;">
+                    <i class="fa-solid fa-user-plus input-icon-swal"></i>
+                    <input id="newPartnerInput" type="text" class="custom-swal-input" placeholder="উদাঃ মোঃ রহিম">
+                </div>
+            </div>
+        `;
+
+        const { value: newName } = await Swal.fire({
+            title: '<span style="font-size: 20px; color: var(--dark);"><i class="fa-solid fa-user-tie"></i> নতুন পার্টনার যুক্ত করুন</span>',
+            html: htmlContent,
+            showCancelButton: true,
+            confirmButtonText: '<i class="fa-solid fa-save"></i> সেভ করুন',
+            cancelButtonText: 'বাতিল',
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#64748b',
+            width: '400px',
+            preConfirm: () => {
+                const nameInput = document.getElementById('newPartnerInput').value.trim();
+                if (!nameInput) {
+                    Swal.showValidationMessage('পার্টনারের নাম দিতে হবে!');
+                    return false;
+                }
+                return nameInput;
+            }
+        });
+
+        if (newName) {
+            const cleanName = capitalize(newName);
+            const select = document.getElementById('partnerNameSelect');
+            
+            let exists = false;
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].value === cleanName) exists = true;
+            }
+            
+            if (!exists) {
+                select.innerHTML += `<option value="${cleanName}" selected>${cleanName}</option>`;
+            } else {
+                select.value = cleanName;
+            }
+            
+            select.dispatchEvent(new Event('change'));
+        }
+    });
+
+    document.getElementById('partnerNameSelect').addEventListener('change', function() {
+        const selectedPartner = this.value;
+        const table = $('#investDataTable').DataTable();
+        
+        if(selectedPartner) {
+            table.search(selectedPartner).draw();
+            const balance = allPartnerData[selectedPartner].balance || 0;
+            const share = totalBusinessCapital > 0 ? ((balance / totalBusinessCapital) * 100).toFixed(2) : 0;
+            
+            document.getElementById('partnerPreview').innerHTML = `
+                <div style="background:#eafaf1; padding:8px 12px; border-radius:6px; border:1px solid #d1fae5; margin-top:10px; font-size:13px; display:flex; justify-content:space-between; align-items:center;">
+                    <span>ব্যালেন্স: <strong style="color:var(--success);">৳ ${balance.toLocaleString('en-IN')}</strong></span>
+                    <span style="background:#dbeafe; color:#1e40af; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:bold;">${share}% শেয়ার</span>
+                </div>`;
+        } else {
+            table.search('').draw(); 
+            document.getElementById('partnerPreview').innerHTML = '';
+        }
+    });
 
     document.getElementById('addInvestBtn').addEventListener('click', async () => {
         const type = document.getElementById('partnerTxType').value;
-        const n = document.getElementById('partnerName').value; const a = parseFloat(document.getElementById('partnerInvestAmount').value);
+        const n = document.getElementById('partnerNameSelect').value; 
+        const a = parseFloat(document.getElementById('partnerInvestAmount').value);
+        if(!n) return Swal.fire('সতর্কতা', 'ড্রপডাউন থেকে পার্টনার নির্বাচন করুন!', 'warning');
+
         if(n && a > 0) {
-            if(type === 'Withdraw' && (!allPartnerData[capitalize(n)] || allPartnerData[capitalize(n)].balance < a)) {
-                return Swal.fire('সতর্কতা', 'পর্যাপ্ত ব্যালেন্স নেই!', 'warning');
-            }
+            let liquidCash = totalBusinessCapital - globalTotalStockInvestment;
+            if(type === 'Withdraw' && a > liquidCash) { return Swal.fire('সতর্কতা', 'দোকানে পর্যাপ্ত ক্যাশ নেই!', 'warning'); }
+            if(type === 'Withdraw' && (!allPartnerData[n] || allPartnerData[n].balance < a)) { return Swal.fire('সতর্কতা', 'পর্যাপ্ত ব্যালেন্স নেই!', 'warning'); }
+            
             Swal.fire({ title: 'প্রসেস হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-            await addDoc(collection(db, "partner_investments"), { partnerName: n, amount: a, type: type, date: formatTime(Date.now()), timestamp: Date.now() });
+            await addDoc(collection(db, "partner_investments"), { partnerName: n, amount: a, type: type, date: formatTime(Date.now()), timestamp: Date.now(), createdAt: serverTimestamp() });
             logAudit("Partner Transaction", `${n} ${type === 'Withdraw' ? 'উত্তোলন করেছেন' : 'ইনভেস্ট করেছেন'} ৳${a}`);
-            loadPartners(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'ট্রানজেকশন সফল', showConfirmButton:false, timer:1500});
+            loadPartners(); 
+            document.getElementById('partnerInvestAmount').value = '';
+            Swal.fire({toast:true, position:'top-end', icon:'success', title:'ট্রানজেকশন সফল', showConfirmButton:false, timer:1500});
         }
     });
+
+    window.settlePartner = async (partnerName, currentBalance) => {
+        const confirm = await Swal.fire({
+            title: 'হিসাব ক্লোজ করবেন?',
+            html: `<b>${partnerName}</b> কে <b>৳ ${currentBalance.toLocaleString('en-IN')}</b> বুঝিয়ে দিয়ে পার্টনারশিপ থেকে বিদায় করতে চান?`,
+            icon: 'warning', showCancelButton: true, confirmButtonColor: '#e74c3c', confirmButtonText: 'হ্যাঁ, ক্লোজ করুন'
+        });
+
+        if(confirm.isConfirmed) {
+            Swal.fire({ title: 'সেটেলমেন্ট প্রসেস হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+            await addDoc(collection(db, "partner_investments"), { partnerName: partnerName, amount: currentBalance, type: 'Settlement', date: formatTime(Date.now()), timestamp: Date.now(), createdAt: serverTimestamp() });
+            loadPartners();
+            Swal.fire('সম্পন্ন!', `${partnerName} এর হিসাব ক্লোজ করা হয়েছে।`, 'success');
+        }
+    };
 
     document.getElementById('distributeProfitBtn').addEventListener('click', async () => {
         if(totalBusinessCapital <= 0) return Swal.fire('সতর্কতা', 'আগে ইনভেস্টমেন্ট নিশ্চিত করুন', 'warning');
 
-        Swal.fire({
-            title: 'লভ্যাংশ বণ্টন (Profit Distribution)',
-            input: 'number',
-            inputLabel: 'বণ্টনযোগ্য মোট লাভ (৳)',
-            inputPlaceholder: 'উদাহরণ: 50000',
+        const htmlContent = `
+            <style>
+                .custom-swal-input { width: 100%; padding: 12px 16px 12px 40px !important; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box; outline:none; transition:0.3s; font-family: inherit; margin:0;}
+                .custom-swal-input:focus { background-color: #ffffff; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15); }
+                .input-icon-swal { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; pointer-events:none; }
+                .swal-label { font-size: 13px; color: #475569; font-weight: 600; margin-bottom: 6px; display: block; text-align: left; }
+            </style>
+
+            <div style="background:#e0e7ff; padding:15px; border-radius:8px; margin-bottom:20px; text-align:left; border:1px solid #c7d2fe;">
+                <p style="margin:0 0 5px 0; color:#3730a3; font-size:14px;"><i class="fa-solid fa-vault"></i> <strong>মোট ব্যবসায়িক মূলধন:</strong> ৳ ${totalBusinessCapital.toLocaleString('en-IN', {minimumFractionDigits: 2})}</p>
+                <p style="margin:0; color:#3730a3; font-size:12px;">শেয়ার অনুযায়ী সবার অ্যাকাউন্টে লভ্যাংশ স্বয়ংক্রিয়ভাবে ভাগ হয়ে যাবে।</p>
+            </div>
+
+            <div style="margin-bottom:15px;">
+                <label class="swal-label">বণ্টনযোগ্য মোট লাভ (৳) <span style="color:#ef4444;">*</span></label>
+                <div style="position: relative; width: 100%;">
+                    <i class="fa-solid fa-hand-holding-dollar input-icon-swal"></i>
+                    <input id="profitAmountInput" type="number" step="any" min="1" class="custom-swal-input" placeholder="উদাঃ 50000">
+                </div>
+            </div>
+        `;
+
+        const { value: totalProfitToShare } = await Swal.fire({
+            title: '<span style="font-size: 20px; color: var(--dark);"><i class="fa-solid fa-coins"></i> লভ্যাংশ বণ্টন</span>',
+            html: htmlContent,
             showCancelButton: true,
-            confirmButtonText: 'বণ্টন করুন',
-            inputValidator: (value) => { if (!value || value <= 0) { return 'সঠিক পরিমাণ দিন!' } }
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                const totalProfitToShare = parseFloat(result.value);
-                Swal.fire({ title: 'বণ্টন হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-                
-                try {
-                    const ts = Date.now();
-                    const dStr = formatTime(ts);
-                    for(let partner in allPartnerData) {
-                        let shareRatio = allPartnerData[partner].balance / totalBusinessCapital;
-                        let partnerProfit = roundNum(totalProfitToShare * shareRatio);
-                        
-                        await addDoc(collection(db, "partner_investments"), { 
-                            partnerName: partner, 
-                            amount: partnerProfit, 
-                            type: 'Profit', 
-                            date: dStr, 
-                            timestamp: ts 
-                        });
-                    }
-                    logAudit("Profit Distribution", `মোট ৳${totalProfitToShare} লভ্যাংশ পার্টনারদের শেয়ার অনুযায়ী বণ্টন করা হয়েছে।`);
-                    Swal.fire('সফল!', 'লভ্যাংশ পার্টনারদের অ্যাকাউন্টে যোগ হয়েছে।', 'success');
-                    loadPartners();
-                } catch(e) { Swal.fire('ত্রুটি!', e.message, 'error'); }
+            confirmButtonText: '<i class="fa-solid fa-check-circle"></i> বণ্টন করুন',
+            cancelButtonText: 'বাতিল',
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#64748b',
+            width: '450px',
+            preConfirm: () => {
+                const profitVal = parseFloat(document.getElementById('profitAmountInput').value);
+                if (!profitVal || profitVal <= 0) {
+                    Swal.showValidationMessage('সঠিক লাভের পরিমাণ দিন!');
+                    return false;
+                }
+                return profitVal;
             }
         });
+
+        if (totalProfitToShare) {
+            Swal.fire({ title: 'বণ্টন হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+            try {
+                const ts = Date.now(); const dStr = formatTime(ts);
+                for(let partner in allPartnerData) {
+                    if(allPartnerData[partner].isActive && allPartnerData[partner].balance > 0) {
+                        let shareRatio = allPartnerData[partner].balance / totalBusinessCapital;
+                        let partnerProfit = roundNum(totalProfitToShare * shareRatio);
+                        await addDoc(collection(db, "partner_investments"), { partnerName: partner, amount: partnerProfit, type: 'Profit', date: dStr, timestamp: ts, createdAt: serverTimestamp() });
+                    }
+                }
+                logAudit("Profit Distribution", `মোট ৳${totalProfitToShare} লভ্যাংশ পার্টনারদের শেয়ার অনুযায়ী বণ্টন করা হয়েছে।`);
+                Swal.fire('সফল!', 'লভ্যাংশ পার্টনারদের অ্যাকাউন্টে যোগ হয়েছে।', 'success');
+                loadPartners();
+            } catch(e) { 
+                Swal.fire('ত্রুটি!', e.message, 'error'); 
+            }
+        }
     });
 
     document.getElementById('generateReportBtn').addEventListener('click', async () => {
@@ -1518,7 +2177,7 @@
 
     function renderReports(salesLogs, purchaseLogs, expenseLogs, returnLogs, auditLogs) {
         let tSalesPaisa = 0; let tProfitPaisa = 0; let tPurchasePaisa = 0; let tExpensePaisa = 0; let tReturnPaisa = 0; let tReturnProfitPaisa = 0; let salesmanData = {}; 
-        const methodNames = { 'Cash': 'ক্যাশ', 'bKash': 'বিকাশ', 'Nagad': 'ন নগদ', 'Rocket': 'রকেট', 'Due': 'বাকি' };
+        const methodNames = { 'Cash': 'ক্যাশ', 'bKash': 'বিকাশ', 'Nagad': 'নগদ', 'Rocket': 'রকেট', 'Due': 'বাকি' };
 
         if ($.fn.DataTable.isDataTable('#salesDataTable')) $('#salesDataTable').DataTable().clear().destroy();
         if ($.fn.DataTable.isDataTable('#purchaseDataTable')) $('#purchaseDataTable').DataTable().clear().destroy();
@@ -1536,7 +2195,7 @@
         document.getElementById('repSalesTable').innerHTML = sHtml; document.getElementById('docSalesBody').innerHTML = dSalesHtml;
 
         let salesmanHtml = '';
-        for(let s in salesmanData) { salesmanHtml += `<div class="salesman-card">${s}: <span style="color:var(--success);">৳ ${toTaka(salesmanData[s]).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></div>`; }
+        for(let s in salesmanData) { salesmanHtml += `<div style="padding: 10px 20px; background: #f1f5f9; border-radius: 6px; font-weight: bold; border-left: 4px solid var(--primary);">${s}: <span style="color:var(--success);">৳ ${toTaka(salesmanData[s]).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span></div>`; }
         if(Object.keys(salesmanData).length === 0) salesmanHtml = '<p style="color:#888;">কোনো সেলস ডেটা নেই</p>';
         document.getElementById('salesmanGrid').innerHTML = salesmanHtml;
 
@@ -1565,10 +2224,10 @@
         
         expenseLogs.forEach(l => { tExpensePaisa += toPaisa(l.amount); });
 
-        $('#salesDataTable').DataTable({ "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'], "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
-        $('#purchaseDataTable').DataTable({ "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'], "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
-        $('#returnDataTable').DataTable({ "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'], "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
-        $('#auditDataTable').DataTable({ "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'], "language": { "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
+        $('#salesDataTable').DataTable({ "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'], "language": { "lengthMenu": "_MENU_ টি রেকর্ড দেখান", "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
+        $('#purchaseDataTable').DataTable({ "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'], "language": { "lengthMenu": "_MENU_ টি রেকর্ড দেখান", "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
+        $('#returnDataTable').DataTable({ "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'], "language": { "lengthMenu": "_MENU_ টি রেকর্ড দেখান", "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
+        $('#auditDataTable').DataTable({ "pageLength": 15, "order": [], dom: 'Bfrtip', buttons: ['excelHtml5', 'csvHtml5'], "language": { "lengthMenu": "_MENU_ টি রেকর্ড দেখান", "search": "খুঁজুন:", "info": "_START_ - _END_ (_TOTAL_)", "paginate": { "previous": "আগের", "next": "পরের" } } });
 
         const grossSales = toTaka(tSalesPaisa);
         const totalReturn = toTaka(tReturnPaisa);
@@ -1593,8 +2252,10 @@
     });
 
     document.getElementById('alertCardBtn').addEventListener('click', () => {
-        $.fn.dataTable.ext.search = []; $.fn.dataTable.ext.search.push(function(s, d, i) { return parseFloat(d[7]) <= parseFloat(d[6]); });
-        $('#invDataTable').DataTable().draw(); document.getElementById('resetFilterBtn').classList.remove('hidden');
+        $.fn.dataTable.ext.search = []; 
+        $.fn.dataTable.ext.search.push(function(s, d, i) { return parseFloat(d[8]) <= parseFloat(d[7]); });
+        $('#invDataTable').DataTable().draw(); 
+        document.getElementById('resetFilterBtn').classList.remove('hidden');
         Swal.fire({toast:true, position:'top-end', icon:'info', title:'স্টক শেষের দিকের মাল ফিল্টার করা হয়েছে', showConfirmButton:false, timer:2000}); document.getElementById('invDataTable').scrollIntoView({behavior: 'smooth'});
     });
 
