@@ -354,21 +354,29 @@
 
             <div class="premium-box">
                 <div class="premium-box-header" style="flex-wrap: wrap; gap: 15px;">
-                    <h3 style="margin:0;"><i class="fa-solid fa-list-ul"></i> খরচের তালিকা</h3>
-                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; position: relative;">
-                        <i class="fa-regular fa-calendar" style="position: absolute; left: 10px; color: #94a3b8; pointer-events:none;"></i>
-                        <input type="text" id="expFilterStart" class="premium-date-input custom-date-picker" placeholder="DD-MM-YYYY" title="শুরুর তারিখ">
-                        
-                        <span style="color:var(--text-muted); font-weight: 600;">থেকে</span>
-                        
-                        <i class="fa-regular fa-calendar" style="position: absolute; left: 215px; color: #94a3b8; pointer-events:none;"></i>
-                        <input type="text" id="expFilterEnd" class="premium-date-input custom-date-picker" placeholder="DD-MM-YYYY" title="শেষের তারিখ">
-                        
-                        <button id="filterExpBtn" class="btn-add-new" style="padding:0 20px;"><i class="fa-solid fa-filter"></i> ফিল্টার</button>
-                        <button id="resetExpFilterBtn" class="btn-add-new" style="background:var(--dark); padding:0 20px;"><i class="fa-solid fa-rotate-left"></i> রিসেট</button>
-                        <button id="customExcelBtn" class="btn-add-new" style="background:var(--success); padding:0 20px;"><i class="fa-solid fa-file-excel"></i> এক্সেল</button>
-                    </div>
-                </div>
+    <h3 style="margin:0;"><i class="fa-solid fa-list-ul"></i> খরচের তালিকা</h3>
+    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        
+        <!-- শুরুর তারিখ -->
+        <div style="position: relative;">
+            <i class="fa-regular fa-calendar" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events:none; font-size: 14px;"></i>
+            <input type="text" id="expFilterStart" class="premium-date-input custom-date-picker" placeholder="DD-MM-YYYY" title="শুরুর তারিখ" style="padding-left: 34px;">
+        </div>
+        
+        <span style="color:var(--text-muted); font-weight: 600;">থেকে</span>
+        
+        <!-- শেষের তারিখ -->
+        <div style="position: relative;">
+            <i class="fa-regular fa-calendar" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events:none; font-size: 14px;"></i>
+            <input type="text" id="expFilterEnd" class="premium-date-input custom-date-picker" placeholder="DD-MM-YYYY" title="শেষের তারিখ" style="padding-left: 34px;">
+        </div>
+        
+        <!-- বাটনসমূহ -->
+        <button id="filterExpBtn" class="btn-add-new" style="padding:0 20px;"><i class="fa-solid fa-filter"></i> ফিল্টার</button>
+        <button id="resetExpFilterBtn" class="btn-add-new" style="background:var(--dark); padding:0 20px;"><i class="fa-solid fa-rotate-left"></i> রিসেট</button>
+        <button id="customExcelBtn" class="btn-add-new" style="background:var(--success); padding:0 20px;"><i class="fa-solid fa-file-excel"></i> এক্সেল</button>
+    </div>
+</div>
                 <style> #expDataTable_wrapper .dt-buttons { display: none !important; } </style>
                 <div style="overflow-x: auto;">
                     <table id="expDataTable" class="display premium-table" style="width:100%">
