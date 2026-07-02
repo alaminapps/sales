@@ -2,18 +2,16 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1280">
     <title>আমার মুদি দোকান - POS ও অ্যাডমিন</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
-    <!-- SweetAlert & Flatpickr (For enforcing DD-MM-YYYY globally) -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <!-- DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
     
@@ -204,39 +202,6 @@
             .khata-print-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 12px;}
             .khata-print-table th, .khata-print-table td { border: 1px solid #000; padding: 6px; text-align: left; font-size: 12px;}
         }
-
-        /* Mobile Responsiveness for POS and Layout */
-        @media screen and (max-width: 992px) {
-            .pos-grid {
-                flex-direction: column; 
-            }
-            .pos-left, .pos-right {
-                width: 100%;
-                min-width: 100%;
-                flex: none;
-            }
-            .pos-right {
-                position: relative; 
-                top: 0;
-                margin-top: 20px;
-                max-height: none;
-                box-sizing: border-box;
-            }
-            .cart-items-container {
-                overflow-x: auto; 
-            }
-            .cart-table {
-                min-width: 450px; 
-            }
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-                padding: 15px;
-            }
-            .sidebar {
-                display: none; 
-            }
-        }
     </style>
 </head>
 <body>
@@ -280,7 +245,6 @@
     </aside>
 
     <main class="main-content">
-        <!-- POS View -->
         <div id="pos-view" class="fade-in">
             <div class="premium-box-header" style="border:none; padding:0; margin-bottom: 20px;">
                 <h2 style="margin:0; font-size: 24px;"><i class="fa-solid fa-calculator" style="color:var(--primary); margin-right:8px;"></i> পয়েন্ট অফ সেল (POS)</h2>
@@ -323,7 +287,6 @@
             </div>
         </div>
 
-        <!-- Inventory View -->
         <div id="inventory-view" class="hidden">
             <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-boxes-stacked" style="color:var(--primary); margin-right:8px;"></i> ইনভেন্টরি ও স্টক ড্যাশবোর্ড</h2>
             
@@ -363,7 +326,6 @@
             </div>
         </div>
 
-        <!-- Expense View -->
         <div id="expense-view" class="hidden">
             <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-money-bill-trend-up" style="color:var(--danger); margin-right:8px;"></i> দৈনন্দিন খরচ পরিচালনা</h2>
             <div class="dashboard-stats">
@@ -424,7 +386,6 @@
             </div>
         </div>
 
-        <!-- Due/Customer View -->
         <div id="due-view" class="hidden">
             <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-book-open-reader" style="color:var(--warning); margin-right:8px;"></i> বাকির খাতা ও লেজার</h2>
             <div class="dashboard-stats">
@@ -456,7 +417,6 @@
             </div>
         </div>
 
-        <!-- Partner View -->
         <div id="partner-view" class="hidden">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap; gap:15px; margin-bottom: 20px;">
                 <h2 style="margin:0;"><i class="fa-solid fa-handshake" style="color:var(--secondary); margin-right:8px;"></i> পার্টনার ইনভেস্টমেন্ট</h2>
@@ -501,7 +461,6 @@
             </div>
         </div>
 
-        <!-- Reports View -->
         <div id="reports-view" class="hidden">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
                 <h2 style="margin: 0;"><i class="fa-solid fa-chart-line" style="color:var(--primary); margin-right:8px;"></i> ব্যবসার রিপোর্ট ও অডিট</h2>
@@ -559,9 +518,7 @@
     </main>
 </div>
 
-<!-- Print Sections -->
 <div id="print-section">
-    <!-- Receipt HTML -->
     <div class="receipt-header">
         <h2>আমার মুদি দোকান</h2>
         <p>বাইপাইল, সাভার, ঢাকা</p>
@@ -688,7 +645,7 @@
         return `${day}-${month}-${year}, ${strTime}`;
     };
 
-    // Global Filter Initialization (Fix for the filter conflict & date parsing)
+    // Global Filter Initialization
     window.isInvAlertFilterActive = false;
     
     // Clear and push only once
@@ -865,7 +822,11 @@
             allProducts = []; 
             let invPaisa = 0; let sellValuePaisa = 0; let lowStock = 0; let tableHtml = '';
             
-            if ($.fn.DataTable.isDataTable('#invDataTable')) $('#invDataTable').DataTable().destroy();
+            let isInitialized = $.fn.DataTable.isDataTable('#invDataTable');
+            let table = isInitialized ? $('#invDataTable').DataTable() : null;
+            let currentPage = isInitialized ? table.page() : 0;
+
+            if (isInitialized) table.destroy();
 
             snap.forEach(d => {
                 const p = { id: d.id, ...d.data() };
@@ -878,7 +839,6 @@
                 invPaisa += currInvPaisa; sellValuePaisa += currSellPaisa;
                 if(p.quantity <= p.alertLimit) lowStock++;
 
-                // Added data-attributes to TR for guaranteed alert filtering
                 tableHtml += `
                     <tr data-qty="${p.quantity}" data-limit="${p.alertLimit}">
                         <td>${p.barcode || '-'}</td>
@@ -897,7 +857,9 @@
             });
             
             document.getElementById('inventoryTable').innerHTML = tableHtml;
-            $('#invDataTable').DataTable({ "pageLength": 10, "order": [], "language": dtLanguageSettings });
+            
+            let newTable = $('#invDataTable').DataTable({ "pageLength": 10, "order": [], "language": dtLanguageSettings });
+            if (isInitialized) newTable.page(currentPage).draw('page');
             
             globalTotalStockInvestment = toTaka(invPaisa); 
             const potentialProfit = sellValuePaisa - invPaisa;
@@ -913,13 +875,16 @@
 
     function setupExpenseListener() {
         onSnapshot(collection(db, "expenses"), (snap) => {
-            if ($.fn.DataTable.isDataTable('#expDataTable')) $('#expDataTable').DataTable().destroy();
-            let html = ''; let total = 0, today = 0, month = 0;
+            let isInitialized = $.fn.DataTable.isDataTable('#expDataTable');
+            let table = isInitialized ? $('#expDataTable').DataTable() : null;
+            let currentPage = isInitialized ? table.page() : 0;
             
+            if (isInitialized) table.destroy();
+            
+            let html = ''; let total = 0, today = 0, month = 0;
             const now = new Date();
             const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
             const endOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999).getTime();
-            
             const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
             const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999).getTime();
             
@@ -931,10 +896,7 @@
                 let amt = parseFloat(e.amount) || 0;
                 total += amt;
                 
-                // পুরোনো ডাটার স্লাশ (/) কে রিপ্লেস করে ড্যাশ (-) করা হচ্ছে
                 let displayDate = e.date ? e.date.replace(/\//g, '-') : ''; 
-                
-                // ক্যালকুলেশনের জন্য
                 let ts = e.timestamp;
                 if (!ts) {
                     let dPart = displayDate.split(',')[0].trim();
@@ -957,7 +919,7 @@
             
             document.getElementById('expenseTable').innerHTML = html; 
             
-            $('#expDataTable').DataTable({
+            let newTable = $('#expDataTable').DataTable({
                 "order": [[0, "desc"]], 
                 "columnDefs": [ { "targets": [0], "visible": false, "searchable": false, "type": "num" } ],
                 "dom": 'Bfrtip',
@@ -966,11 +928,12 @@
                 "footerCallback": function (row, data, start, end, display) {
                     let api = this.api(); 
                     let intVal = function (i) { return typeof i === 'string' ? parseFloat(i.replace(/[\৳, ]/g, '')) : typeof i === 'number' ? i : 0; };
-                    // কলাম এখন ৪ নাম্বার কারণ 0=TS, 1=Date, 2=Cat, 3=Reason, 4=Amount
                     let filteredTotal = api.column(4, { search: 'applied' }).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
                     document.getElementById('expFilteredTotal').innerText = '৳ ' + filteredTotal.toLocaleString('en-IN', {minimumFractionDigits: 2});
                 }
             });
+            
+            if (isInitialized) newTable.page(currentPage).draw('page');
             
             document.getElementById('statExpToday').innerText = today.toLocaleString('en-IN', {minimumFractionDigits: 2});
             document.getElementById('statExpMonth').innerText = month.toLocaleString('en-IN', {minimumFractionDigits: 2});
@@ -980,7 +943,12 @@
 
     function setupDueListener() {
         onSnapshot(collection(db, "customers"), (snap) => {
-            if ($.fn.DataTable.isDataTable('#dueDataTable')) $('#dueDataTable').DataTable().destroy();
+            let isInitialized = $.fn.DataTable.isDataTable('#dueDataTable');
+            let table = isInitialized ? $('#dueDataTable').DataTable() : null;
+            let currentPage = isInitialized ? table.page() : 0;
+
+            if (isInitialized) table.destroy();
+            
             let html = ''; let tDue = 0; let cCount = 0;
 
             snap.forEach(d => {
@@ -1003,7 +971,10 @@
                 }
             });
             document.getElementById('dueTable').innerHTML = html; 
-            $('#dueDataTable').DataTable({"language": dtLanguageSettings });
+            
+            let newTable = $('#dueDataTable').DataTable({"language": dtLanguageSettings });
+            if (isInitialized) newTable.page(currentPage).draw('page');
+            
             document.getElementById('statTotalMarketDue').innerText = tDue.toLocaleString('en-IN', {minimumFractionDigits: 2});
             document.getElementById('statTotalDueCustomers').innerText = cCount;
         });
@@ -1011,7 +982,12 @@
 
     function setupPartnerListener() {
         onSnapshot(collection(db, "partner_investments"), (snap) => {
-            if ($.fn.DataTable.isDataTable('#investDataTable')) $('#investDataTable').DataTable().destroy();
+            let isInitialized = $.fn.DataTable.isDataTable('#investDataTable');
+            let table = isInitialized ? $('#investDataTable').DataTable() : null;
+            let currentPage = isInitialized ? table.page() : 0;
+
+            if (isInitialized) table.destroy();
+            
             allPartnerData = {}; totalBusinessCapital = 0; let partnerRecords = [];
             
             snap.forEach(d => partnerRecords.push({ id: d.id, ...d.data() }));
@@ -1045,7 +1021,9 @@
             });
 
             document.getElementById('investTable').innerHTML = html; 
-            $('#investDataTable').DataTable({ "order": [[0, "desc"]], "columnDefs": [ { "targets": [0], "visible": false, "type": "num" } ], "language": dtLanguageSettings });
+            
+            let newTable = $('#investDataTable').DataTable({ "order": [[0, "desc"]], "columnDefs": [ { "targets": [0], "visible": false, "type": "num" } ], "language": dtLanguageSettings });
+            if (isInitialized) newTable.page(currentPage).draw('page');
 
             document.getElementById('displayTotalCapital').innerText = totalBusinessCapital.toLocaleString('en-IN', {minimumFractionDigits: 2});
             document.getElementById('displayStockCapital').innerText = `৳ ` + globalTotalStockInvestment.toLocaleString('en-IN', {minimumFractionDigits: 2});
@@ -1311,7 +1289,7 @@
                 document.getElementById('printSubTotal').innerText = tToPay.toFixed(2); 
                 document.getElementById('printDiscount').innerText = data.disc.toFixed(2); 
                 document.getElementById('printDiscountRow').style.display = data.disc > 0 ? 'block' : 'none'; 
-                document.getElementById('printTotal').innerText = data.grand.toFixed(2); 
+                document.getElementById('printTotal').innerText = data.grandTotal.toFixed(2); 
                 document.getElementById('printPayMethod').innerText = data.method; 
                 document.getElementById('printGiven').innerText = data.giv.toFixed(2);
                 
